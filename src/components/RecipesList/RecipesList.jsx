@@ -6,10 +6,13 @@ function RecipesList () {
     const dispatch = useDispatch();
 
     useEffect(() => {
-      dispatch({ type: 'FETCH_RECIPES' });
+      dispatch({ type: 'FETCH_RECIPES' })
+      dispatch({ type: 'FETCH_CUPBOARD' });
     }, []);
   
     const recipesList = useSelector(store => store.recipeReducer);
+
+    //need to create recipesItem but not needed for spike
    
   
     

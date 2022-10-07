@@ -12,8 +12,22 @@ function* fetchRecipes (){
     }
 }
 
+
+//this may need to be a different saga?
+function* fetchCupboard (){
+    try {
+        const cupboard = yield axios.get('/api/cupboard');
+        console.log(cupboard.data)
+        yield put ({type: 'SET_CUPBOARD', payload: cupboard.data});
+    } catch (error) {
+        console.log(error);
+        alert('Error fetching cupboard');
+    }
+}
+
 function* recipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
+  yield takeLatest('FETCH_CUPBOARD', fetchCupboard);
 }
 
 export default recipesSaga;
