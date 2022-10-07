@@ -24,6 +24,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
+app.use('/api/recipes', recipeRouter);
 
 // Serve static files
 app.use(express.static('build'));
