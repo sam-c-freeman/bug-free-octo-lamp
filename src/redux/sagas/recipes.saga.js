@@ -37,27 +37,34 @@ function* compareFunction (){
             // console.log(cupboardIngredient.name)
             cupboardArray.push(cupboardIngredient.name)
         }
-        // console.log(cupboardArray); //this gets the ingredients into an array to compare
+        console.log(cupboardArray); //this gets the ingredients into an array to compare
         
-       
-        // for (let recipeItem of testRecipes.data){
-        //     console.log(recipeItem.ingredient_list)
-           
-        // }
+
 
         let checker = (arr, target) => target.every(v => arr.includes(v));
         let resultsArray = [];
 
+        // for(let recipeToCheck of testRecipes.data){
+        //     console.log(recipeToCheck.ingredient_list)
+        //     console.log(recipeToCheck.recipe_id)
+        //     console.log(checker(recipeToCheck.ingredient_list , cupboardArray))
+        //     if(checker(recipeToCheck.ingredient_list , cupboardArray) === true){
+        //         resultsArray.push(recipeToCheck.recipe_id)
+        //     }
+            
+        // } //this checks the cupboard compared to recipes list
+
         for(let recipeToCheck of testRecipes.data){
-            // console.log(recipeToCheck)
-            // console.log(checker(recipeToCheck.ingredient_list , cupboardArray))
-            if(checker(recipeToCheck.ingredient_list , cupboardArray) === true){
+            console.log(recipeToCheck.ingredient_list)
+            console.log(recipeToCheck.recipe_id)
+            console.log(checker(cupboardArray, recipeToCheck.ingredient_list))
+            if(checker(cupboardArray, recipeToCheck.ingredient_list) === true){
                 resultsArray.push(recipeToCheck.recipe_id)
             }
             
-        } //this checks the cupboard compared to recipes list
+        }
 
-        // console.log(resultsArray); 
+        console.log(resultsArray); 
         
         //this gives me the recipe_id of matching recipes.  Will
         //need to create a reducer to hold this data?
@@ -75,24 +82,24 @@ function* compareFunction (){
     }
 }
 
-function* getMatchingRecipes (action){
-    try {
-        const idsToGet = action.payload;
-        const matches = yield axios.get(`/api/recipes/${idsToGet}`);
-        // console.log(matches.data)
-        yield put ({type: 'SET_MATCHING_RECIPES', payload: matches.data});
-    } catch (error) {
-        console.log(error);
-        alert('Error setting matching recipes');
-    }
-}
+// function* getMatchingRecipes (action){
+//     try {
+//         const idsToGet = action.payload;
+//         const matches = yield axios.get(`/api/recipes/${idsToGet}`);
+//         // console.log(matches.data)
+//         yield put ({type: 'SET_MATCHING_RECIPES', payload: matches.data});
+//     } catch (error) {
+//         console.log(error);
+//         alert('Error setting matching recipes');
+//     }
+// }
 
 
 function* recipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
   yield takeLatest('FETCH_CUPBOARD', fetchCupboard);
   yield takeLatest('COMPARE_CUPBOARD_RECIPES', compareFunction);
-  yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes);
+//   yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes);
 }
 
 export default recipesSaga;

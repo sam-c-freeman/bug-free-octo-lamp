@@ -25,7 +25,8 @@ function RecipesList () {
         dispatch({type: 'GET_MATCHING_RECIPES', payload: matchesList})
         
     }
-    console.log(matchingRecipes);  //Looks like one recipe is here!!!
+    // console.log(matchingRecipes);    <----- broke when two matches occurred
+    //Looks like one recipe is here!!!
 
  
     // console.log(cupboard);
