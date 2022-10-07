@@ -29,7 +29,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.post('/matches', rejectUnauthenticated, (req, res) => {
-
+console.log(req.body)
 function generateSelectStatement(numberOfIDs) {
     let flexibleValues = [];
     for (let i = 1; i<numberOfIDs +1; i++){
@@ -42,6 +42,9 @@ function generateSelectStatement(numberOfIDs) {
     // ($${flexibleValues});`
   }
 
+  //NOTES: I am realizing I still need the actual recipe IDs not just the flexible
+  //Values I am trying to generate
+  //Unsure how to generate the sql values and Text and use id from req.body
   
 let sqlValues = [(generateSelectStatement(req.body.length))]
 const queryTxt = `
