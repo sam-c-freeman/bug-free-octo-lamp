@@ -4,29 +4,32 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function RecipesList () {
     const dispatch = useDispatch();
-    // const [recipes, setRecipes] = useState('');
-    // const [cupboardItems, setCupboardItems] = useState('');
+
 
     const recipesList = useSelector(store => store.recipeReducer);
     const cupboard = useSelector (store => store.cupboardReducer);
+    const matchesList = useSelector(store => store.matchesReducer);
+    const matchingRecipes = useSelector(store => store.matchingRecipes)
 
     useEffect(() => {
       dispatch({ type: 'FETCH_RECIPES' })
       dispatch({ type: 'FETCH_CUPBOARD' })
       dispatch({ type: 'COMPARE_CUPBOARD_RECIPES' });
     //   setValues();
-    loopRecipeItems();
+
       
     }, []);
 
-    const loopRecipeItems = () => {
-        for (let i=0; i <recipesList.length; i++){
-            console.log(i.name)
-        }
+    const getMatches = () => {
+        // console.log(matchesList);
+        dispatch({type: 'GET_MATCHING_RECIPES', payload: matchesList})
+        
     }
+    console.log(matchingRecipes);  //Looks like one recipe is here!!!
 
-    console.log(cupboard);
-    console.log(recipesList);
+ 
+    // console.log(cupboard);
+    // console.log(recipesList);
   
     
 
@@ -35,7 +38,7 @@ function RecipesList () {
   
     
     return(
-        <p>HI! I will be a list</p>
+        <button onClick={getMatches}>Get Matching Recipes</button>
     )
 }
 
