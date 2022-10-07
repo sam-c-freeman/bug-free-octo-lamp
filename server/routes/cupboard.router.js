@@ -10,10 +10,18 @@ const {
   } = require('../modules/authentication-middleware');
 
 router.get('/', rejectUnauthenticated, (req, res) => {
+  const userId = req.user.id;
+  
   const queryTxt = `
-            
-  `
-  pool.query(queryTxt)
+              SELECT ingredients.name, cupboard.user_id FROM cupboard
+                      JOIN ingredients
+                      ON cupboard.ingredient_id = ingredients.id
+                      WHERE cupboard.user_id = $1
+                      GROUP by ingredients.name, cupboard.user_id
+                      ORDER BY cupboard.user_id;
+              `
+  const sqlValues = [userId];
+  pool.query(queryTxt, sqlValues)
     .then(result => {
       res.send(result.rows);
     })

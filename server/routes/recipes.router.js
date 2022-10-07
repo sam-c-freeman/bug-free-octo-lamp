@@ -11,13 +11,13 @@ const {
 
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryTxt = `
-            SELECT recipes.name, recipes.description, recipes.notes, recipes_line_items.recipe_id, recipes.user_id, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) FROM recipes_line_items
-                JOIN recipes
-                ON recipes_line_items.recipe_id = recipes.id
-                JOIN ingredients
-                ON recipes_line_items.ingredient_id = ingredients.id
-                GROUP BY recipes.name, recipes.description, recipes.notes, recipes_line_items.recipe_id, recipes.user_id;
-  `
+              SELECT recipes.name, recipes.description, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, ARRAY_AGG(ingredients.name) as ingredient_list FROM recipes_line_items
+                  JOIN recipes
+                  ON recipes_line_items.recipe_id = recipes.id
+                  JOIN ingredients
+                  ON recipes_line_items.ingredient_id = ingredients.id
+                  GROUP BY recipes.name, recipes.description,recipes_line_items.recipe_id, recipes.user_id, recipes.notes;
+      `
   pool.query(queryTxt)
     .then(result => {
       res.send(result.rows);
