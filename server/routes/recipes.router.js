@@ -28,23 +28,33 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     })
 });
 
-router.get('/:id', rejectUnauthenticated, (req, res) => {
-  console.log(req.params.id) 
-  //unsure if I can send multiple IDs this way?
-  const queryTxt = `
-                  SELECT recipes.name, recipes.description, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, ARRAY_AGG(ingredients.name) as ingredient_list FROM recipes_line_items
-                    JOIN recipes
-                    ON recipes_line_items.recipe_id = recipes.id
-                    JOIN ingredients
-                    ON recipes_line_items.ingredient_id = ingredients.id
-                    WHERE recipes.id = $1
-                    GROUP BY recipes.name, recipes.description,recipes_line_items.recipe_id, recipes.user_id, recipes.notes;
-                  
-      `
-  const sqlValues = [req.params.id]
+router.post('/matches', rejectUnauthenticated, (req, res) => {
+
+function generateSelectStatement(numberOfIDs) {
+    let flexibleValues = [];
+    for (let i = 1; i<numberOfIDs +1; i++){
+     flexibleValues.push(i);
+    }
+     console.log(flexibleValues)
+    //  ` INSERT INTO "matching_recipes"
+    // ("recipe_id")
+    // VALUES
+    // ($${flexibleValues});`
+  }
+
+  
+let sqlValues = [(generateSelectStatement(req.body.length))]
+const queryTxt = `
+  INSERT INTO "matching_recipes"
+    ("recipe_id")
+    VALUES
+    (${sqlValues});  
+ `
+
+//  console.log ((generateSelectStatement(req.body.length)))
   pool.query(queryTxt, sqlValues)
     .then(result => {
-      res.send(result.rows);
+      result.sendStatus(201);
     })
     .catch(err => {
       console.log('Error getting recipes on server side', err);
