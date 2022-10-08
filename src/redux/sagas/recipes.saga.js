@@ -74,14 +74,14 @@ function* compareFunction (){
     }
 }
 
-function* getMatchingRecipes (action){
+function*postMatchingRecipes (action){
     try {
         const idsToGet = action.payload;
         
         // const matches = yield axios.get(`/api/recipes/${idsToGet}`);   //changing from this method to send multiple?
         const matches = yield axios.post(`/api/recipes/matches`, idsToGet);
-        // console.log(matches.data)
-        yield put ({type: 'SET_MATCHING_RECIPES', payload: matches.data});
+        console.log(matches.data)
+        yield put ({type: 'GET_MATCHING_RECIPES'});
     } catch (error) {
         console.log(error);
         alert('Error setting matching recipes');
@@ -89,11 +89,23 @@ function* getMatchingRecipes (action){
 }
 
 
+function* getMatchingRecipes (){
+    try {
+        const recipes = yield axios.get('/api/recipes/matches');
+        // console.log(recipes.data)
+        yield put ({type: 'SET_MATCHING_RECIPES', payload: recipes.data});
+    } catch (error) {
+        console.log(error);
+        alert('Error setting recipes');
+    }
+}
+
 function* recipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
   yield takeLatest('FETCH_CUPBOARD', fetchCupboard);
   yield takeLatest('COMPARE_CUPBOARD_RECIPES', compareFunction);
-  yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes);
+  yield takeLatest('POST_MATCHING_RECIPES', postMatchingRecipes)
+  yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes);;
 }
 
 export default recipesSaga;

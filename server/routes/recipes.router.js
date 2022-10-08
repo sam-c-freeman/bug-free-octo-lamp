@@ -29,7 +29,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.post('/matches', rejectUnauthenticated, (req, res) => {
-// console.log(req.body)
+console.log(req.user.id)
 // function generateSelectStatement(numberOfIDs) {
 //     let flexibleValues = [];
 //     // console.log(numberOfIDs)
@@ -66,7 +66,7 @@ function generateSelectStatement(numberOfIDs) {
   }
    console.log(flexibleValues)
 return ` INSERT INTO "matching_recipes"
-  ("recipe_id")
+  ("recipe_id") 
   VALUES
   ${flexibleValues};`
 }
@@ -79,6 +79,31 @@ return ` INSERT INTO "matching_recipes"
       res.sendStatus(500);
     })
 });
+
+
+
+router.get('/matches', rejectUnauthenticated, (req, res) => {
+  const queryTxt = `
+            SELECT recipes.name, recipes.description, recipes_line_items.recipe_id, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) FROM matching_recipes
+                JOIN recipes
+                ON matching_recipes.recipe_id=recipes.id
+                JOIN recipes_line_items
+                ON recipes.id = recipes_line_items.recipe_id
+                JOIN ingredients
+                ON recipes_line_items.ingredient_id = ingredients.id
+                GROUP BY recipes.name, recipes.description,recipes_line_items.recipe_id, recipes.user_id, recipes.notes;
+      `
+  pool.query(queryTxt)
+    .then(result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.log('Error getting recipes on server side', err);
+      res.sendStatus(500);
+    })
+});
+
+
 
 /**
  * POST route template

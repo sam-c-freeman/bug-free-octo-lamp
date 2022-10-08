@@ -22,7 +22,7 @@ function RecipesList () {
 
     const getMatches = () => {
         // console.log(matchesList);
-        dispatch({type: 'GET_MATCHING_RECIPES', payload: matchesList})
+        dispatch({type: 'POST_MATCHING_RECIPES', payload: matchesList})
         
     }
     // console.log(matchingRecipes);    <----- broke when two matches occurred
