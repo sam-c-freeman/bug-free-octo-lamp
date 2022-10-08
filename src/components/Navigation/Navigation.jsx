@@ -2,13 +2,13 @@ import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import FolderIcon from '@mui/icons-material/Folder';
-import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import CssBaseline from '@mui/material/CssBaseline';
-import ArchiveIcon from '@mui/icons-material/Archive';
+import ExploreIcon from '@mui/icons-material/Explore';
 import Paper from '@mui/material/Paper';
 import HomeIcon from '@mui/icons-material/Home';
+import LocalBarIcon from '@mui/icons-material/LocalBar';
 import { useState } from 'react';
 import { useRef } from 'react';
 
@@ -26,29 +26,29 @@ function Navigation () {
             <CssBaseline />
             <BottomNavigation sx={{ width: 380, position: 'fixed', bottom: 0, left: 0, right: 0 }} value={value} onChange={handleChange}>
                 <BottomNavigationAction
-                    label="Recents"
-                    value="recents"
-                    icon={<RestoreIcon />}
+                    label="Home"
+                    value="home"
+                    icon={<HomeIcon />}
+                />
+                <BottomNavigationAction
+                    label="Add"
+                    value="add"
+                    icon={<AddCircleIcon />}
                 />
                 <BottomNavigationAction
                     label="Favorites"
                     value="favorites"
                     icon={<FavoriteIcon />}
                 />
-                <BottomNavigationAction
-                    label="Nearby"
-                    value="nearby"
-                    icon={<LocationOnIcon />}
-                />
                 <BottomNavigationAction 
-                    label="Folder" 
-                    value="folder" 
-                    icon={<FolderIcon />} 
+                    label="Explore" 
+                    value="explore" 
+                    icon={<ExploreIcon />} 
                 />
                   <BottomNavigationAction 
-                    label="home" 
-                    value="home" 
-                    icon={<HomeIcon />} 
+                    label="Pantry" 
+                    value="pantry" 
+                    icon={<LocalBarIcon />} 
                 />
                 </BottomNavigation>
                 
