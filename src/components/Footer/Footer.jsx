@@ -10,4 +10,6 @@ function Footer() {
   return <footer>&copy; Prime Digital Academy</footer>;
 }
 
+//Note to Sam: Will need to see what happens with this as I add content
+
 export default Footer;
