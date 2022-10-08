@@ -2,6 +2,7 @@ html,
 body,
 #react-root {
   height: 100%;
+  background-color: black;
 }
 
 body {
@@ -14,12 +15,27 @@ img {
   max-width: 100%;
 }
 
+.background{
+  background-color: black;
+}
+
 /* --------------------------------------------------------------------------------
 Container
 -------------------------------------------------------------------------------- */
 
 .container {
   padding: 20px;
+}
+
+/* Bottom Two added by Sam.  Maybe should be moved */
+
+ .containerHome{
+  padding-top: 0px;     
+} 
+
+.dailyDrink{
+  margin-top: 0px;
+  color: white;
 }
 
 /* --------------------------------------------------------------------------------
@@ -32,7 +48,7 @@ Button
   border-color: #014041;
   border-width: 1px 1px 3px;
   border-radius: 4px;
-  background-color: #00acb0;
+  background-color: #670404;
   color: #f8f8f8;
   font-size: 1.1rem;
   outline: 0;
@@ -55,7 +71,7 @@ Button
 }
 
 .btn:hover {
-  background-color: #008183;
+  background-color: #670404;
   text-decoration: none;
 }
 
@@ -72,8 +88,8 @@ Button
 
 .btn_asLink:hover {
   background-color: transparent;
-  border-color: #008183;
-  color: #008183;
+  border-color:#670404;
+  color:#670404;
 }
 
 /* --------------------------------------------------------------------------------

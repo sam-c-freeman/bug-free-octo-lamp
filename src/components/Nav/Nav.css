@@ -16,7 +16,7 @@
 .nav-title {
   font-size: 24px;
   font-weight: 700;
-  color: #f2f2f2;
+  color: #B8860B;
   padding-left: 10px;
   margin: 0;
 }
@@ -38,5 +38,5 @@
 }
 
 .navLink:hover {
-  background-color: #008183;
+  background-color:#670404;
 }

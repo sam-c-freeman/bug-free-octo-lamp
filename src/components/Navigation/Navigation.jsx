@@ -24,34 +24,52 @@ function Navigation () {
     return (
         <Box sx={{ pb: 7 }} ref={ref}>
             <CssBaseline />
-            <BottomNavigation sx={{ width: 380, position: 'fixed', bottom: 0, left: 0, right: 0 }} value={value} onChange={handleChange}>
-                <BottomNavigationAction
-                    label="Home"
-                    value="home"
-                    icon={<HomeIcon />}
-                />
-                <BottomNavigationAction
-                    label="Add"
-                    value="add"
-                    icon={<AddCircleIcon />}
-                />
-                <BottomNavigationAction
-                    label="Favorites"
-                    value="favorites"
-                    icon={<FavoriteIcon />}
-                />
-                <BottomNavigationAction 
-                    label="Explore" 
-                    value="explore" 
-                    icon={<ExploreIcon />} 
-                />
-                  <BottomNavigationAction 
-                    label="Pantry" 
-                    value="pantry" 
-                    icon={<LocalBarIcon />} 
-                />
-                </BottomNavigation>
-                
+            <BottomNavigation 
+                sx={{ width: 380, 
+                    position: 'fixed', 
+                    bottom: 0, 
+                    left: 0, 
+                    right: 0 }} 
+                    style={{backgroundColor: "black"}}
+                    value={value} 
+                    onChange={handleChange}>
+                        <BottomNavigationAction
+                            label="Home"
+                            style={{color: "#B8860B"}}
+                            value="home"
+                            icon={<HomeIcon  
+                                    style={{color: "#B8860B"}}/>}
+                        />
+                        <BottomNavigationAction
+                            label="Add"
+                            style={{color: "#B8860B"}}
+                            value="add"
+                            icon={<AddCircleIcon 
+                                    style={{color: "#B8860B"}}/>}
+                        />
+                        <BottomNavigationAction
+                            label="Favorites"
+                            style={{color: "#B8860B"}}
+                            value="favorites"
+                            icon={<FavoriteIcon 
+                                    style={{color: "#B8860B"}}/>}
+                        />
+                        <BottomNavigationAction 
+                            label="Explore" 
+                            style={{color: "#B8860B"}}
+                            value="explore" 
+                            icon={<ExploreIcon 
+                                    style={{color: "#B8860B"}}/>} 
+                        />
+                        <BottomNavigationAction 
+                            label="Pantry"
+                            style={{color: "#B8860B"}} 
+                            value="pantry" 
+                            icon={<LocalBarIcon 
+                                    style={{color: "#B8860B"}}/>} 
+                        />
+            </BottomNavigation>
+                    
       </Box>
     );
 }
