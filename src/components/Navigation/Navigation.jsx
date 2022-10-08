@@ -11,16 +11,26 @@ import HomeIcon from '@mui/icons-material/Home';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
 import { useState } from 'react';
 import { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Navigation () {
     const [value, setValue] = useState('recents');
     const ref = useRef(null);
+    const history = useHistory();
 
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+
+    const goToHome = () =>{
+        history.push('/home')
+    }
   
+    const goToAdd = () =>{
+        history.push('/addDrink')
+    }
+
     return (
         <Box sx={{ pb: 7 }} ref={ref}>
             <CssBaseline />
@@ -34,6 +44,7 @@ function Navigation () {
                     value={value} 
                     onChange={handleChange}>
                         <BottomNavigationAction
+                            onClick={goToHome}
                             label="Home"
                             style={{color: "#B8860B"}}
                             value="home"
@@ -41,6 +52,7 @@ function Navigation () {
                                     style={{color: "#B8860B"}}/>}
                         />
                         <BottomNavigationAction
+                            onClick={goToAdd}
                             label="Add"
                             style={{color: "#B8860B"}}
                             value="add"
