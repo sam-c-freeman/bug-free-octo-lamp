@@ -29,34 +29,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.post('/matches', rejectUnauthenticated, (req, res) => {
-console.log(req.user.id)
-// function generateSelectStatement(numberOfIDs) {
-//     let flexibleValues = [];
-//     // console.log(numberOfIDs)
-//     for (let i = 1; i<numberOfIDs +1; i++){
-//      flexibleValues.push(`$` + i);
-//     }
-//      console.log(flexibleValues)
-//   return ` INSERT INTO "matching_recipes"
-//     ("recipe_id")
-//     VALUES
-//     (${flexibleValues});`
-//   }
-
-  //NOTES: I am realizing I still need the actual recipe IDs not just the flexible
-  //Values I am trying to generate
-  //Unsure how to generate the sql values and Text and use id from req.body
-  
-// let sqlValues = [(generateSelectStatement(req.body.length))]
-// const queryTxt = `
-//   INSERT INTO "matching_recipes"
-//     ("recipe_id")
-//     VALUES
-//     (${sqlValues});  
-//  `
-
-//  console.log((generateSelectStatement(req.body.length)))
-
+// console.log(req.user.id)
 
 function generateSelectStatement(numberOfIDs) {
   let flexibleValues = [];
@@ -68,7 +41,7 @@ function generateSelectStatement(numberOfIDs) {
 return ` INSERT INTO "matching_recipes"
   ("recipe_id") 
   VALUES
-  ${flexibleValues};`
+  ${flexibleValues} ;`
 }
   pool.query((generateSelectStatement(req.body.length)), req.body)
     .then(result => {
