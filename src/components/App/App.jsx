@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import RecipesList from '../RecipesList/RecipesList';
+import Cupboard from '../Cupboard/Cupboard';
 
 import './App.css';
 
@@ -106,6 +107,16 @@ function App() {
           </ProtectedRoute>  
 
           {/* above is not linked anywhere yet but route works! */}
+
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/cupboard"
+          >
+            <Cupboard />
+          </ProtectedRoute>  
+
 
 
           <Route
