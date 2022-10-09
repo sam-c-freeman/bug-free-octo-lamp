@@ -26,7 +26,8 @@ function AddDrinkForm (){
                                             image_url:''});
                                             
     let [newLineItem, setLineItem] = useState({quantity: '', 
-                                                id: '', });
+                                                id: '',
+                                                name: '' });
       
       const history = useHistory();
       
@@ -38,6 +39,12 @@ function AddDrinkForm (){
           console.log('creating new recipe', newRecipe);
           setRecipe({...newRecipe, [recipeKey]: event.target.value})
       }
+
+      const handleIngredientChange = (ingredientKey) => (event) => {
+        console.log('creating new indredient line item', newLineItem);
+        setLineItem({...newLineItem, [ingredientKey]: event.target.value})
+    }
+
   
       const addRecipe = event => {
           event.preventDefault();
@@ -111,13 +118,16 @@ function AddDrinkForm (){
                         id="quantity" 
                         variant="outlined"
                         placeholder="Quantity"
+                        value={newLineItem.quantity}
+                        onChange={handleIngredientChange('quantity')}
                         style={{backgroundColor: "white"}}
                         sx={{width: 96, marginRight: 1}} />
                     <Autocomplete
                         {...defaultProps}
                         disablePortal
                         id="ingredients"
-                    
+                        value={ingredients.name}
+                        onSelect={handleIngredientChange('name')}
                         sx={{ width: 196 }}
                         style={{backgroundColor: "white"}}
                         renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -134,13 +144,16 @@ function AddDrinkForm (){
                         id="quantity" 
                         variant="outlined"
                         placeholder="Quantity"
+                        value={newLineItem.quantity}
+                        onChange={handleIngredientChange('quantity')}
                         style={{backgroundColor: "white"}}
                         sx={{width: 96, marginRight: 1}} />
                     <Autocomplete
                         {...defaultProps}
                         disablePortal
                         id="ingredients"
-                    
+                        value={ingredients.id}
+                        onSelect={handleIngredientChange('id')}
                         sx={{ width: 196 }}
                         style={{backgroundColor: "white"}}
                         renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
