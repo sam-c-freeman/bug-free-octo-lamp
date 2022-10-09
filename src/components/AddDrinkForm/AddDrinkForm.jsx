@@ -1,8 +1,20 @@
 import './AddDrinkForm.css';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 function AddDrinkForm (){
+    // const ingredients = useSelector(store => )
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_INGREDIENTS' })
+          
+      }, []);
+  
+    
     return(
         <Stack 
             spacing={2}

@@ -104,8 +104,8 @@ function* recipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
   yield takeLatest('FETCH_CUPBOARD', fetchCupboard);
   yield takeLatest('COMPARE_CUPBOARD_RECIPES', compareFunction);
-  yield takeLatest('POST_MATCHING_RECIPES', postMatchingRecipes)
-  yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes);;
+  yield takeLatest('POST_MATCHING_RECIPES', postMatchingRecipes);
+  yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes);
 }
 
 export default recipesSaga;
