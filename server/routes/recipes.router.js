@@ -79,10 +79,47 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
 
 
 /**
- * POST route template
+ * POST route to add recipe
  */
-router.post('/', (req, res) => {
-  // POST route code here
+router.post('/', rejectUnauthenticated, (req, res) => {
+  const user_id = req.user.id
+  const numberIngredients = Object.keys(req.body).length;
+  console.log(numberIngredients);
+  console.log(user_id)
+  console.log(req.body);
+  const insertRecipeQuery = `
+  INSERT INTO "recipes" ("name", "description", "notes", "image_url", "user_id")
+  VALUES ($1, $2, $3, $4, $5)
+  RETURNING "id";`
+
+  // FIRST QUERY ADDS RECIPES
+  pool.query(insertRecipeQuery, [req.body.name, req.body.description, req.body.notes, req.body.image_url, user_id])
+  .then(result => {
+    console.log('New Recipe Id:', result.rows[0].id); //ID IS HERE!
+    
+    const createdRecipeId = result.rows[0].id
+    
+
+    // Now handle the lineItems reference
+    const insertLineItem = `
+      INSERT INTO "recipes_line_items" ("recipe_id", "ingredient_id", "quantity")
+      VALUES  ($1, $2, $3);
+      `
+      // SECOND QUERY ADDS LINE ITEM FOR THAT NEW RECIPE
+      pool.query(insertLineItem, [createdRecipeId, req.body.ingredientId1, req.body.quantity1]).then(result => {
+        //Now that both are done, send back success!
+        res.sendStatus(201);
+      }).catch(err => {
+        // catch for second query
+        console.log(err);
+        res.sendStatus(500)
+      })
+
+// Catch for first query
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500)
+  })
 });
 
 module.exports = router;

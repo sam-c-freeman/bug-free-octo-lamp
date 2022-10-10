@@ -100,12 +100,25 @@ function* getMatchingRecipes (){
     }
 }
 
+function* addRecipe (action) {
+    try {
+        console.log(action.payload)
+        const newRecipe = action.payload
+        yield axios.post('/api/recipes', newRecipe);
+        yield put ({type: 'FETCH_RECIPES'});
+    } catch (error) {
+        console.log(error);
+        alert('Error setting recipes');
+    }
+}
+
 function* recipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
   yield takeLatest('FETCH_CUPBOARD', fetchCupboard);
   yield takeLatest('COMPARE_CUPBOARD_RECIPES', compareFunction);
   yield takeLatest('POST_MATCHING_RECIPES', postMatchingRecipes);
   yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes);
+  yield takeLatest('ADD_RECIPE', addRecipe);
 }
 
 export default recipesSaga;

@@ -12,8 +12,6 @@ function RecipesList () {
     useEffect(() => {
       dispatch({ type: 'FETCH_RECIPES' })
 
-
-      
     }, []);
 
   
