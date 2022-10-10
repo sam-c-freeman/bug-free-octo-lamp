@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchRecipes (){
     try {
         const recipes = yield axios.get('/api/recipes');
-        // console.log(recipes.data)
+        console.log(recipes.data)
         yield put ({type: 'SET_RECIPES', payload: recipes.data});
     } catch (error) {
         console.log(error);
@@ -77,10 +77,14 @@ function* compareFunction (){
 function*postMatchingRecipes (action){
     try {
         const idsToGet = action.payload;
+        console.log(idsToGet);
+
+        //this step is sending the correct number of IDS but get route is 
+        //getting back the wrong number
         
         // const matches = yield axios.get(`/api/recipes/${idsToGet}`);   //changing from this method to send multiple?
         const matches = yield axios.post(`/api/recipes/matches`, idsToGet);
-        console.log(matches.data)
+        // console.log(matches.data)
         yield put ({type: 'GET_MATCHING_RECIPES'});
     } catch (error) {
         console.log(error);
@@ -100,12 +104,25 @@ function* getMatchingRecipes (){
     }
 }
 
+function* addRecipe (action) {
+    try {
+        console.log(action.payload)
+        const newRecipe = action.payload
+        yield axios.post('/api/recipes', newRecipe);
+        yield put ({type: 'FETCH_RECIPES'});
+    } catch (error) {
+        console.log(error);
+        alert('Error fetching recipes');
+    }
+}
+
 function* recipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
   yield takeLatest('FETCH_CUPBOARD', fetchCupboard);
   yield takeLatest('COMPARE_CUPBOARD_RECIPES', compareFunction);
-  yield takeLatest('POST_MATCHING_RECIPES', postMatchingRecipes)
-  yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes);;
+  yield takeLatest('POST_MATCHING_RECIPES', postMatchingRecipes);
+  yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes);
+  yield takeLatest('ADD_RECIPE', addRecipe);
 }
 
 export default recipesSaga;

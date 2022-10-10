@@ -1,0 +1,7 @@
+p{
+    color: white;
+}
+
+.side-by-side{
+    display: inline-flex
+}

@@ -12,6 +12,7 @@ function Cupboard () {
     const matchingRecipes = useSelector(store => store.matchingRecipes)
 
     useEffect(() => {
+    //   dispatch({type: 'CLEAR_PREVIOUS_MATCHES'})
       dispatch({ type: 'FETCH_RECIPES' })
       dispatch({ type: 'FETCH_CUPBOARD' })
       dispatch({ type: 'COMPARE_CUPBOARD_RECIPES' });
@@ -22,6 +23,7 @@ function Cupboard () {
     const getMatches = () => {
    
         dispatch({type: 'POST_MATCHING_RECIPES', payload: matchesList})
+        console.log(matchesList);
         
     }
    

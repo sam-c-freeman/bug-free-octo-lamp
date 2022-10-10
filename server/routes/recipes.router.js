@@ -21,6 +21,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   pool.query(queryTxt)
     .then(result => {
       res.send(result.rows);
+      // console.log(result.rows)
     })
     .catch(err => {
       console.log('Error getting recipes on server side', err);
@@ -30,6 +31,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 router.post('/matches', rejectUnauthenticated, (req, res) => {
 // console.log(req.user.id)
+let user_id = req.user.id
+console.log(req.body)
 
 function generateSelectStatement(numberOfIDs) {
   let flexibleValues = [];
@@ -37,12 +40,13 @@ function generateSelectStatement(numberOfIDs) {
   for (let i = 1; i<numberOfIDs +1; i++){
    flexibleValues.push(`($` + i + `)`);
   }
-   console.log(flexibleValues)
+  //  console.log(flexibleValues)
 return ` INSERT INTO "matching_recipes"
   ("recipe_id") 
   VALUES
-  ${flexibleValues} ;`
+  ${flexibleValues}  ;`
 }
+console.log(generateSelectStatement(req.body.length))
   pool.query((generateSelectStatement(req.body.length)), req.body)
     .then(result => {
       res.sendStatus(201);
@@ -79,10 +83,67 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
 
 
 /**
- * POST route template
+ * POST route to add recipe
  */
-router.post('/', (req, res) => {
-  // POST route code here
+router.post('/', rejectUnauthenticated, (req, res) => {
+  const user_id = req.user.id
+  const numberIngredients = Object.keys(req.body).length;
+  console.log(numberIngredients);
+  console.log(user_id)
+  console.log(req.body);
+  const insertRecipeQuery = `
+  INSERT INTO "recipes" ("name", "description", "notes", "image_url", "user_id")
+  VALUES ($1, $2, $3, $4, $5)
+  RETURNING "id";`
+
+  // FIRST QUERY ADDS RECIPES
+  pool.query(insertRecipeQuery, [req.body.name, req.body.description, req.body.notes, req.body.image_url, user_id])
+  .then(result => {
+    console.log('New Recipe Id:', result.rows[0].id); //ID IS HERE!
+    
+    const createdRecipeId = result.rows[0].id
+    
+
+    // Now handle the lineItems reference
+    const insertLineItem = `
+      INSERT INTO "recipes_line_items" ("recipe_id", "ingredient_id", "quantity")
+      VALUES  ($1, $2, $3);
+      `
+      // SECOND QUERY ADDS LINE ITEM FOR THAT NEW RECIPE
+    let ingredients = req.body.ingredients;
+    console.log('Ingredients array', ingredients)  
+    for(let ingredient of ingredients){
+      pool.query(insertLineItem, [createdRecipeId, ingredient.ingredient, ingredient.quantity])
+      .then(result => {
+        //trying to send multiple ingredients
+        res.sendStatus(201);
+      }).catch(err => {
+        // catch for second query
+        console.log(err);
+        res.sendStatus(500)
+      })
+    }
+
+
+// Catch for first query
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500)
+  })
 });
 
 module.exports = router;
+
+
+// for (let i = 2; i<numberOfIDs +2; i++){
+//   flexibleValues.push(`($1,` + ' ' + `$` + i + `)`);
+//  }
+//  //  console.log(flexibleValues)
+// return ` INSERT INTO "matching_recipes"
+//  ("user_id, "recipe_id") 
+//  VALUES
+
+//  ${flexibleValues}  ;`
+
+
+ //this has the right sql code but still has CB function error

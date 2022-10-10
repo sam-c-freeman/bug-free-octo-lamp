@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import RecipesList from '../RecipesList/RecipesList';
 import Cupboard from '../Cupboard/Cupboard';
 import Navigation from '../Navigation/Navigation';
+import AddDrinkForm from '../AddDrinkForm/AddDrinkForm';
 
 import './App.css';
 
@@ -109,7 +110,14 @@ function App() {
 
             {/* above is not linked anywhere yet but route works! */}
 
-
+            <ProtectedRoute
+              // logged in shows addDrinkForm else shows LoginPage
+              exact
+              path="/addDrink"
+            >
+              <AddDrinkForm />
+            </ProtectedRoute>
+            
             <ProtectedRoute
               // logged in shows InfoPage else shows LoginPage
               exact
