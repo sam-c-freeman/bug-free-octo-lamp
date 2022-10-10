@@ -102,16 +102,29 @@ function AddDrinkForm (){
                 description: description,
                 notes: notes,
                 image_url: image_url,
-                quantity1: quantity1,
-                quantity2: quantity2,
-                quantity3: quantity3,
-                quantity4: quantity4,
-                quantity5: quantity5,
-                ingredientId1: ingredientId1,
-                ingredientId2: ingredientId2,
-                ingredientId3: ingredientId3,
-                ingredientId4: ingredientId4,
-                ingredientId5: ingredientId5,
+                ingredients: [
+                    {
+                        ingredient: ingredient1.id,
+                        quantity: quantity1,
+                    },
+                    {
+                        ingredient: ingredient2.id,
+                        quantity: quantity2,
+                    },
+                    {
+                        ingredient: ingredient3.id,
+                        quantity: quantity3,
+                    },
+                    {
+                        ingredient: ingredient4.id,
+                        quantity: quantity4,
+                    },
+                    {
+                       ingredient: ingredient5.id,
+                       quantity: quantity5,
+                    }
+                ]
+              
             }
         }
         dispatch(action);

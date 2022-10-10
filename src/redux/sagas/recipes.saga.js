@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchRecipes (){
     try {
         const recipes = yield axios.get('/api/recipes');
-        // console.log(recipes.data)
+        console.log(recipes.data)
         yield put ({type: 'SET_RECIPES', payload: recipes.data});
     } catch (error) {
         console.log(error);
@@ -77,10 +77,14 @@ function* compareFunction (){
 function*postMatchingRecipes (action){
     try {
         const idsToGet = action.payload;
+        console.log(idsToGet);
+
+        //this step is sending the correct number of IDS but get route is 
+        //getting back the wrong number
         
         // const matches = yield axios.get(`/api/recipes/${idsToGet}`);   //changing from this method to send multiple?
         const matches = yield axios.post(`/api/recipes/matches`, idsToGet);
-        console.log(matches.data)
+        // console.log(matches.data)
         yield put ({type: 'GET_MATCHING_RECIPES'});
     } catch (error) {
         console.log(error);
@@ -108,7 +112,7 @@ function* addRecipe (action) {
         yield put ({type: 'FETCH_RECIPES'});
     } catch (error) {
         console.log(error);
-        alert('Error setting recipes');
+        alert('Error fetching recipes');
     }
 }
 
