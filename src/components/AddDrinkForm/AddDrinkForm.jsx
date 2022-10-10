@@ -17,6 +17,7 @@ function AddDrinkForm (){
     const defaultProps = {
         options: ingredients,
         getOptionLabel: (ingredient) => ingredient.name,
+        
       };
 
      
@@ -28,6 +29,12 @@ function AddDrinkForm (){
     let [newLineItem, setLineItem] = useState({quantity: '', 
                                                 id: '',
                                                 name: '' });
+
+    let [newQuantity, setQuantity] = useState('');
+
+    let [value, setValue] = useState(null);
+    let [id, setId] = useState(null);
+    let [name, setName] = useState(null);                                            
       
       const history = useHistory();
       
@@ -43,6 +50,7 @@ function AddDrinkForm (){
       const handleIngredientChange = (ingredientKey) => (event) => {
         console.log('creating new indredient line item', newLineItem);
         setLineItem({...newLineItem, [ingredientKey]: event.target.value})
+        
     }
 
   
@@ -126,6 +134,18 @@ function AddDrinkForm (){
                         {...defaultProps}
                         disablePortal
                         id="ingredients"
+                        
+                        // onChange={(event, newValue) => {
+                        //     console.log(newValue);
+                        //     if (newValue) {
+                        //       setValue(newValue);
+                        //       setId(newValue.id);
+                        //       setName(newValue.name);
+                        //     }
+                        //   }}
+                        
+                        
+                        
                         value={ingredients.name}
                         onSelect={handleIngredientChange('name')}
                         sx={{ width: 196 }}
@@ -140,7 +160,7 @@ function AddDrinkForm (){
                 value="Add Ingredient"
                 onClick={addInput}/> */}
                 <div className="side-by-side">
-                    <TextField 
+                    {/* <TextField 
                         id="quantity" 
                         variant="outlined"
                         placeholder="Quantity"
@@ -152,8 +172,8 @@ function AddDrinkForm (){
                         {...defaultProps}
                         disablePortal
                         id="ingredients"
-                        value={ingredients.id}
-                        onSelect={handleIngredientChange('id')}
+                        value={ingredients.name}
+                        onSelect={handleIngredientChange('name')}
                         sx={{ width: 196 }}
                         style={{backgroundColor: "white"}}
                         renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -209,7 +229,7 @@ function AddDrinkForm (){
                         sx={{ width: 196 }}
                         style={{backgroundColor: "white"}}
                         renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
-                    />
+                    /> */}
                 </div>
                     <input 
                         className="btn" 
