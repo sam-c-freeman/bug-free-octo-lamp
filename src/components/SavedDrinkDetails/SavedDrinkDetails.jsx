@@ -37,7 +37,12 @@ const drink = useSelector(store => store.oneDrink)
           }
         }, [drinkId])
     
-    console.log('hi')
+    //this route will just delete from saved recipes!    
+    const deleteFromSaved = (id) => {
+        dispatch({type: 'DELETE_SAVED', payload: id})
+    }
+
+
     return(
         <Grid
         container
@@ -93,7 +98,7 @@ const drink = useSelector(store => store.oneDrink)
                    
                     <CardActions sx={{mt: 2}}>
                         <Button size="small" >Edit</Button>
-                        <Button size="small">Delete</Button>
+                        <Button size="small" onClick={ () => deleteFromSaved(drink.id) }>Delete</Button>
                     </CardActions>
                 </CardContent>
             </Card>
