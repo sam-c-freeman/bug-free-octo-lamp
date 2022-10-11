@@ -94,13 +94,15 @@ function DrinkDetails (){
                         
                                  {drink.recipe ? (
                                     <>
+                                    <ul>
                                     {drink.recipe.map((ingredient, index) => {
-                                        <ul>
+                                        
                                         return(
                                             <li key={index}>{ingredient}</li>
                                         );
-                                        </ul>
+                        
                                     })}
+                                    </ul>
                                     </>
                                 ) : (<span></span>) }
                            

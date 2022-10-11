@@ -111,6 +111,10 @@ function*postMatchingRecipes (action){
 // }
 
 function* addRecipe (action) {
+    //try .filter to get rid of null key/value pairs
+    // const 
+
+    
     try {
         console.log(action.payload)
         const newRecipe = action.payload
@@ -158,6 +162,19 @@ function* fetchFavorites () {
     }
 }
 
+function* deleteSaved (action) {
+    console.log(action.payload)
+    const deleteId = action.payload
+    try{
+        //WHAT ROUTE TO USE FOR THIS?
+        // const deleteRecipeRoute = yield axios.delete(`//${idToDelete}`);
+        yield put({type: 'GET_ZOO_ANIMALS'})
+    } catch {
+        console.log('error in delete route index.js')
+    }
+}
+
+
 
 
 function* recipesSaga() {
@@ -174,6 +191,7 @@ function* recipesSaga() {
 
   yield takeLatest('SAVE_RECIPE', saveToFavorites);
   yield takeLatest('GET_SAVED_RECIPES', fetchFavorites);
+  yield takeLatest('DELETE_SAVED', deleteSaved)
 }
 
 export default recipesSaga;

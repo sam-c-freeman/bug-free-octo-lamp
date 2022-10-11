@@ -53,26 +53,35 @@ router.get('/favorites', rejectUnauthenticated, (req, res) => {
 });
 
 
+//Need to get userid and req.body into one array
+//Need to loop through to post each recipe seperately
+
 
 router.post('/matches', rejectUnauthenticated, (req, res) => {
 console.log(req.user.id)
-let user_id = req.user.id
+let userId = req.user.id
 console.log(req.body)
+const sqlValues = req.body
+sqlValues.unshift(userId);
 
 function generateSelectStatement(numberOfIDs) {
+  
+  
   let flexibleValues = [];
   // console.log(numberOfIDs)
+
+  
   for (let i = 1; i<numberOfIDs +1; i++){
-   flexibleValues.push(`($` + i + `)`);
+   flexibleValues.push(`$` + (i + 1) );
   }
   //  console.log(flexibleValues)
 return ` INSERT INTO "matching_recipes"
-  ("recipe_id") 
+  ("user_id", "recipe_id") 
   VALUES
-  ${flexibleValues}  ;`
+  ($1, ${flexibleValues} ) ;`
 }
-console.log(generateSelectStatement(req.body.length))
-  pool.query((generateSelectStatement(req.body.length)), req.body)
+console.log(generateSelectStatement(req.body.length, userId))
+  pool.query((generateSelectStatement(req.body.length, userId)), sqlValues)
     .then(result => {
       res.sendStatus(201);
     })
