@@ -89,12 +89,7 @@ function AddDrinkForm (){
   
       const addRecipe = event => {
           event.preventDefault();
-        //   dispatch({ type: 'ADD_RECIPE', payload: newRecipe });
-        //   setRecipe({name: '', 
-        //   description: '', 
-        //   notes:'', 
-        //   image_url:''});
-
+     
         const action = {
             type: 'ADD_RECIPE',
             payload: {
@@ -140,9 +135,6 @@ function AddDrinkForm (){
     //       }
     //   }    <---------DO I WANT TO USE THIS?
 
-    // const addInput = () => {
-    //     console.log('hi')
-    // }
 
   
     
@@ -228,12 +220,7 @@ function AddDrinkForm (){
                         renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                     />
                 </div>
-                {/* <input 
-                className="btn" 
-                type="submit" 
-                name="submit"
-                value="Add Ingredient"
-                onClick={addInput}/> */}
+              
                 <div className="side-by-side">
                      <TextField 
                         id="quantity" 

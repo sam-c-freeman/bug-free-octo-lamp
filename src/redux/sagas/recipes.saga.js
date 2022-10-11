@@ -135,6 +135,29 @@ function* fetchOneDrink(action) {
         
 }
 
+function* saveToFavorites (action) {
+    try {
+        
+        const recipeToSave = action.payload
+        console.log(recipeToSave);
+        const saved = yield axios.post('/api/recipes/save', recipeToSave);
+        yield put ({type: 'GET_SAVED_RECIPES'});
+    } catch (error) {
+        console.log(error);
+        alert('Error setting favorite recipes');
+    }
+}
+function* fetchFavorites () {
+    try {
+        const favorites = yield axios.get('/api/recipes/favorites');
+        console.log(favorites.data)
+        yield put ({type: 'SET_SAVED_RECIPES', payload: favorites.data});
+    } catch (error) {
+        console.log(error);
+        alert('Error fetching favorites');
+    }
+}
+
 
 
 function* recipesSaga() {
@@ -148,6 +171,9 @@ function* recipesSaga() {
   yield takeLatest('FETCH_DRINK_DETAILS', fetchOneDrink);
 //   yield takeLatest('TEST_GET_MATCHES', fetchMatchingRecipes); 
   // testing using a get route instead of original post
+
+  yield takeLatest('SAVE_RECIPE', saveToFavorites);
+  yield takeLatest('GET_SAVED_RECIPES', fetchFavorites);
 }
 
 export default recipesSaga;
