@@ -11,12 +11,12 @@ const {
 
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryTxt = `
-              SELECT recipes.name, recipes.description, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, ARRAY_AGG(ingredients.name) as ingredient_list FROM recipes_line_items
+              SELECT recipes.name, recipes.id, recipes.description, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, ARRAY_AGG(ingredients.name) as ingredient_list FROM recipes_line_items
                   JOIN recipes
                   ON recipes_line_items.recipe_id = recipes.id
                   JOIN ingredients
                   ON recipes_line_items.ingredient_id = ingredients.id
-                  GROUP BY recipes.name, recipes.description,recipes_line_items.recipe_id, recipes.user_id, recipes.notes;
+                  GROUP BY recipes.name, recipes.id, recipes.description, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes;
       `
   pool.query(queryTxt)
     .then(result => {
@@ -30,7 +30,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.post('/matches', rejectUnauthenticated, (req, res) => {
-// console.log(req.user.id)
+console.log(req.user.id)
 let user_id = req.user.id
 console.log(req.body)
 
@@ -59,6 +59,7 @@ console.log(generateSelectStatement(req.body.length))
 
 
 
+//this was my first attempt to get matching recipes but it returns ALL recipes that have been posted.
 router.get('/matches', rejectUnauthenticated, (req, res) => {
   const queryTxt = `
             SELECT recipes.name, recipes.description, recipes_line_items.recipe_id, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) FROM matching_recipes
@@ -131,6 +132,32 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     res.sendStatus(500)
   })
 });
+
+
+//GET ONE DRINK ROUTE//
+
+
+router.get('/:id', (req, res) => {
+  // console.log('In get route for one drink');
+  const sqlText = `
+        SELECT recipes.name, recipes.id, recipes.description, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, ARRAY_AGG(ingredients.name) as ingredient_list FROM recipes_line_items
+          JOIN recipes
+          ON recipes_line_items.recipe_id = recipes.id
+          JOIN ingredients
+          ON recipes_line_items.ingredient_id = ingredients.id
+          WHERE recipes.id = $1
+          GROUP BY recipes.name, recipes.description,recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes.id;
+  `
+  const sqlValues=[req.params.id]
+  pool.query(sqlText, sqlValues)
+    .then(dbRes => {
+      res.send(dbRes.rows[0])
+    })
+    .catch(dbErr =>{
+      console.log('dbErr', dbErr);
+    })
+})
+
 
 module.exports = router;
 
