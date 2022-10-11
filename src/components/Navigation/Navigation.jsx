@@ -34,6 +34,9 @@ function Navigation () {
     const goToExplore = () =>{
         history.push('/explore')
     }
+    const goToFavorites = () =>{
+        history.push('/savedrecipes')
+    }
 
     return (
         <Box sx={{ pb: 7 }} ref={ref}>
@@ -66,7 +69,7 @@ function Navigation () {
                         <BottomNavigationAction
                             label="Favorites"
                             style={{color: "#B8860B"}}
-
+                            onClick={goToFavorites}
                             value="favorites"
                             icon={<FavoriteIcon 
                                     style={{color: "#B8860B"}}/>}

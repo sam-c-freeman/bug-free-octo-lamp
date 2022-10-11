@@ -71,7 +71,7 @@ function DrinkDetails (){
                         />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            {drink.name}
+                            {drink.name} 
                         </Typography>
                         <Typography variant="body1" color="text.secondary" component="div">
                         <Box sx={{ fontWeight: 'bold'}}>Description:</Box> {drink.description}
