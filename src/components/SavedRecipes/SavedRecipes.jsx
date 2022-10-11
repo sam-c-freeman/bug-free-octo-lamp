@@ -19,7 +19,7 @@ function SavedRecipesList () {
     }, []);
 
     const handleDetailsClick = (id) => {
-        history.push(`/recipes/${id}`)
+        history.push(`/savedrecipes/${id}`)
     }
     
     return(

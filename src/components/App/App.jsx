@@ -25,6 +25,7 @@ import Navigation from '../Navigation/Navigation';
 import AddDrinkForm from '../AddDrinkForm/AddDrinkForm';
 import Explore from '../Explore/Explore';
 import DrinkDetails from '../DrinkDetails/DrinkDetails';
+import SavedDrinkDetails from '../SavedDrinkDetails/SavedDrinkDetails';
 
 import './App.css';
 
@@ -108,6 +109,14 @@ function App() {
               path="/savedrecipes"
             >
               <SavedRecipesList />
+            </ProtectedRoute>  
+
+            <ProtectedRoute
+              // logged in shows InfoPage else shows LoginPage
+              exact
+              path="/savedrecipes/:id"
+            >
+              <SavedDrinkDetails />
             </ProtectedRoute>  
 
             {/* above is not linked anywhere yet but route works! */}

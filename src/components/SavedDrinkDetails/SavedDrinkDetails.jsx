@@ -4,6 +4,19 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+
+
+function SavedDrinkDetails () {
+
+
 const params = useParams();
 const dispatch = useDispatch();
 const history = useHistory();
@@ -11,23 +24,20 @@ const drinkId = params.id
 const drink = useSelector(store => store.oneDrink)
 
 
-useEffect(() => {
-    dispatch ({
-        type: 'FETCH_DRINK_DETAILS',
-        payload: drinkId
-    })
-    
-    return () => {
-        dispatch({
-          type: 'CLEAR_DRINK_DETAILS'
+    useEffect(() => {
+        dispatch ({
+            type: 'FETCH_DRINK_DETAILS',
+            payload: drinkId
         })
-      }
-    }, [drinkId])
-
-
-
-
-function SavedDrinkDetails () {
+        
+        return () => {
+            dispatch({
+              type: 'CLEAR_DRINK_DETAILS'
+            })
+          }
+        }, [drinkId])
+    
+    console.log('hi')
     return(
         <Grid
         container
@@ -82,8 +92,8 @@ function SavedDrinkDetails () {
                    
                    
                     <CardActions sx={{mt: 2}}>
-                        <Button size="small" onClick={addToFavorites}>Save Recipe</Button>
-                        <Button size="small" onClick={goHome}>Back</Button>
+                        <Button size="small" >Edit</Button>
+                        <Button size="small">Delete</Button>
                     </CardActions>
                 </CardContent>
             </Card>
