@@ -139,14 +139,16 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
 router.get('/:id', (req, res) => {
   // console.log('In get route for one drink');
-  const sqlText = `
-        SELECT recipes.name, recipes.id, recipes.description, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, ARRAY_AGG(ingredients.name) as ingredient_list FROM recipes_line_items
+  const sqlText = 
+
+  `
+        SELECT recipes.name, recipes.id, recipes.description, recipes.notes, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, ARRAY_AGG(ingredients.name) as ingredient_list FROM recipes_line_items
           JOIN recipes
           ON recipes_line_items.recipe_id = recipes.id
           JOIN ingredients
           ON recipes_line_items.ingredient_id = ingredients.id
           WHERE recipes.id = $1
-          GROUP BY recipes.name, recipes.description,recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes.id;
+          GROUP BY recipes.name, recipes.description, recipes.image_url, recipes.notes, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes.id;
   `
   const sqlValues=[req.params.id]
   pool.query(sqlText, sqlValues)
