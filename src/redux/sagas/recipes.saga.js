@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+
+
+
+
 function* fetchRecipes (){
     try {
         const recipes = yield axios.get('/api/recipes');
@@ -93,16 +97,18 @@ function*postMatchingRecipes (action){
 }
 
 
-function* getMatchingRecipes (){
-    try {
-        const recipes = yield axios.get('/api/recipes/matches');
-        // console.log(recipes.data)
-        yield put ({type: 'SET_MATCHING_RECIPES', payload: recipes.data});
-    } catch (error) {
-        console.log(error);
-        alert('Error setting recipes');
-    }
-}
+// function* getMatchingRecipes (){
+//     const matchingIdsReducer = useSelector(store => store.recipeReducer);
+//     console.log(matchingIdsReducer);
+//     try {
+//         const recipes = yield axios.get('/api/recipes/matches');
+//         // console.log(recipes.data)
+//         yield put ({type: 'SET_MATCHING_RECIPES', payload: recipes.data});
+//     } catch (error) {
+//         console.log(error);
+//         alert('Error setting recipes');
+//     }
+// }
 
 function* addRecipe (action) {
     try {
@@ -129,14 +135,19 @@ function* fetchOneDrink(action) {
         
 }
 
+
+
 function* recipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
   yield takeLatest('FETCH_CUPBOARD', fetchCupboard);
   yield takeLatest('COMPARE_CUPBOARD_RECIPES', compareFunction);
   yield takeLatest('POST_MATCHING_RECIPES', postMatchingRecipes);
-  yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes);
+//   yield takeLatest('TEST_MATCHING_RECIPES', getMatchingRecipes); 
+  //going to try to edit this one instead.  This didn't work
   yield takeLatest('ADD_RECIPE', addRecipe);
   yield takeLatest('FETCH_DRINK_DETAILS', fetchOneDrink);
+//   yield takeLatest('TEST_GET_MATCHES', fetchMatchingRecipes); 
+  // testing using a get route instead of original post
 }
 
 export default recipesSaga;

@@ -30,7 +30,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.post('/matches', rejectUnauthenticated, (req, res) => {
-// console.log(req.user.id)
+console.log(req.user.id)
 let user_id = req.user.id
 console.log(req.body)
 
@@ -59,6 +59,7 @@ console.log(generateSelectStatement(req.body.length))
 
 
 
+//this was my first attempt to get matching recipes but it returns ALL recipes that have been posted.
 router.get('/matches', rejectUnauthenticated, (req, res) => {
   const queryTxt = `
             SELECT recipes.name, recipes.description, recipes_line_items.recipe_id, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) FROM matching_recipes

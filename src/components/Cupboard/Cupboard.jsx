@@ -20,12 +20,21 @@ function Cupboard () {
       
     }, []);
 
+
+    //maybe instead of this do a get route with this info?
     const getMatches = () => {
    
         dispatch({type: 'POST_MATCHING_RECIPES', payload: matchesList})
         console.log(matchesList);
         
     }
+
+    //  const getMatches = () => {
+   
+    //     dispatch({type: 'TEST_MATCHING_RECIPES', payload: matchesList})
+    //     console.log(matchesList);
+        
+    // }
    
   
     
