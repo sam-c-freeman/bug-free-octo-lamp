@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import './Explore.css';
 
 
 function Explore () {
     const dispatch = useDispatch();
+    const history = useHistory();
 
 
     const recipesList = useSelector(store => store.recipeReducer);
@@ -15,6 +17,11 @@ function Explore () {
 
     }, []);
 
+    const handleDetailsClick = (id) => {
+        history.push(`/recipes/${id}`)
+    }
+
+
   
     //need to add sizing to images
     //do I want add recipe name to image?
@@ -23,8 +30,8 @@ function Explore () {
         <>
         {recipesList.map(recipe =>(
             <div key={recipe.id}>
-                <h1>{recipe.name}</h1>
-                <img src={recipe.image_url}></img>
+                <h2>{recipe.name}</h2>
+                <img src={recipe.image_url} onClick={() => handleDetailsClick(recipe.id)}></img>
             </div>
             
         ))}

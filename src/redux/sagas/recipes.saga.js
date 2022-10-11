@@ -116,6 +116,19 @@ function* addRecipe (action) {
     }
 }
 
+function* fetchOneDrink(action) {
+    // get one drink from the DB
+    const drinkId = action.payload;
+    try {
+        const drink = yield axios.get(`/api/recipes/${drinkId}`);
+        yield put({ type: 'SET_ONE_DRINK', payload: drink.data });
+
+    } catch {
+        console.log('get one Drink error');
+    }
+        
+}
+
 function* recipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
   yield takeLatest('FETCH_CUPBOARD', fetchCupboard);
@@ -123,6 +136,7 @@ function* recipesSaga() {
   yield takeLatest('POST_MATCHING_RECIPES', postMatchingRecipes);
   yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes);
   yield takeLatest('ADD_RECIPE', addRecipe);
+  yield takeLatest('FETCH_DRINK_DETAILS', fetchOneDrink);
 }
 
 export default recipesSaga;
