@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 
+//is this for saved recipes and other is explore?
+
 function RecipesList () {
     const dispatch = useDispatch();
 

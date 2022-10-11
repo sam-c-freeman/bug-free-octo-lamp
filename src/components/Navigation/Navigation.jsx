@@ -31,6 +31,10 @@ function Navigation () {
         history.push('/addDrink')
     }
 
+    const goToExplore = () =>{
+        history.push('/explore')
+    }
+
     return (
         <Box sx={{ pb: 7 }} ref={ref}>
             <CssBaseline />
@@ -62,6 +66,7 @@ function Navigation () {
                         <BottomNavigationAction
                             label="Favorites"
                             style={{color: "#B8860B"}}
+
                             value="favorites"
                             icon={<FavoriteIcon 
                                     style={{color: "#B8860B"}}/>}
@@ -69,6 +74,7 @@ function Navigation () {
                         <BottomNavigationAction 
                             label="Explore" 
                             style={{color: "#B8860B"}}
+                            onClick={goToExplore}
                             value="explore" 
                             icon={<ExploreIcon 
                                     style={{color: "#B8860B"}}/>} 
