@@ -12,6 +12,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 
 function DrinkDetails (){
@@ -39,6 +40,17 @@ function DrinkDetails (){
     const goHome = () =>{
         history.push('/explore');
     }
+
+    const addToFavorites = () => {
+        const action = {
+            type: 'SAVE_RECIPE',
+            payload: {
+              drinkId
+            }
+        }
+        dispatch(action);
+        // console.log(action);
+    }
    
     console.log(drink.recipe);
 
@@ -61,23 +73,24 @@ function DrinkDetails (){
                         <Typography gutterBottom variant="h5" component="div">
                             {drink.name}
                         </Typography>
-                        <Typography variant="body1" color="text.secondary">
-                            Description: {drink.description}
+                        <Typography variant="body1" color="text.secondary" component="div">
+                        <Box sx={{ fontWeight: 'bold'}}>Description:</Box> {drink.description}
                         </Typography>
 
-                        <Typography variant="body1" color="text.secondary">
-                            TEST RECIPE: {drink.recipe}
+                        <Typography variant="body1" color="text.secondary" component="div">
+                        <Box sx={{ fontWeight: 'bold'}}> Test Recipe:</Box> {drink.recipe}
                         </Typography> 
                     
 
                         {drink.notes ?  //won't render if there are not notes
-                            <Typography variant="body1" color="text.secondary">
-                                Notes: {drink.notes}
+                            <Typography variant="body1" color="text.secondary" component="div">
+                               <Box sx={{ fontWeight: 'bold'}}> Notes:</Box> {drink.notes}
                             </Typography>
                         : null }
                         
-                        <Typography variant="body1" color="text.secondary">
-                            Recipe: 
+                        <Typography variant="body1" color="text.secondary" component="div">
+                           
+                        <Box sx={{ fontWeight: 'bold'}}>Recipe:</Box> 
                         
                                  {drink.recipe ? (
                                     <>
@@ -93,9 +106,10 @@ function DrinkDetails (){
                            
                         </Typography>
                        
-                        <CardActions>
-                            <Button size="small">Edit</Button>
-                            <Button size="small">Delete</Button>
+                       
+                        <CardActions sx={{mt: 2}}>
+                            <Button size="small" onClick={addToFavorites}>Save Recipe</Button>
+                            <Button size="small" onClick={goHome}>Back</Button>
                         </CardActions>
                     </CardContent>
                 </Card>
@@ -119,3 +133,5 @@ function DrinkDetails (){
 }
 
 export default DrinkDetails;
+
+//not sure why I can't get it to map through recipe array.  I have compared to previous examples and feel like it should work!

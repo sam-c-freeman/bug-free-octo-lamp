@@ -7,6 +7,7 @@ import matchesReducer from './matches.reducer';
 import matchingRecipes from './matchingRecipes.reducer';
 import ingredientsReducer from './ingredients.reducer';
 import oneDrink from './details.reducer';
+import savedRecipes from './savedRecipes.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   matchesReducer,
   matchingRecipes,
   ingredientsReducer,
-  oneDrink
+  oneDrink,
+  savedRecipes
 });
 
 export default rootReducer;
