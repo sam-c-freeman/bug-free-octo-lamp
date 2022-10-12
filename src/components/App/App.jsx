@@ -26,6 +26,7 @@ import AddDrinkForm from '../AddDrinkForm/AddDrinkForm';
 import Explore from '../Explore/Explore';
 import DrinkDetails from '../DrinkDetails/DrinkDetails';
 import SavedDrinkDetails from '../SavedDrinkDetails/SavedDrinkDetails';
+import EditDrinkForm from '../EditDrinkForm/EditDrinkForm';
 
 import './App.css';
 
@@ -104,7 +105,7 @@ function App() {
             </Route>
 
             <ProtectedRoute
-              // logged in shows InfoPage else shows LoginPage
+              // logged in shows Saved Recipes else shows LoginPage
               exact
               path="/savedrecipes"
             >
@@ -112,14 +113,21 @@ function App() {
             </ProtectedRoute>  
 
             <ProtectedRoute
-              // logged in shows InfoPage else shows LoginPage
+              // logged in shows Saved Drink details page else shows LoginPage
               exact
               path="/savedrecipes/:id"
             >
               <SavedDrinkDetails />
             </ProtectedRoute>  
 
-            {/* above is not linked anywhere yet but route works! */}
+            <ProtectedRoute
+              // logged in shows Edit Form page else shows LoginPage
+              exact
+              path="/savedrecipes/:id/edit"
+            >
+              <EditDrinkForm />
+            </ProtectedRoute>  
+
 
             <ProtectedRoute
               // logged in shows addDrinkForm else shows LoginPage

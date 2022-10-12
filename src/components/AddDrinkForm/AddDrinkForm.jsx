@@ -61,17 +61,6 @@ function AddDrinkForm (){
       const backToHome = () =>{
           history.push('/user')
     }
-  
-    //   const handleRecipeChange = (recipeKey) => (event) => {
-    //       console.log('creating new recipe', newRecipe);
-    //       setRecipe({...newRecipe, [recipeKey]: event.target.value})
-    //   }
-
-    //   const handleIngredientChange = (ingredientKey) => (event) => {
-    //     console.log('creating new indredient line item', newLineItem);
-    //     setLineItem({...newLineItem, [ingredientKey]: event.target.value})
-        
-    // }
 
   
       const addRecipe = event => {
@@ -147,8 +136,6 @@ function AddDrinkForm (){
                             id="name" 
                             variant="outlined" 
                             placeholder="Name"
-                            // value={newRecipe.name}
-                            // onChange={handleRecipeChange('name')}
                             value={name}
                             onChange={(event) => setName(event.target.value)}
                             style={{backgroundColor: "white"}}
@@ -158,8 +145,6 @@ function AddDrinkForm (){
                             id="description" 
                             variant="outlined"
                             placeholder="Description"
-                            // value={newRecipe.description}
-                            // onChange={handleRecipeChange('description')}
                             value={description}
                             onChange={(event) => setDescription(event.target.value)}
                             multiline
@@ -170,8 +155,6 @@ function AddDrinkForm (){
                             id="notes" 
                             variant="outlined"
                             placeholder="Notes"
-                            // value={newRecipe.notes}
-                            // onChange={handleRecipeChange('notes')}
                             value={notes}
                             onChange={(event) => setNotes(event.target.value)}
                             multiline
@@ -182,8 +165,6 @@ function AddDrinkForm (){
                             id="imageURL" 
                             variant="outlined"
                             placeholder="Image URL"
-                            // value={newRecipe.image_url}
-                            // onChange={handleRecipeChange('image_url')}
                             value={image_url}
                             onChange={(event) => setImage_url(event.target.value)}
                             style={{backgroundColor: "white"}}
@@ -193,8 +174,6 @@ function AddDrinkForm (){
                                 id="quantity" 
                                 variant="outlined"
                                 placeholder="Quantity"
-                                // value={newLineItem.quantity}
-                                // onChange={handleIngredientChange('quantity')}
                                 value={quantity1}
                                 onChange={(event) => setQuantity1(event.target.value)}
                                 style={{backgroundColor: "white"}}
@@ -212,8 +191,6 @@ function AddDrinkForm (){
                                     setIngredientName1(ingredient1.name);
                                     }
                                 }}
-                                // value={ingredients.name}
-                                // onSelect={handleIngredientChange('name')}
                                 sx={{ width: 196 }}
                                 style={{backgroundColor: "white"}}
                                 renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -226,7 +203,6 @@ function AddDrinkForm (){
                                 variant="outlined"
                                 placeholder="Quantity"
                                 value={quantity2}
-                                // onChange={handleIngredientChange('quantity')}
                                 onChange={(event) => setQuantity2(event.target.value)}
                                 style={{backgroundColor: "white"}}
                                 sx={{width: 96, marginRight: 1}} />
@@ -234,8 +210,6 @@ function AddDrinkForm (){
                                 {...defaultProps}
                                 disablePortal
                                 id="ingredients"
-                                // value={ingredients.name}
-                                // onSelect={handleIngredientChange('name')}
                                 onChange={(event, ingredient2) => {
                                     console.log(ingredient2);
                                     if (ingredient2) {
@@ -255,7 +229,7 @@ function AddDrinkForm (){
                                 variant="outlined"
                                 placeholder="Quantity"
                                 value={quantity3}
-                                // onChange={handleIngredientChange('quantity')}
+                            
                                 onChange={(event) => setQuantity3(event.target.value)}
                                 style={{backgroundColor: "white"}}
                                 sx={{width: 96, marginRight: 1}} />
@@ -284,7 +258,6 @@ function AddDrinkForm (){
                                 variant="outlined"
                                 placeholder="Quantity"
                                 value={quantity4}
-                                // onChange={handleIngredientChange('quantity')}
                                 onChange={(event) => setQuantity4(event.target.value)}
                                 style={{backgroundColor: "white"}}
                                 sx={{width: 96, marginRight: 1}} />
@@ -312,7 +285,6 @@ function AddDrinkForm (){
                                 variant="outlined"
                                 placeholder="Quantity"
                                 value={quantity5}
-                                // onChange={handleIngredientChange('quantity')}
                                 onChange={(event) => setQuantity5(event.target.value)}
                                 style={{backgroundColor: "white"}}
                                 sx={{width: 96, marginRight: 1}} />
