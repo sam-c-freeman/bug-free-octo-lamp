@@ -111,13 +111,12 @@ function*postMatchingRecipes (action){
 // }
 
 function* addRecipe (action) {
-    //try .filter to get rid of null key/value pairs
-    // const 
-
-    
+    //filtering out unused ingredients and re-assigning to the newRecipe variable
+    const newRecipe = action.payload
+    const ingredients = action.payload.ingredients
+    const filteredIngredients = ingredients.filter(ingredients => ingredients.ingredient !== undefined)
+    newRecipe.ingredients = filteredIngredients
     try {
-        console.log(action.payload)
-        const newRecipe = action.payload
         yield axios.post('/api/recipes', newRecipe);
         yield put ({type: 'FETCH_RECIPES'});
     } catch (error) {
