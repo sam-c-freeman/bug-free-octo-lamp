@@ -19,12 +19,13 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import RecipesList from '../RecipesList/RecipesList';
+import SavedRecipesList from '../SavedRecipes/SavedRecipes';
 import Cupboard from '../Cupboard/Cupboard';
 import Navigation from '../Navigation/Navigation';
 import AddDrinkForm from '../AddDrinkForm/AddDrinkForm';
 import Explore from '../Explore/Explore';
 import DrinkDetails from '../DrinkDetails/DrinkDetails';
+import SavedDrinkDetails from '../SavedDrinkDetails/SavedDrinkDetails';
 
 import './App.css';
 
@@ -105,9 +106,17 @@ function App() {
             <ProtectedRoute
               // logged in shows InfoPage else shows LoginPage
               exact
-              path="/recipeslist"
+              path="/savedrecipes"
             >
-              <RecipesList />
+              <SavedRecipesList />
+            </ProtectedRoute>  
+
+            <ProtectedRoute
+              // logged in shows InfoPage else shows LoginPage
+              exact
+              path="/savedrecipes/:id"
+            >
+              <SavedDrinkDetails />
             </ProtectedRoute>  
 
             {/* above is not linked anywhere yet but route works! */}
@@ -155,7 +164,7 @@ function App() {
                 <Redirect to="/user" />
                 :
                 // Otherwise, show the Landing page
-                <LandingPage />
+                <LoginPage />
               }
             </Route>
 

@@ -21,6 +21,9 @@ function DrinkDetails (){
     const history = useHistory();
     const drinkId = params.id
     const drink = useSelector(store => store.oneDrink)
+    const savedRecipes = useSelector(store => store.savedRecipes);
+
+   
    
     
     useEffect(() => {
@@ -28,14 +31,22 @@ function DrinkDetails (){
             type: 'FETCH_DRINK_DETAILS',
             payload: drinkId
         })
+        dispatch ({
+            type: 'GET_SAVED_RECIPES'
+        })
+        //wondering if I can use the above to do conditional rendering?
+        
         
         return () => {
             dispatch({
               type: 'CLEAR_DRINK_DETAILS'
             })
           }
+          
         }, [drinkId])
 
+        // console.log(savedRecipes)
+    
 
     const goHome = () =>{
         history.push('/explore');
@@ -49,10 +60,13 @@ function DrinkDetails (){
             }
         }
         dispatch(action);
-        // console.log(action);
+        history.push('/explore')
     }
+
+    //the above takes you back to explore page after saving a recipe?  Should I do conditional rendering to change the button 
+    //to delete instead?
    
-    console.log(drink.recipe);
+    // console.log(drink.recipe);
 
     return(
         <Grid
@@ -63,7 +77,7 @@ function DrinkDetails (){
             justify="center"
             >
             <Grid item xs={12}>
-                <Card sx={{maxWidth: 345}}>
+                <Card sx={{maxWidth: 345, minWidth: 345}}>
                     <CardMedia
                         component="img"
                         height="140"
@@ -71,16 +85,13 @@ function DrinkDetails (){
                         />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            {drink.name}
+                            {drink.name} 
                         </Typography>
                         <Typography variant="body1" color="text.secondary" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Description:</Box> {drink.description}
+                        <Box sx={{ fontWeight: 'bold'}}>Description:</Box> 
+                        {drink.description}
                         </Typography>
 
-                        <Typography variant="body1" color="text.secondary" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}> Test Recipe:</Box> {drink.recipe}
-                        </Typography> 
-                    
 
                         {drink.notes ?  //won't render if there are not notes
                             <Typography variant="body1" color="text.secondary" component="div">
@@ -94,13 +105,15 @@ function DrinkDetails (){
                         
                                  {drink.recipe ? (
                                     <>
+                                    <ul>
                                     {drink.recipe.map((ingredient, index) => {
-                                        <ul>
+                                        
                                         return(
                                             <li key={index}>{ingredient}</li>
                                         );
-                                        </ul>
+                        
                                     })}
+                                    </ul>
                                     </>
                                 ) : (<span></span>) }
                            

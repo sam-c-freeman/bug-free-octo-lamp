@@ -8,7 +8,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchRecipes (){
     try {
         const recipes = yield axios.get('/api/recipes');
-        console.log(recipes.data)
+        // console.log(recipes.data)
         yield put ({type: 'SET_RECIPES', payload: recipes.data});
     } catch (error) {
         console.log(error);
@@ -111,6 +111,10 @@ function*postMatchingRecipes (action){
 // }
 
 function* addRecipe (action) {
+    //try .filter to get rid of null key/value pairs
+    // const 
+
+    
     try {
         console.log(action.payload)
         const newRecipe = action.payload
@@ -150,13 +154,25 @@ function* saveToFavorites (action) {
 function* fetchFavorites () {
     try {
         const favorites = yield axios.get('/api/recipes/favorites');
-        console.log(favorites.data)
+        // console.log(favorites.data)
         yield put ({type: 'SET_SAVED_RECIPES', payload: favorites.data});
     } catch (error) {
         console.log(error);
         alert('Error fetching favorites');
     }
 }
+
+function* deleteSaved (action) {
+    console.log(action.payload)
+    const deleteId = action.payload
+    try{
+        const deleteRecipeRoute = yield axios.delete(`/api/recipes/saved/${deleteId}`);
+        yield put({type: 'GET_SAVED_RECIPES'})
+    } catch {
+        console.log('error in delete route for saved recipe')
+    }
+}
+
 
 
 
@@ -174,6 +190,7 @@ function* recipesSaga() {
 
   yield takeLatest('SAVE_RECIPE', saveToFavorites);
   yield takeLatest('GET_SAVED_RECIPES', fetchFavorites);
+  yield takeLatest('DELETE_SAVED', deleteSaved)
 }
 
 export default recipesSaga;
