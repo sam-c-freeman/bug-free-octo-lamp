@@ -21,6 +21,9 @@ function DrinkDetails (){
     const history = useHistory();
     const drinkId = params.id
     const drink = useSelector(store => store.oneDrink)
+    const savedRecipes = useSelector(store => store.savedRecipes);
+
+   
    
     
     useEffect(() => {
@@ -28,14 +31,22 @@ function DrinkDetails (){
             type: 'FETCH_DRINK_DETAILS',
             payload: drinkId
         })
+        dispatch ({
+            type: 'GET_SAVED_RECIPES'
+        })
+        //wondering if I can use the above to do conditional rendering?
+        
         
         return () => {
             dispatch({
               type: 'CLEAR_DRINK_DETAILS'
             })
           }
+          
         }, [drinkId])
 
+        // console.log(savedRecipes)
+    
 
     const goHome = () =>{
         history.push('/explore');
@@ -55,7 +66,7 @@ function DrinkDetails (){
     //the above takes you back to explore page after saving a recipe?  Should I do conditional rendering to change the button 
     //to delete instead?
    
-    console.log(drink.recipe);
+    // console.log(drink.recipe);
 
     return(
         <Grid

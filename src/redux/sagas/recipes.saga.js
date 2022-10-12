@@ -8,7 +8,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchRecipes (){
     try {
         const recipes = yield axios.get('/api/recipes');
-        console.log(recipes.data)
+        // console.log(recipes.data)
         yield put ({type: 'SET_RECIPES', payload: recipes.data});
     } catch (error) {
         console.log(error);
@@ -154,7 +154,7 @@ function* saveToFavorites (action) {
 function* fetchFavorites () {
     try {
         const favorites = yield axios.get('/api/recipes/favorites');
-        console.log(favorites.data)
+        // console.log(favorites.data)
         yield put ({type: 'SET_SAVED_RECIPES', payload: favorites.data});
     } catch (error) {
         console.log(error);
