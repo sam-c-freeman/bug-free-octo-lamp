@@ -50,13 +50,13 @@ function EditDrinkForm () {
                     alignItems="center"
                     >
                     <Typography gutterBottom variant="h4" component="div" className="title" sx={{mt: 2}}>
-                                Edit
+                                {drinkToEdit.name}
                     </Typography>
                     <TextField 
                         id="name" 
                         variant="outlined" 
                         placeholder="Name"
-                        value={drinkToEdit.name}
+                        value={drinkToEdit.name || ''}
                         onChange={(event) => dispatch({type: 'EDIT_NAME', payload: event.target.value})}
                         style={{backgroundColor: "white"}}
                         sx={{width: 300}}
@@ -65,7 +65,7 @@ function EditDrinkForm () {
                         id="description" 
                         variant="outlined"
                         placeholder="Description"
-                        value={drinkToEdit.description}
+                        value={drinkToEdit.description || ''}
                         onChange={(event) => dispatch({type: 'EDIT_DESCRIPTION', payload: event.target.value})}
                         multiline
                         rows={2}
@@ -75,9 +75,8 @@ function EditDrinkForm () {
                         id="notes" 
                         variant="outlined"
                         placeholder="Notes"
-                        // value={drinkToEdit.notes}
-                        // onChange={(event) => dispatch({type: 'EDIT_NOTES', payload: event.target.value})}
-                        //unsure why this one is a problem
+                        value={drinkToEdit.notes || ''}
+                        onChange={(event) => dispatch({type: 'EDIT_NOTES', payload: event.target.value})}
                         
                         multiline
                         rows={2}
@@ -87,8 +86,8 @@ function EditDrinkForm () {
                         id="imageURL" 
                         variant="outlined"
                         placeholder="Image URL"
-                        // value={image_url}
-                        // onChange={(event) => setImage_url(event.target.value)}
+                        value={drinkToEdit.image_url || ''}
+                        onChange={(event) => dispatch({type: 'EDIT_IMAGE_URL', payload: event.target.value})}
                         style={{backgroundColor: "white"}}
                         sx={{width: 300}} />
                     <div className="side-by-side">
@@ -232,7 +231,7 @@ function EditDrinkForm () {
                             className="btn" 
                             type="submit" 
                             name="submit"
-                            value="Save Recipe"
+                            value="Confirm Changes"
                             // onClick={addRecipe}
                             />
                           
