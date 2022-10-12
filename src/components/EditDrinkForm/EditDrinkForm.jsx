@@ -24,7 +24,7 @@ function EditDrinkForm () {
         })
     }, [params.id])
 
-    // const drinkToEdit = useSelector(store => store.drinkToEdit)
+    const drinkToEdit = useSelector(store => store.drinkToEdit)
     const ingredients = useSelector(store => store.ingredientsReducer)
     const history = useHistory();
 
@@ -50,14 +50,14 @@ function EditDrinkForm () {
                     alignItems="center"
                     >
                     <Typography gutterBottom variant="h4" component="div" className="title" sx={{mt: 2}}>
-                                Add a Drink 
+                                Edit
                     </Typography>
                     <TextField 
                         id="name" 
                         variant="outlined" 
                         placeholder="Name"
-                        // value={name}
-                        onChange={(event) => setName(event.target.value)}
+                        value={drinkToEdit.name}
+                        onChange={(event) => dispatch({type: 'EDIT_NAME', payload: event.target.value})}
                         style={{backgroundColor: "white"}}
                         sx={{width: 300}}
                         />
@@ -65,8 +65,8 @@ function EditDrinkForm () {
                         id="description" 
                         variant="outlined"
                         placeholder="Description"
-                        // value={description}
-                        // onChange={(event) => setDescription(event.target.value)}
+                        value={drinkToEdit.description}
+                        onChange={(event) => dispatch({type: 'EDIT_DESCRIPTION', payload: event.target.value})}
                         multiline
                         rows={2}
                         style={{backgroundColor: "white"}}
@@ -75,8 +75,10 @@ function EditDrinkForm () {
                         id="notes" 
                         variant="outlined"
                         placeholder="Notes"
-                        // value={notes}
-                        // onChange={(event) => setNotes(event.target.value)}
+                        // value={drinkToEdit.notes}
+                        // onChange={(event) => dispatch({type: 'EDIT_NOTES', payload: event.target.value})}
+                        //unsure why this one is a problem
+                        
                         multiline
                         rows={2}
                         style={{backgroundColor: "white"}}

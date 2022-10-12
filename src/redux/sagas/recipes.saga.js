@@ -172,6 +172,34 @@ function* deleteSaved (action) {
     }
 }
 
+//this function will update a recipe!
+function* fetchDrinkToEdit(action) {
+    try {
+      const drinkId = action.payload;
+      const res = yield axios({
+        method: 'GET',
+        url: `/api/recipes/${drinkId}`
+      })
+
+      console.log(res.data)
+      // res.data should look like:
+        // { githubName: 'somename', skillLevel: 5 }
+      yield put({
+        type: 'SET_DRINK_TO_EDIT',
+        payload: {
+          id: res.data.id,
+          name: res.data.name,
+          description: res.data.description,
+          notes: res.data.notes,
+          image_url: res.data.image_url,
+          recipe: res.data.recipe
+        }
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
 
 
 
@@ -190,6 +218,7 @@ function* recipesSaga() {
   yield takeLatest('SAVE_RECIPE', saveToFavorites);
   yield takeLatest('GET_SAVED_RECIPES', fetchFavorites);
   yield takeLatest('DELETE_SAVED', deleteSaved)
+  yield takeLatest('FETCH_DRINK_TO_EDIT', fetchDrinkToEdit);
 }
 
 export default recipesSaga;

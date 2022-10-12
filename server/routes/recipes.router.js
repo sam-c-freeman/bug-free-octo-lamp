@@ -142,59 +142,7 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
 
 
 
-/**
- * POST route to add recipe
- */
-// router.post('/', rejectUnauthenticated, (req, res) => {
-//   const user_id = req.user.id
-//   const numberIngredients = Object.keys(req.body).length;
-//   console.log(numberIngredients);
-//   console.log(user_id)
-//   console.log(req.body);
-//   const insertRecipeQuery = `
-//   INSERT INTO "recipes" ("name", "description", "notes", "image_url", "user_id")
-//   VALUES ($1, $2, $3, $4, $5)
-//   RETURNING "id";`
-
-//   // FIRST QUERY ADDS RECIPES
-//   pool.query(insertRecipeQuery, [req.body.name, req.body.description, req.body.notes, req.body.image_url, user_id])
-//   .then(result => {
-//     console.log('New Recipe Id:', result.rows[0].id); //ID IS HERE!
-    
-//     const createdRecipeId = result.rows[0].id
-    
-
-//     // Now handle the lineItems reference
-//     const insertLineItem = `
-//       INSERT INTO "recipes_line_items" ("recipe_id", "ingredient_id", "quantity")
-//       VALUES  ($1, $2, $3);
-//       `
-//       // SECOND QUERY ADDS LINE ITEM FOR THAT NEW RECIPE
-//     let ingredients = req.body.ingredients;
-//     console.log('Ingredients array', ingredients)  
-//     for(let ingredient of ingredients){
-//       pool.query(insertLineItem, [createdRecipeId, ingredient.ingredient, ingredient.quantity])
-//       .then(result => {
-//         //trying to send multiple ingredients
-//         res.sendStatus(201);
-//       }).catch(err => {
-//         // catch for second query
-//         console.log(err);
-//         res.sendStatus(500)
-//       })
-//     }
-
-
-// // Catch for first query
-//   }).catch(err => {
-//     console.log(err);
-//     res.sendStatus(500)
-//   })
-// });
-
-
-
-//Working on fixing post route for add drink:
+//Updated Post route for adding a drink!
 router.post('/', rejectUnauthenticated, async (req, res) => {
   const client = await pool.connect();
   const userId = req.user.id
@@ -241,9 +189,6 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
 
 //GET ONE DRINK ROUTE//
-
-
-
 
 router.get('/:id', (req, res) => {
   // console.log('In get route for one drink');
