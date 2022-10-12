@@ -10,8 +10,8 @@ const drinkToEdit = (state = {}, action) =>{
             return {...state, notes: action.payload}
         case 'EDIT_IMAGE_URL':
             return {...state, image_url: action.payload}
-        // case 'EDIT_NAME':
-        //     return {...state, name: action.payload}
+        case 'EDIT_QUANTITY':
+            return {...state, name: action.payload}
 
         //how do I edit the recipe items?
         default:

@@ -195,7 +195,11 @@ router.get('/:id', (req, res) => {
   const sqlText = 
 
   `
-        SELECT recipes.name, recipes.id, recipes.description, recipes.notes, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, ARRAY_AGG(ingredients.name) as ingredient_list FROM recipes_line_items
+        SELECT recipes.name, recipes.id, recipes.description, recipes.notes, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, 
+              ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, 
+              ARRAY_AGG(ingredients.name) as ingredient_list ,
+              ARRAY_AGG(recipes_line_items.quantity) as ingredient_quantity
+              FROM recipes_line_items
           JOIN recipes
           ON recipes_line_items.recipe_id = recipes.id
           JOIN ingredients

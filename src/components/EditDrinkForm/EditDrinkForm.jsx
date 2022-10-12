@@ -34,6 +34,11 @@ function EditDrinkForm () {
         
       };  //this gets the ingredients into the select menu
 
+    const quantity1 = drinkToEdit.quantity[0] || '';
+    console.log(drinkToEdit.quantity)
+    // const ingredient1 = drinkToEdit.ingredients[0] || '';
+    
+
     return(
         <Grid
         container
@@ -95,15 +100,15 @@ function EditDrinkForm () {
                             id="quantity" 
                             variant="outlined"
                             placeholder="Quantity"
-                            // value={quantity1}
-                            // onChange={(event) => setQuantity1(event.target.value)}
+                            value={quantity1}
+                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY1', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
                             id="ingredients"
-                            
+                            // value ={ingredient1}
                             // onChange={(event, ingredient1) => {
                             //     console.log(ingredient1);
                             //     if (ingredient1) {

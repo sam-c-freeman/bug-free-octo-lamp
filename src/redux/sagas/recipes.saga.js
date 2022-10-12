@@ -192,7 +192,8 @@ function* fetchDrinkToEdit(action) {
           description: res.data.description,
           notes: res.data.notes,
           image_url: res.data.image_url,
-          recipe: res.data.recipe
+          ingredients: res.data.ingredient_list,
+          quantity: res.data.ingredient_quantity
         }
       })
     } catch (err) {
