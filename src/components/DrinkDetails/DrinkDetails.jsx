@@ -63,7 +63,7 @@ function DrinkDetails (){
             justify="center"
             >
             <Grid item xs={12}>
-                <Card sx={{maxWidth: 345}}>
+                <Card sx={{maxWidth: 345, minWidth: 345}}>
                     <CardMedia
                         component="img"
                         height="140"
@@ -74,13 +74,10 @@ function DrinkDetails (){
                             {drink.name} 
                         </Typography>
                         <Typography variant="body1" color="text.secondary" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}>Description:</Box> {drink.description}
+                        <Box sx={{ fontWeight: 'bold'}}>Description:</Box> 
+                        {drink.description}
                         </Typography>
 
-                        <Typography variant="body1" color="text.secondary" component="div">
-                        <Box sx={{ fontWeight: 'bold'}}> Test Recipe:</Box> {drink.recipe}
-                        </Typography> 
-                    
 
                         {drink.notes ?  //won't render if there are not notes
                             <Typography variant="body1" color="text.secondary" component="div">

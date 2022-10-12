@@ -66,10 +66,6 @@ const drink = useSelector(store => store.oneDrink)
                     <Box sx={{ fontWeight: 'bold'}}>Description:</Box> {drink.description}
                     </Typography>
 
-                    <Typography variant="body1" color="text.secondary" component="div">
-                    <Box sx={{ fontWeight: 'bold'}}> Test Recipe:</Box> {drink.recipe}
-                    </Typography> 
-                
 
                     {drink.notes ?  //won't render if there are not notes
                         <Typography variant="body1" color="text.secondary" component="div">
@@ -83,13 +79,14 @@ const drink = useSelector(store => store.oneDrink)
                     
                              {drink.recipe ? (
                                 <>
+                                <ul>
                                 {drink.recipe.map((ingredient, index) => {
-                                    <ul>
+                                    
                                     return(
                                         <li key={index}>{ingredient}</li>
                                     );
-                                    </ul>
                                 })}
+                                </ul>
                                 </>
                             ) : (<span></span>) }
                        

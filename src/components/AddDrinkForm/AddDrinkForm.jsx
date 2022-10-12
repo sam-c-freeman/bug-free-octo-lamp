@@ -5,6 +5,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
 
 function AddDrinkForm (){
     const ingredients = useSelector(store => store.ingredientsReducer)
@@ -144,6 +145,9 @@ function AddDrinkForm (){
                 spacing={2}
                 alignItems="center"
                 >
+                <Typography gutterBottom variant="h4" component="div" className="title">
+                            Add a Drink 
+                </Typography>
                 <TextField 
                     id="name" 
                     variant="outlined" 
