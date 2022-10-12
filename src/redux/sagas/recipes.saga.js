@@ -111,25 +111,18 @@ function*postMatchingRecipes (action){
 // }
 
 function* addRecipe (action) {
-    //try .filter to get rid of null key/value pairs
-    
-    console.log(action.payload.ingredients)
-    const preFilter = Object.entries(action.payload.ingredients)
-    // const filteredIngredients = preFilter.filter(ingredients => {
-    //     return ingredients !== undefined;
-    // })
-    console.log(preFilter)
-
-    
-    // try {
-    //     console.log(action.payload)
-    //     const newRecipe = action.payload
-    //     yield axios.post('/api/recipes', newRecipe);
-    //     yield put ({type: 'FETCH_RECIPES'});
-    // } catch (error) {
-    //     console.log(error);
-    //     alert('Error fetching recipes');
-    // }
+    //filtering out unused ingredients and re-assigning to the newRecipe variable
+    const newRecipe = action.payload
+    const ingredients = action.payload.ingredients
+    const filteredIngredients = ingredients.filter(ingredients => ingredients.ingredient !== undefined)
+    newRecipe.ingredients = filteredIngredients
+    try {
+        yield axios.post('/api/recipes', newRecipe);
+        yield put ({type: 'FETCH_RECIPES'});
+    } catch (error) {
+        console.log(error);
+        alert('Error fetching recipes');
+    }
 }
 
 function* fetchOneDrink(action) {
