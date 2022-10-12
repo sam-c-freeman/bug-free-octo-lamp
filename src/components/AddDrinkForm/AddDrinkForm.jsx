@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
 
 function AddDrinkForm (){
     const ingredients = useSelector(store => store.ingredientsReducer)
@@ -21,23 +23,7 @@ function AddDrinkForm (){
         
       };
 
-     
-    // let [newRecipe, setRecipe] = useState({name: '', 
-    //                                         description: '', 
-    //                                         notes:'', 
-    //                                         image_url:''});
-                                            
-    // let [newLineItem, setLineItem] = useState({quantity: '', 
-    //                                             id: '',
-    //                                             name: '' });
-
-    // let [newQuantity, setQuantity] = useState('');
-
-    // let [value, setValue] = useState(null);
-    // let [id, setId] = useState(null);
-    // let [name, setName] = useState(null);            
-    
-    
+       
     let [name, setName] = useState('');
     let [description, setDescription] = useState('');
     let [notes, setNotes] = useState('');
@@ -140,213 +126,227 @@ function AddDrinkForm (){
   
     
     return(
-        <form>
-            <Stack 
-                spacing={2}
-                alignItems="center"
-                >
-                <Typography gutterBottom variant="h4" component="div" className="title">
-                            Add a Drink 
-                </Typography>
-                <TextField 
-                    id="name" 
-                    variant="outlined" 
-                    placeholder="Name"
-                    // value={newRecipe.name}
-                    // onChange={handleRecipeChange('name')}
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
-                    style={{backgroundColor: "white"}}
-                    sx={{width: 300}}
-                    />
-                <TextField 
-                    id="description" 
-                    variant="outlined"
-                    placeholder="Description"
-                    // value={newRecipe.description}
-                    // onChange={handleRecipeChange('description')}
-                    value={description}
-                    onChange={(event) => setDescription(event.target.value)}
-                    multiline
-                    rows={2}
-                    style={{backgroundColor: "white"}}
-                    sx={{width: 300}} />
-                <TextField 
-                    id="notes" 
-                    variant="outlined"
-                    placeholder="Notes"
-                    // value={newRecipe.notes}
-                    // onChange={handleRecipeChange('notes')}
-                    value={notes}
-                    onChange={(event) => setNotes(event.target.value)}
-                    multiline
-                    rows={2}
-                    style={{backgroundColor: "white"}}
-                    sx={{width: 300}} />
-                <TextField 
-                    id="imageURL" 
-                    variant="outlined"
-                    placeholder="Image URL"
-                    // value={newRecipe.image_url}
-                    // onChange={handleRecipeChange('image_url')}
-                    value={image_url}
-                    onChange={(event) => setImage_url(event.target.value)}
-                    style={{backgroundColor: "white"}}
-                    sx={{width: 300}} />
-                <div className="side-by-side">
-                    <TextField 
-                        id="quantity" 
-                        variant="outlined"
-                        placeholder="Quantity"
-                        // value={newLineItem.quantity}
-                        // onChange={handleIngredientChange('quantity')}
-                        value={quantity1}
-                        onChange={(event) => setQuantity1(event.target.value)}
-                        style={{backgroundColor: "white"}}
-                        sx={{width: 96, marginRight: 1}} />
-                    <Autocomplete
-                        {...defaultProps}
-                        disablePortal
-                        id="ingredients"
-                        
-                        onChange={(event, ingredient1) => {
-                            console.log(ingredient1);
-                            if (ingredient1) {
-                              setIngredient1(ingredient1);
-                              setIngredientId1(ingredient1.id);
-                              setIngredientName1(ingredient1.name);
-                            }
-                          }}
-                        // value={ingredients.name}
-                        // onSelect={handleIngredientChange('name')}
-                        sx={{ width: 196 }}
-                        style={{backgroundColor: "white"}}
-                        renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
-                    />
-                </div>
-              
-                <div className="side-by-side">
-                     <TextField 
-                        id="quantity" 
-                        variant="outlined"
-                        placeholder="Quantity"
-                        value={quantity2}
-                        // onChange={handleIngredientChange('quantity')}
-                        onChange={(event) => setQuantity2(event.target.value)}
-                        style={{backgroundColor: "white"}}
-                        sx={{width: 96, marginRight: 1}} />
-                    <Autocomplete
-                        {...defaultProps}
-                        disablePortal
-                        id="ingredients"
-                        // value={ingredients.name}
-                        // onSelect={handleIngredientChange('name')}
-                        onChange={(event, ingredient2) => {
-                            console.log(ingredient2);
-                            if (ingredient2) {
-                              setIngredient2(ingredient2);
-                              setIngredientId2(ingredient2.id);
-                              setIngredientName2(ingredient2.name);
-                            }
-                          }}
-                        sx={{ width: 196 }}
-                        style={{backgroundColor: "white"}}
-                        renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
-                    />
-                </div>
-                <div className="side-by-side">
-                    <TextField 
-                        id="quantity" 
-                        variant="outlined"
-                        placeholder="Quantity"
-                        value={quantity3}
-                        // onChange={handleIngredientChange('quantity')}
-                        onChange={(event) => setQuantity3(event.target.value)}
-                        style={{backgroundColor: "white"}}
-                        sx={{width: 96, marginRight: 1}} />
-                    <Autocomplete
-                        {...defaultProps}
-                        disablePortal
-                        id="ingredients"
-                        onChange={(event, ingredient3) => {
-                            console.log(ingredient3);
-                            if (ingredient3) {
-                              setIngredient3(ingredient3);
-                              setIngredientId3(ingredient3.id);
-                              setIngredientName3(ingredient3.name);
-                            }
-                          }}
+        <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            >
+            <Grid item xs={12}>
+            <Card sx={{minWidth: 345}}>
+                <form>
+                    <Stack 
+                        spacing={2}
+                        alignItems="center"
+                        >
+                        <Typography gutterBottom variant="h4" component="div" className="title" sx={{mt: 2}}>
+                                    Add a Drink 
+                        </Typography>
+                        <TextField 
+                            id="name" 
+                            variant="outlined" 
+                            placeholder="Name"
+                            // value={newRecipe.name}
+                            // onChange={handleRecipeChange('name')}
+                            value={name}
+                            onChange={(event) => setName(event.target.value)}
+                            style={{backgroundColor: "white"}}
+                            sx={{width: 300}}
+                            />
+                        <TextField 
+                            id="description" 
+                            variant="outlined"
+                            placeholder="Description"
+                            // value={newRecipe.description}
+                            // onChange={handleRecipeChange('description')}
+                            value={description}
+                            onChange={(event) => setDescription(event.target.value)}
+                            multiline
+                            rows={2}
+                            style={{backgroundColor: "white"}}
+                            sx={{width: 300}} />
+                        <TextField 
+                            id="notes" 
+                            variant="outlined"
+                            placeholder="Notes"
+                            // value={newRecipe.notes}
+                            // onChange={handleRecipeChange('notes')}
+                            value={notes}
+                            onChange={(event) => setNotes(event.target.value)}
+                            multiline
+                            rows={2}
+                            style={{backgroundColor: "white"}}
+                            sx={{width: 300}} />
+                        <TextField 
+                            id="imageURL" 
+                            variant="outlined"
+                            placeholder="Image URL"
+                            // value={newRecipe.image_url}
+                            // onChange={handleRecipeChange('image_url')}
+                            value={image_url}
+                            onChange={(event) => setImage_url(event.target.value)}
+                            style={{backgroundColor: "white"}}
+                            sx={{width: 300}} />
+                        <div className="side-by-side">
+                            <TextField 
+                                id="quantity" 
+                                variant="outlined"
+                                placeholder="Quantity"
+                                // value={newLineItem.quantity}
+                                // onChange={handleIngredientChange('quantity')}
+                                value={quantity1}
+                                onChange={(event) => setQuantity1(event.target.value)}
+                                style={{backgroundColor: "white"}}
+                                sx={{width: 96, marginRight: 1}} />
+                            <Autocomplete
+                                {...defaultProps}
+                                disablePortal
+                                id="ingredients"
+                                
+                                onChange={(event, ingredient1) => {
+                                    console.log(ingredient1);
+                                    if (ingredient1) {
+                                    setIngredient1(ingredient1);
+                                    setIngredientId1(ingredient1.id);
+                                    setIngredientName1(ingredient1.name);
+                                    }
+                                }}
+                                // value={ingredients.name}
+                                // onSelect={handleIngredientChange('name')}
+                                sx={{ width: 196 }}
+                                style={{backgroundColor: "white"}}
+                                renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                            />
+                        </div>
                     
-                        sx={{ width: 196 }}
-                        style={{backgroundColor: "white"}}
-                        renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
-                    />
-                </div>
+                        <div className="side-by-side">
+                            <TextField 
+                                id="quantity" 
+                                variant="outlined"
+                                placeholder="Quantity"
+                                value={quantity2}
+                                // onChange={handleIngredientChange('quantity')}
+                                onChange={(event) => setQuantity2(event.target.value)}
+                                style={{backgroundColor: "white"}}
+                                sx={{width: 96, marginRight: 1}} />
+                            <Autocomplete
+                                {...defaultProps}
+                                disablePortal
+                                id="ingredients"
+                                // value={ingredients.name}
+                                // onSelect={handleIngredientChange('name')}
+                                onChange={(event, ingredient2) => {
+                                    console.log(ingredient2);
+                                    if (ingredient2) {
+                                    setIngredient2(ingredient2);
+                                    setIngredientId2(ingredient2.id);
+                                    setIngredientName2(ingredient2.name);
+                                    }
+                                }}
+                                sx={{ width: 196 }}
+                                style={{backgroundColor: "white"}}
+                                renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                            />
+                        </div>
+                        <div className="side-by-side">
+                            <TextField 
+                                id="quantity" 
+                                variant="outlined"
+                                placeholder="Quantity"
+                                value={quantity3}
+                                // onChange={handleIngredientChange('quantity')}
+                                onChange={(event) => setQuantity3(event.target.value)}
+                                style={{backgroundColor: "white"}}
+                                sx={{width: 96, marginRight: 1}} />
+                            <Autocomplete
+                                {...defaultProps}
+                                disablePortal
+                                id="ingredients"
+                                onChange={(event, ingredient3) => {
+                                    console.log(ingredient3);
+                                    if (ingredient3) {
+                                    setIngredient3(ingredient3);
+                                    setIngredientId3(ingredient3.id);
+                                    setIngredientName3(ingredient3.name);
+                                    }
+                                }}
+                            
+                                sx={{ width: 196 }}
+                                style={{backgroundColor: "white"}}
+                                renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                            />
+                        </div>
 
-                <div className="side-by-side">
-                    <TextField 
-                        id="quantity" 
-                        variant="outlined"
-                        placeholder="Quantity"
-                        value={quantity4}
-                        // onChange={handleIngredientChange('quantity')}
-                        onChange={(event) => setQuantity4(event.target.value)}
-                        style={{backgroundColor: "white"}}
-                        sx={{width: 96, marginRight: 1}} />
-                    <Autocomplete
-                        {...defaultProps}
-                        disablePortal
-                        id="ingredients"
-                        onChange={(event, ingredient4) => {
-                            console.log(ingredient4);
-                            if (ingredient4) {
-                              setIngredient4(ingredient4);
-                              setIngredientId4(ingredient4.id);
-                              setIngredientName4(ingredient4.name);
-                            }
-                          }}
-                    
-                        sx={{ width: 196 }}
-                        style={{backgroundColor: "white"}}
-                        renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
-                    />
-                </div>
-                <div className="side-by-side">
-                    <TextField 
-                        id="quantity" 
-                        variant="outlined"
-                        placeholder="Quantity"
-                        value={quantity5}
-                        // onChange={handleIngredientChange('quantity')}
-                        onChange={(event) => setQuantity5(event.target.value)}
-                        style={{backgroundColor: "white"}}
-                        sx={{width: 96, marginRight: 1}} />
-                    <Autocomplete
-                        {...defaultProps}
-                        disablePortal
-                        id="ingredients"
-                        onChange={(event, ingredient5) => {
-                            console.log(ingredient5);
-                            if (ingredient5) {
-                              setIngredient5(ingredient5);
-                              setIngredientId5(ingredient5.id);
-                              setIngredientName5(ingredient5.name);
-                            }
-                          }}
-                    
-                        sx={{ width: 196 }}
-                        style={{backgroundColor: "white"}}
-                        renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
-                    /> 
-                </div>
-                    <input 
-                        className="btn" 
-                        type="submit" 
-                        name="submit"
-                        value="Save Recipe"
-                        onClick={addRecipe}/>
-            </Stack>
-        </form>
+                        <div className="side-by-side">
+                            <TextField 
+                                id="quantity" 
+                                variant="outlined"
+                                placeholder="Quantity"
+                                value={quantity4}
+                                // onChange={handleIngredientChange('quantity')}
+                                onChange={(event) => setQuantity4(event.target.value)}
+                                style={{backgroundColor: "white"}}
+                                sx={{width: 96, marginRight: 1}} />
+                            <Autocomplete
+                                {...defaultProps}
+                                disablePortal
+                                id="ingredients"
+                                onChange={(event, ingredient4) => {
+                                    console.log(ingredient4);
+                                    if (ingredient4) {
+                                    setIngredient4(ingredient4);
+                                    setIngredientId4(ingredient4.id);
+                                    setIngredientName4(ingredient4.name);
+                                    }
+                                }}
+                            
+                                sx={{ width: 196 }}
+                                style={{backgroundColor: "white"}}
+                                renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                            />
+                        </div>
+                        <div className="side-by-side">
+                            <TextField 
+                                id="quantity" 
+                                variant="outlined"
+                                placeholder="Quantity"
+                                value={quantity5}
+                                // onChange={handleIngredientChange('quantity')}
+                                onChange={(event) => setQuantity5(event.target.value)}
+                                style={{backgroundColor: "white"}}
+                                sx={{width: 96, marginRight: 1}} />
+                            <Autocomplete
+                                {...defaultProps}
+                                disablePortal
+                                id="ingredients"
+                                onChange={(event, ingredient5) => {
+                                    console.log(ingredient5);
+                                    if (ingredient5) {
+                                    setIngredient5(ingredient5);
+                                    setIngredientId5(ingredient5.id);
+                                    setIngredientName5(ingredient5.name);
+                                    }
+                                }}
+                            
+                                sx={{ width: 196 }}
+                                style={{backgroundColor: "white"}}
+                                renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                            /> 
+                        </div>
+                            <input 
+                                className="btn" 
+                                type="submit" 
+                                name="submit"
+                                value="Save Recipe"
+                                onClick={addRecipe}
+                                />
+                              
+                    </Stack>
+                </form>
+            </Card>
+        </Grid>
+    </Grid>
     )
 }
 

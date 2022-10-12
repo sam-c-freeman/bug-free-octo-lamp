@@ -31,6 +31,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 //this gets favorites
 router.get('/favorites', rejectUnauthenticated, (req, res) => {
+  // console.log(req.user.id)
+  const sqlValues = [req.user.id]
   const queryTxt = `
             SELECT recipes.name, recipes.id, recipes.description, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, ARRAY_AGG(ingredients.name) as ingredient_list FROM saved_recipes
                 JOIN recipes
@@ -39,9 +41,10 @@ router.get('/favorites', rejectUnauthenticated, (req, res) => {
                 ON recipes.id = recipes_line_items.recipe_id
                 JOIN ingredients
                 ON recipes_line_items.ingredient_id = ingredients.id
+                WHERE saved_recipes.user_id = $1
                 GROUP BY recipes.name, recipes.id, recipes.description, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes;
       `
-  pool.query(queryTxt)
+  pool.query(queryTxt, sqlValues)
     .then(result => {
       res.send(result.rows);
       // console.log(result.rows)
