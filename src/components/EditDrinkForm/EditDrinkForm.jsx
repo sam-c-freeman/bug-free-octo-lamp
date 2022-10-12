@@ -22,6 +22,7 @@ function EditDrinkForm () {
             type: 'FETCH_DRINK_TO_EDIT',
             payload: params.id
         })
+        dispatch({ type: 'FETCH_INGREDIENTS' })   
     }, [params.id])
 
     const drinkToEdit = useSelector(store => store.drinkToEdit)
@@ -34,8 +35,8 @@ function EditDrinkForm () {
         
       };  //this gets the ingredients into the select menu
 
-    const quantity1 = drinkToEdit.quantity[0] || '';
-    console.log(drinkToEdit.quantity)
+    // const quantity1 = drinkToEdit.quantity[0] || '';
+    // console.log(drinkToEdit.quantity)
     // const ingredient1 = drinkToEdit.ingredients[0] || '';
     
 
@@ -100,8 +101,8 @@ function EditDrinkForm () {
                             id="quantity" 
                             variant="outlined"
                             placeholder="Quantity"
-                            value={quantity1}
-                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY1', payload: event.target.value})}
+                            // value={quantity1}
+                            // onChange={(event) => dispatch({type: 'EDIT_QUANTITY1', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
