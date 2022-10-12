@@ -49,8 +49,11 @@ function DrinkDetails (){
             }
         }
         dispatch(action);
-        // console.log(action);
+        history.push('/explore')
     }
+
+    //the above takes you back to explore page after saving a recipe?  Should I do conditional rendering to change the button 
+    //to delete instead?
    
     console.log(drink.recipe);
 

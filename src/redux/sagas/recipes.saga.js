@@ -166,11 +166,10 @@ function* deleteSaved (action) {
     console.log(action.payload)
     const deleteId = action.payload
     try{
-        //WHAT ROUTE TO USE FOR THIS?
-        // const deleteRecipeRoute = yield axios.delete(`//${idToDelete}`);
-        yield put({type: 'GET_ZOO_ANIMALS'})
+        const deleteRecipeRoute = yield axios.delete(`/api/recipes/saved/${deleteId}`);
+        yield put({type: 'GET_SAVED_RECIPES'})
     } catch {
-        console.log('error in delete route index.js')
+        console.log('error in delete route for saved recipe')
     }
 }
 

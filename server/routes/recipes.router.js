@@ -216,19 +216,20 @@ router.get('/:id', (req, res) => {
     })
 })
 
+//delete route for saved recipe
+
+router.delete('/saved/:id', rejectUnauthenticated, (req, res) => {
+  // console.log(req.params.id)
+  
+  const queryText = 'DELETE FROM saved_recipes WHERE recipe_id=$1';
+  pool.query(queryText, [req.params.id])
+    .then(() => { res.sendStatus(200); })
+    .catch((err) => {
+      console.log('Error completing delete saved recipe query', err);
+      res.sendStatus(500);
+    });
+});
+
 
 module.exports = router;
 
-
-// for (let i = 2; i<numberOfIDs +2; i++){
-//   flexibleValues.push(`($1,` + ' ' + `$` + i + `)`);
-//  }
-//  //  console.log(flexibleValues)
-// return ` INSERT INTO "matching_recipes"
-//  ("user_id, "recipe_id") 
-//  VALUES
-
-//  ${flexibleValues}  ;`
-
-
- //this has the right sql code but still has CB function error

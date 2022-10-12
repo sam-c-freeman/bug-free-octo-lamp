@@ -40,7 +40,10 @@ const drink = useSelector(store => store.oneDrink)
     //this route will just delete from saved recipes!    
     const deleteFromSaved = (id) => {
         dispatch({type: 'DELETE_SAVED', payload: id})
+        history.push('/savedrecipes')
     }
+
+    //do I need to add a confirm delete?
 
 
     return(
@@ -52,7 +55,7 @@ const drink = useSelector(store => store.oneDrink)
         justify="center"
         >
         <Grid item xs={12}>
-            <Card sx={{maxWidth: 345}}>
+            <Card sx={{maxWidth: 345, minWidth: 345}}>
                 <CardMedia
                     component="img"
                     height="140"
