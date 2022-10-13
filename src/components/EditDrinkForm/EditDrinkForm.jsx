@@ -28,11 +28,12 @@ function EditDrinkForm () {
     const drinkToEdit = useSelector(store => store.drinkToEdit)
     const ingredients = useSelector(store => store.ingredientsReducer)
     const history = useHistory();
-    const ingredientsObj = drinkToEdit.ingredients;
+    const ingredientsObj = drinkToEdit.ingredients
+   
 
     const defaultProps = {
         options: ingredients,
-        getOptionLabel: (ingredient) => ingredient.name,
+        getOptionLabel: (ingredient) => ingredient.ingredient_name,
         
       };  //this gets the ingredients into the select menu
 
@@ -44,6 +45,7 @@ function EditDrinkForm () {
     //this dispatch will update the drink after the user pushes confirm
     const handleConfirm = (e) => {
         e.preventDefault();
+        
         // dispatch the updated drink object to a saga function:
         dispatch({
           type: 'UPDATE_DRINK',
@@ -113,11 +115,12 @@ function EditDrinkForm () {
                  {drinkToEdit.ingredients && 
                     <div className="side-by-side">
                         <TextField 
-                            id="quantity" 
+                            id="quantity1" 
                             variant="outlined"
                             placeholder="Quantity"
-                            value={drinkToEdit.ingredients[0].quantity}
+                            value={ingredientsObj[0].quantity || ''}
                             // onChange={(event) => dispatch({type: 'EDIT_QUANTITY1', payload: event.target.value})}
+                            onChange={(event) => console.log(event.target.value)}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete

@@ -210,12 +210,12 @@ router.get('/:id', (req, res) => {
   const sqlValues=[req.params.id]
   pool.query(sqlText, sqlValues)
     .then(dbRes => {
-      console.log(dbRes.rows)
+      // console.log(dbRes.rows)
       // console.log(dbRes.rows[0])
       const {name, description, notes, image_url, recipe_id, user_id} = dbRes.rows[0];
       const recipe = {name, description, notes, image_url, recipe_id, user_id};
-      recipe.ingredients = dbRes.rows.map(ingredient =>  {return({name: ingredient.name, id: ingredient.ingredient_id, quantity: ingredient.quantity})})
-      // console.log(recipe);
+      recipe.ingredients = dbRes.rows.map(ingredient =>  {return({ingredient_name: ingredient.ingredient_name, id: ingredient.ingredient_id, quantity: ingredient.quantity})})
+      console.log(recipe);
       // console.log(ingredients)
       res.send(recipe);
     })

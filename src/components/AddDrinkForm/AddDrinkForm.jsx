@@ -15,11 +15,11 @@ function AddDrinkForm (){
 
     useEffect(() => {
         dispatch({ type: 'FETCH_INGREDIENTS' })        
-      }, []);
+      }, []); 
   
     const defaultProps = {
         options: ingredients,
-        getOptionLabel: (ingredient) => ingredient.name,
+        getOptionLabel: (ingredient) => ingredient.ingredient_name,
         
       };
 

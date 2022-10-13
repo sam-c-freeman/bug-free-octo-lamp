@@ -189,13 +189,13 @@ function* fetchDrinkToEdit(action) {
       yield put({
         type: 'SET_DRINK_TO_EDIT',
         payload: {
-          id: res.data.id,
+          id: res.data.recipe_id,
           name: res.data.name,
           description: res.data.description,
           notes: res.data.notes,
           image_url: res.data.image_url,
-          ingredients: res.data.ingredient_list,
-          quantity: res.data.ingredient_quantity
+          ingredients: res.data.ingredients,
+          
         }
       })
     } catch (err) {

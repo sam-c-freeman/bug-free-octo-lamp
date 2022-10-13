@@ -109,7 +109,7 @@ function DrinkDetails (){
                                     {drink.ingredients.map((ingredient, index) => {
                                         
                                         return(
-                                            <li key={index}>{ingredient.quantity} {ingredient.name}</li>
+                                            <li key={index}>{ingredient.quantity} {ingredient.ingredient_name}</li>
                                         );
                         
                                     })}
