@@ -14,9 +14,12 @@ Mocktail gives the user the ability to add their own recipes, discover recipes f
 
 ## Screen Shots
 
-<img src="public/images/"/>
+<img src="public/images/HomeMocktail.jpg"/>
+<img src="public/images/DrinkDetails.jpg"/>
+<img src="public/images/ExplorePage.jpg"/>
+<img src="public/images/AddDrinkForm.jpg"/>
 
-### Prerequisites
+<!-- ### Prerequisites
 
 - Node.js
 
@@ -39,7 +42,7 @@ How does someone use this application? Tell a user story here.
 1. View movies currently in the database
 2. Click on a movie poster to get more detailed information
 3. Add a new movie to the database using the "Add Movie" form
-4. Check out the movie list to see the recently added movie!
+4. Check out the movie list to see the recently added movie! -->
 
 
 
