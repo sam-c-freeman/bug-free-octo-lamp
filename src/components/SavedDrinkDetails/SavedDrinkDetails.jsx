@@ -80,13 +80,13 @@ const drink = useSelector(store => store.oneDrink)
                        
                     <Box sx={{ fontWeight: 'bold'}}>Recipe:</Box> 
                     
-                             {drink.recipe ? (
+                             {drink.ingredients ? (
                                 <>
                                 <ul>
-                                {drink.recipe.map((ingredient, index) => {
+                                {drink.ingredients.map((ingredient, index) => {
                                     
                                     return(
-                                        <li key={index}>{ingredient}</li>
+                                        <li key={index}>{ingredient.quantity} {ingredient.name}</li>
                                     );
                                 })}
                                 </ul>
