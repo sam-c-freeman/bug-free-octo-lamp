@@ -132,19 +132,9 @@ function DrinkDetails (){
 
 
 
-        // <>
-        // <p>{drink.name}</p>
-        // <input 
-        // className="btn" 
-        // type="submit" 
-        // name="submit" //why is submit impacting size?
-        // value="Back"   
-        // onClick={goHome}/>
-        // </>
+  
         
     )
 }
 
 export default DrinkDetails;
-
-//not sure why I can't get it to map through recipe array.  I have compared to previous examples and feel like it should work!

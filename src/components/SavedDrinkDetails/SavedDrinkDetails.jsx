@@ -97,7 +97,7 @@ const drink = useSelector(store => store.oneDrink)
                    
                    
                     <CardActions sx={{mt: 2}}>
-                        <Button size="small" >Edit</Button>
+                        <Button size="small" onClick={() => history.push(`/savedrecipes/${drink.id}/edit`)}>Edit</Button>
                         <Button size="small" onClick={ () => deleteFromSaved(drink.id) }>Delete</Button>
                     </CardActions>
                 </CardContent>

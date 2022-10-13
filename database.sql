@@ -9,4 +9,121 @@ CREATE TABLE "user" (
     "password" VARCHAR (1000) NOT NULL
 );
 
---update this when finalized
+
+--this table stores recipes
+CREATE TABLE recipes(
+  "id" SERIAL PRIMARY KEY,
+  "name" VARCHAR(120) NOT NULL,
+  "description" VARCHAR (1000) NOT NULL,
+  "image_url" VARCHAR,
+  "likes" INTEGER default 0,
+  "user_id" INTEGER REFERENCES "user",
+  "inserted_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
+  "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now()
+  
+);
+--some recipes for the above table
+INSERT INTO recipes
+	("name", "description", "image_url", "user_id")
+	VALUES
+	('Mock Mule', 'A non-alcoholic take on a classic', 'insert later', 2);
+	
+INSERT INTO recipes
+	("name", "description", "image_url", "user_id")
+	VALUES
+	('Virgin Mojito', 'Non-alcoholic mojito mocktail', 'insert later', 1),
+	('Shirley Temple', 'Sam''s childhood favorite', 'insert later', 2),
+	('Juicy Julep', 'A simple non-alcoholic version of the popular derby drink', 'insert later', 2);
+
+INSERT INTO "recipes_line_items"
+  ("recipe_id", "ingredient_id", "quantity")
+  VALUES
+  (4, 16, '1'),
+  (4, 7, '1 tsp and 1 sprig'),
+  (4, 6, '1 Oz'),  
+  (4, 10, '1'),
+  (4, 8, '1 Oz'),
+  (4, 9, '1 Oz'),
+  (4, 4, ''); --juicy julep
+  
+
+--recipe line items table
+CREATE TABLE recipes_line_items (
+  "id" SERIAL PRIMARY KEY,
+  "recipe_id" INTEGER REFERENCES "recipes",
+  "ingredient_id" INTEGER NOT NULL REFERENCES "ingredients",
+  "quantity" VARCHAR NOT NULL,
+  "inserted_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
+  "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now()
+  );
+
+--recipe line items
+INSERT INTO "recipes_line_items"
+  ("recipe_id", "ingredient_id", "quantity")
+  VALUES
+  (1, 4, '1 1/2 Cups'),
+  (1, 5, '1 Cup'),
+  (1, 1, 'Juice of 2'),  
+  (1, 15, '1/3 Cup'),
+  (1, 7, 'For Garnish'); --moscow mule
+
+INSERT INTO "recipes_line_items"
+  ("recipe_id", "ingredient_id", "quantity")
+  VALUES
+  (3, 4, ''),
+  (3, 11, '1 Oz'),
+  (3, 13, '8 Oz'),  
+  (3, 12, '1'); --shirley temple
+
+INSERT INTO "recipes_line_items"
+  ("recipe_id", "ingredient_id", "quantity")
+  VALUES
+  (2, 1, '1'),
+  (2, 7, '15 Leaves of'),
+  (2, 6, '1 Oz'),  
+  (2, 14, '1/2 Oz'),
+  (2, 15, '4 Oz'),
+  (2, 4, ''); --virgin mojito
+
+--table for ingredients
+CREATE TABLE ingredients (
+  "id" SERIAL PRIMARY KEY,
+  "name" VARCHAR (100) NOT NULL
+  );
+
+--to add data to ingredients
+INSERT INTO "ingredients"
+  ("name")
+  VALUES
+  ('Lime'), ('Soda Water'), ('Grapefruit Juice'), ('Ice'), ('Ginger Beer');
+
+  INSERT INTO "ingredients"
+  ("name")
+  VALUES
+  ('Mint'), ('Orange Juice'), ('Pineapple Juice'), ('Ginger Ale'), ('Grenadine'), ('Maraschino Cherries'), ('Lemon-Lime Soda'), ('Simple Syrup'), ('Club Soda'), ('Lime Wedge');
+  
+
+--this table keeps tracks of recipes that a user saves to their account
+
+CREATE TABLE "saved_recipes" (
+  "id" SERIAL PRIMARY KEY,
+  "user_id" INTEGER REFERENCES "user",
+  "recipe_id" INTEGER REFERENCES recipes
+);
+
+
+
+
+
+
+
+
+
+
+
+--this table is for my stretch goal of storing a user's ingredients at home and then suggesting recipes
+CREATE TABLE "cupboard" (
+  "id" SERIAL PRIMARY KEY,
+  "user_id" INTEGER REFERENCES "user",
+  "ingredient_id" INTEGER REFERENCES ingredients
+);
