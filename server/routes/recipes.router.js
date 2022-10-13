@@ -11,7 +11,7 @@ const {
 
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryTxt = `
-              SELECT recipes.name, recipes.id, recipes.description, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, ARRAY_AGG(ingredients.name) as ingredient_list FROM recipes_line_items
+              SELECT recipes.name, recipes.id, recipes.description, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.ingredient_name) as recipe, ARRAY_AGG(ingredients.ingredient_name) as ingredient_list FROM recipes_line_items
                   JOIN recipes
                   ON recipes_line_items.recipe_id = recipes.id
                   JOIN ingredients
@@ -34,7 +34,7 @@ router.get('/favorites', rejectUnauthenticated, (req, res) => {
   // console.log(req.user.id)
   const sqlValues = [req.user.id]
   const queryTxt = `
-            SELECT recipes.name, recipes.id, recipes.description, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, ARRAY_AGG(ingredients.name) as ingredient_list FROM saved_recipes
+            SELECT recipes.name, recipes.id, recipes.description, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.ingredient_name) as recipe, ARRAY_AGG(ingredients.ingredient_name) as ingredient_list FROM saved_recipes
                 JOIN recipes
                 ON saved_recipes.recipe_id = recipes.id
                 JOIN recipes_line_items
@@ -121,7 +121,7 @@ const sqlValues = [user_id, recipeToSave];
 //this was my first attempt to get matching recipes but it returns ALL recipes that have been posted.
 router.get('/matches', rejectUnauthenticated, (req, res) => {
   const queryTxt = `
-            SELECT recipes.name, recipes.description, recipes_line_items.recipe_id, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) FROM matching_recipes
+            SELECT recipes.name, recipes.description, recipes_line_items.recipe_id, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.ingredient_name) FROM matching_recipes
                 JOIN recipes
                 ON matching_recipes.recipe_id=recipes.id
                 JOIN recipes_line_items
@@ -170,6 +170,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     const lineItemValues = [createdRecipeId, ingredient.ingredient, ingredient.quantity]
     return client.query(insertLineItem, lineItemValues)
   }));
+  //can I add another query here to add to saved?
 
     await client.query('COMMIT')
     res.sendStatus(201);
@@ -188,34 +189,6 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
 
 
-//GET ONE DRINK ROUTE//
-
-// router.get('/:id', (req, res) => {
-//   // console.log('In get route for one drink');
-//   const sqlText = 
-
-//   `
-//         SELECT recipes.name, recipes.id, recipes.description, recipes.notes, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, 
-//               ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, 
-//               ARRAY_AGG(ingredients.name) as ingredient_list ,
-//               ARRAY_AGG(recipes_line_items.quantity) as ingredient_quantity
-//               FROM recipes_line_items
-//           JOIN recipes
-//           ON recipes_line_items.recipe_id = recipes.id
-//           JOIN ingredients
-//           ON recipes_line_items.ingredient_id = ingredients.id
-//           WHERE recipes.id = $1
-//           GROUP BY recipes.name, recipes.description, recipes.image_url, recipes.notes, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes.id;
-//   `
-//   const sqlValues=[req.params.id]
-//   pool.query(sqlText, sqlValues)
-//     .then(dbRes => {
-//       res.send(dbRes.rows[0])
-//     })
-//     .catch(dbErr =>{
-//       console.log('dbErr', dbErr);
-//     })
-// })
 
 
 //attempt at re-doing one drink get route
@@ -226,7 +199,7 @@ router.get('/:id', (req, res) => {
   const sqlText = 
   `
           SELECT recipes.name, recipes.id, recipes.description, recipes.notes, 
-            recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes_line_items.ingredient_id, ingredients.name,recipes_line_items.quantity
+            recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes_line_items.ingredient_id, ingredients.ingredient_name,recipes_line_items.quantity
                   FROM recipes_line_items
                   JOIN recipes
                   ON recipes_line_items.recipe_id = recipes.id
@@ -237,12 +210,12 @@ router.get('/:id', (req, res) => {
   const sqlValues=[req.params.id]
   pool.query(sqlText, sqlValues)
     .then(dbRes => {
-      // console.log(dbRes.rows)
+      console.log(dbRes.rows)
       // console.log(dbRes.rows[0])
       const {name, description, notes, image_url, recipe_id, user_id} = dbRes.rows[0];
       const recipe = {name, description, notes, image_url, recipe_id, user_id};
       recipe.ingredients = dbRes.rows.map(ingredient =>  {return({name: ingredient.name, id: ingredient.ingredient_id, quantity: ingredient.quantity})})
-      console.log(recipe);
+      // console.log(recipe);
       // console.log(ingredients)
       res.send(recipe);
     })

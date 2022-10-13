@@ -39,6 +39,7 @@ const drink = useSelector(store => store.oneDrink)
     
     //this route will just delete from saved recipes!    
     const deleteFromSaved = (id) => {
+        // console.log(id)
         dispatch({type: 'DELETE_SAVED', payload: id})
         history.push('/savedrecipes')
     }
@@ -97,8 +98,8 @@ const drink = useSelector(store => store.oneDrink)
                    
                    
                     <CardActions sx={{mt: 2}}>
-                        <Button size="small" onClick={() => history.push(`/savedrecipes/${drink.id}/edit`)}>Edit</Button>
-                        <Button size="small" onClick={ () => deleteFromSaved(drink.id) }>Delete</Button>
+                        <Button size="small" onClick={() => history.push(`/savedrecipes/${drink.recipe_id}/edit`)}>Edit</Button>
+                        <Button size="small" onClick={ () => deleteFromSaved(drink.recipe_id) }>Delete</Button>
                     </CardActions>
                 </CardContent>
             </Card>

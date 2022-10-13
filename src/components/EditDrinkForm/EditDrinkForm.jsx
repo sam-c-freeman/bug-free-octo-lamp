@@ -28,6 +28,7 @@ function EditDrinkForm () {
     const drinkToEdit = useSelector(store => store.drinkToEdit)
     const ingredients = useSelector(store => store.ingredientsReducer)
     const history = useHistory();
+    const ingredientsObj = drinkToEdit.ingredients;
 
     const defaultProps = {
         options: ingredients,
@@ -108,12 +109,14 @@ function EditDrinkForm () {
                         onChange={(event) => dispatch({type: 'EDIT_IMAGE_URL', payload: event.target.value})}
                         style={{backgroundColor: "white"}}
                         sx={{width: 300}} />
+                 
+                 {drinkToEdit.ingredients && 
                     <div className="side-by-side">
                         <TextField 
                             id="quantity" 
                             variant="outlined"
                             placeholder="Quantity"
-                            // value={quantity1}
+                            value={drinkToEdit.ingredients[0].quantity}
                             // onChange={(event) => dispatch({type: 'EDIT_QUANTITY1', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
@@ -135,6 +138,7 @@ function EditDrinkForm () {
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
+        } 
                 
                     <div className="side-by-side">
                         <TextField 
