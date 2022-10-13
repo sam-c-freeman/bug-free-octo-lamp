@@ -29,6 +29,7 @@ function EditDrinkForm () {
     const ingredients = useSelector(store => store.ingredientsReducer)
     const history = useHistory();
     const ingredientsObj = drinkToEdit.ingredients
+    console.log(ingredientsObj)
    
 
     const defaultProps = {
@@ -118,38 +119,34 @@ function EditDrinkForm () {
                             id="quantity1" 
                             variant="outlined"
                             placeholder="Quantity"
-                            value={ingredientsObj[0].quantity || ''}
-                            // onChange={(event) => dispatch({type: 'EDIT_QUANTITY1', payload: event.target.value})}
-                            onChange={(event) => console.log(event.target.value)}
+                            defaultValue={drinkToEdit.ingredients[0].quantity || ''}
+                            //changed it to default value and I can type?
+                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY1', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
                             id="ingredients"
-                            // value ={ingredient1}
-                            // onChange={(event, ingredient1) => {
-                            //     console.log(ingredient1);
-                            //     if (ingredient1) {
-                            //     setIngredient1(ingredient1);
-                            //     setIngredientId1(ingredient1.id);
-                            //     setIngredientName1(ingredient1.name);
-                            //     }
-                            // }}
+                            // defaultValue={drinkToEdit.ingredients[0].ingredient_name || ''}
+                            // isOptionEqualToValue={(option, value) => option.id === value.id} 
+                        
+                            //not populating the value correctly
+
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
-        } 
-                
+                 } 
+                 {drinkToEdit.ingredients &&
                     <div className="side-by-side">
                         <TextField 
-                            id="quantity" 
+                            id="quantity2" 
                             variant="outlined"
                             placeholder="Quantity"
-                            // value={quantity2}
-                            // onChange={(event) => setQuantity2(event.target.value)}
+                            defaultValue={drinkToEdit.ingredients[1].quantity}
+                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY2', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
@@ -169,6 +166,7 @@ function EditDrinkForm () {
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
+                }
                     <div className="side-by-side">
                         <TextField 
                             id="quantity" 
