@@ -201,6 +201,24 @@ function* fetchDrinkToEdit(action) {
     }
   }
 
+  //to update drink after edits are completed
+  function* updateDrink(action) {
+    console.log(action.payload)
+    // try {
+    //   const drinkToUpdate = action.payload
+    //   yield axios({
+    //     method: 'PUT',
+    //     url: `/recipes/${drinkToUpdate.id}`,
+    //     data: drinkToUpdate
+    //   })
+    //   yield put({
+    //     type: 'FETCH_DRINK_DETAILS' //which call depends on where I want app to re-route
+    //   })
+    // } catch (err) {
+    //   console.log(err)
+    // }
+  }
+
 
 
 
@@ -220,6 +238,7 @@ function* recipesSaga() {
   yield takeLatest('GET_SAVED_RECIPES', fetchFavorites);
   yield takeLatest('DELETE_SAVED', deleteSaved)
   yield takeLatest('FETCH_DRINK_TO_EDIT', fetchDrinkToEdit);
+  yield takeLatest('UPDATE_DRINK', updateDrink);
 }
 
 export default recipesSaga;

@@ -38,6 +38,18 @@ function EditDrinkForm () {
     // const quantity1 = drinkToEdit.quantity[0] || '';
     // console.log(drinkToEdit.quantity)
     // const ingredient1 = drinkToEdit.ingredients[0] || '';
+
+
+    //this dispatch will update the drink after the user pushes confirm
+    const handleConfirm = (e) => {
+        e.preventDefault();
+        // dispatch the updated drink object to a saga function:
+        dispatch({
+          type: 'UPDATE_DRINK',
+          payload: drinkToEdit
+        })
+        history.push(`/savedrecipes/${params.id}`) //where do I want it to go?
+      }
     
 
     return(
@@ -238,7 +250,7 @@ function EditDrinkForm () {
                             type="submit" 
                             name="submit"
                             value="Confirm Changes"
-                            // onClick={addRecipe}
+                            onClick={handleConfirm}
                             />
                           
                 </Stack>
