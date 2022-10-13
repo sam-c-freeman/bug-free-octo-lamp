@@ -190,32 +190,71 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
 //GET ONE DRINK ROUTE//
 
+// router.get('/:id', (req, res) => {
+//   // console.log('In get route for one drink');
+//   const sqlText = 
+
+//   `
+//         SELECT recipes.name, recipes.id, recipes.description, recipes.notes, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, 
+//               ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, 
+//               ARRAY_AGG(ingredients.name) as ingredient_list ,
+//               ARRAY_AGG(recipes_line_items.quantity) as ingredient_quantity
+//               FROM recipes_line_items
+//           JOIN recipes
+//           ON recipes_line_items.recipe_id = recipes.id
+//           JOIN ingredients
+//           ON recipes_line_items.ingredient_id = ingredients.id
+//           WHERE recipes.id = $1
+//           GROUP BY recipes.name, recipes.description, recipes.image_url, recipes.notes, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes.id;
+//   `
+//   const sqlValues=[req.params.id]
+//   pool.query(sqlText, sqlValues)
+//     .then(dbRes => {
+//       res.send(dbRes.rows[0])
+//     })
+//     .catch(dbErr =>{
+//       console.log('dbErr', dbErr);
+//     })
+// })
+
+
+//attempt at re-doing one drink get route
+
+
 router.get('/:id', (req, res) => {
   // console.log('In get route for one drink');
   const sqlText = 
-
   `
-        SELECT recipes.name, recipes.id, recipes.description, recipes.notes, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, 
-              ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.name) as recipe, 
-              ARRAY_AGG(ingredients.name) as ingredient_list ,
-              ARRAY_AGG(recipes_line_items.quantity) as ingredient_quantity
-              FROM recipes_line_items
-          JOIN recipes
-          ON recipes_line_items.recipe_id = recipes.id
-          JOIN ingredients
-          ON recipes_line_items.ingredient_id = ingredients.id
-          WHERE recipes.id = $1
-          GROUP BY recipes.name, recipes.description, recipes.image_url, recipes.notes, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes.id;
+          SELECT recipes.name, recipes.id, recipes.description, recipes.notes, 
+            recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes_line_items.ingredient_id, ingredients.name,recipes_line_items.quantity
+                  FROM recipes_line_items
+                  JOIN recipes
+                  ON recipes_line_items.recipe_id = recipes.id
+                  JOIN ingredients
+                  ON recipes_line_items.ingredient_id = ingredients.id
+                  WHERE recipes.id = $1;
   `
   const sqlValues=[req.params.id]
   pool.query(sqlText, sqlValues)
     .then(dbRes => {
-      res.send(dbRes.rows[0])
+      // console.log(dbRes.rows)
+      // console.log(dbRes.rows[0])
+      const {name, description, notes, image_url, recipe_id, user_id} = dbRes.rows[0];
+      const recipe = {name, description, notes, image_url, recipe_id, user_id};
+      recipe.ingredients = dbRes.rows.map(ingredient =>  {return({name: ingredient.name, id: ingredient.ingredient_id, quantity: ingredient.quantity})})
+      console.log(recipe);
+      // console.log(ingredients)
+      res.send(recipe);
     })
     .catch(dbErr =>{
       console.log('dbErr', dbErr);
     })
 })
+
+
+
+
+
 
 //delete route for saved recipe
 

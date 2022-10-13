@@ -127,9 +127,11 @@ function* addRecipe (action) {
 
 function* fetchOneDrink(action) {
     // get one drink from the DB
+   
     const drinkId = action.payload;
     try {
         const drink = yield axios.get(`/api/recipes/${drinkId}`);
+        console.log(drink.data);
         yield put({ type: 'SET_ONE_DRINK', payload: drink.data });
 
     } catch {
