@@ -147,7 +147,7 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
 router.post('/', rejectUnauthenticated, async (req, res) => {
   const client = await pool.connect();
   const userId = req.user.id
-
+console.log(req.body);
   try{
     const{
       name,
@@ -172,7 +172,13 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     return client.query(insertLineItem, lineItemValues)
   }));
   //can I add another query here to add to saved?
+    const savedTxt = `
+            INSERT INTO saved_recipes ("user_id", "recipe_id")
+              VALUES
+              ($1, $2);
 
+    `
+    await client.query(savedTxt, [userId, createdRecipeId] )
     await client.query('COMMIT')
     res.sendStatus(201);
   } catch (error) {

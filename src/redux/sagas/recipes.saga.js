@@ -112,13 +112,16 @@ function*postMatchingRecipes (action){
 
 function* addRecipe (action) {
     //filtering out unused ingredients and re-assigning to the newRecipe variable
+    console.log(action.payload)
     const newRecipe = action.payload
     const ingredients = action.payload.ingredients
     const filteredIngredients = ingredients.filter(ingredients => ingredients.ingredient !== undefined)
     newRecipe.ingredients = filteredIngredients
+    console.log(newRecipe);
     try {
         yield axios.post('/api/recipes', newRecipe);
         yield put ({type: 'FETCH_RECIPES'});
+        yield put({type: 'GET_SAVED_RECIPES'})
     } catch (error) {
         console.log(error);
         alert('Error fetching recipes');
