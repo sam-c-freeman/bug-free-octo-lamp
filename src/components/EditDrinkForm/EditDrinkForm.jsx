@@ -123,19 +123,16 @@ function EditDrinkForm () {
                             variant="outlined"
                             placeholder="Quantity"
                             defaultValue={drinkToEdit.ingredients[0].quantity || ''}
-                            //changed it to default value and I can type?
                             onChange={(event) => dispatch({type: 'EDIT_QUANTITY1', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
-                            id="ingredients"
-                            // defaultValue={drinkToEdit.ingredients[0].ingredient_name || ''}
-                            // isOptionEqualToValue={(option, value) => option.id === value.id} 
-                        
-                            //not populating the value correctly
-
+                            id="ingredients1"
+                            defaultValue={drinkToEdit.ingredients[0] || ''}
+                            isOptionEqualToValue={(option, value) => option.id === value.id} 
+                            onChange={(event) => dispatch({type: 'EDIT_INGREDIENT1', payload: event.target.value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -155,7 +152,10 @@ function EditDrinkForm () {
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
-                            id="ingredients"
+                            id="ingredients2"
+                            defaultValue={drinkToEdit.ingredients[1] || ''}
+                            isOptionEqualToValue={(option, value) => option.id === value.id} 
+                            onChange={(event) => dispatch({type: 'EDIT_INGREDIENT2', payload: event.target.value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -175,8 +175,10 @@ function EditDrinkForm () {
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
-                            id="ingredients"
-                        
+                            id="ingredients3"
+                            defaultValue={drinkToEdit.ingredients[2] || ''}
+                            isOptionEqualToValue={(option, value) => option.id === value.id} 
+                            onChange={(event) => dispatch({type: 'EDIT_INGREDIENT3', payload: event.target.value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -196,7 +198,10 @@ function EditDrinkForm () {
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
-                            id="ingredients"
+                            id="ingredients4"
+                            defaultValue={drinkToEdit.ingredients[3] || ''}
+                            isOptionEqualToValue={(option, value) => option.id === value.id} 
+                            onChange={(event) => dispatch({type: 'EDIT_INGREDIENT4', payload: event.target.value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -216,7 +221,10 @@ function EditDrinkForm () {
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
-                            id="ingredients"
+                            id="ingredients5"
+                            defaultValue={drinkToEdit.ingredients[4] || ''}
+                            isOptionEqualToValue={(option, value) => option.id === value.id} 
+                            onChange={(event) => dispatch({type: 'EDIT_INGREDIENT5', payload: event.target.value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
