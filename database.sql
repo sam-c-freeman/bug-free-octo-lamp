@@ -51,7 +51,8 @@ INSERT INTO "ingredients"
   ('Mint'), ('Orange Juice'), ('Pineapple Juice'), 
   ('Ginger Ale'), ('Grenadine'), ('Maraschino Cherries'), 
   ('Lemon-Lime Soda'), ('Simple Syrup'), ('Club Soda'), ('Lime Wedge'),
-  ('Lemon Juice'), ('Perrier L''Orange'), ('Cara Cara Orange');
+  ('Lemon Juice'), ('Perrier L''Orange'), ('Cara Cara Orange'),
+  ('Lemon Soda'), ('Peach Juice');
   
 
 

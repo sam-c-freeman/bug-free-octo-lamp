@@ -48,7 +48,7 @@ function AddDrinkForm (){
       
       const history = useHistory();
       
-      const backToHome = () =>{
+      const backToSaved = () =>{
           history.push('/savedrecipes')
     }
 
@@ -89,7 +89,7 @@ function AddDrinkForm (){
             }
         }
         dispatch(action);
-        backToHome();
+        backToSaved();
       }
   
     //   const checkEmpty = (event) => {
@@ -172,11 +172,12 @@ function AddDrinkForm (){
                                 {...defaultProps}
                                 disablePortal
                                 id="ingredient1"
-                                
+                                // value={ingredient1 || ''}
                                 // isOptionEqualToValue = {{option, value} => option.id === value.id}}
                                 onChange={(event, ingredient1) => {
-                                    setIngredient1;
+                                    setIngredient1(ingredient1);
                                 }}
+                                // isOptionEqualToValue={(option, value) => option.id === value.id} 
                                 sx={{ width: 196 }}
                                 style={{backgroundColor: "white"}}
                                 renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -200,6 +201,8 @@ function AddDrinkForm (){
                                     // console.log(ingredient2);
                                     setIngredient2(ingredient2);
                                 }}
+                                // value={ingredient2 || ''}
+                                // isOptionEqualToValue={(option, value) => option.id === value.id} 
                                 sx={{ width: 196 }}
                                 style={{backgroundColor: "white"}}
                                 renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -213,6 +216,7 @@ function AddDrinkForm (){
                                 value={quantity3}
                             
                                 onChange={(event) => setQuantity3(event.target.value)}
+                                // isOptionEqualToValue={(option, value) => option.id === value.id} 
                                 style={{backgroundColor: "white"}}
                                 sx={{width: 96, marginRight: 1}} />
                             <Autocomplete
@@ -220,7 +224,7 @@ function AddDrinkForm (){
                                 disablePortal
                                 id="ingredients3"
                                 onChange={(event, ingredient3) => {
-                                    console.log(ingredient3);
+                                    // console.log(ingredient3);
                                     setIngredient3(ingredient3);
                                 }}
                             
@@ -244,10 +248,10 @@ function AddDrinkForm (){
                                 disablePortal
                                 id="ingredients4"
                                 onChange={(event, ingredient4) => {
-                                    console.log(ingredient4);
+                                    // console.log(ingredient4);
                                     setIngredient4(ingredient4);
                                 }}
-                            
+                                // isOptionEqualToValue={(option, value) => option.id === value.id} 
                                 sx={{ width: 196 }}
                                 style={{backgroundColor: "white"}}
                                 renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -270,7 +274,7 @@ function AddDrinkForm (){
                                     console.log(ingredient5);
                                     setIngredient5(ingredient5);
                                 }}
-                            
+                                // isOptionEqualToValue={(option, value) => option.id === value.id} 
                                 sx={{ width: 196 }}
                                 style={{backgroundColor: "white"}}
                                 renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
