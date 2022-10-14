@@ -51,9 +51,10 @@ function EditDrinkForm () {
           type: 'UPDATE_DRINK',
           payload: drinkToEdit
         })
-        // history.push(`/savedrecipes/${params.id}`) //where do I want it to go?
+        history.push(`/savedrecipes/${params.id}`) //where do I want it to go?
       }
-    const handleCancel = (e) => {
+  
+      const handleCancel = (e) => {
         e.preventDefault();
         history.push(`/savedrecipes/${params.id}`)
     }
@@ -130,7 +131,7 @@ function EditDrinkForm () {
                             {...defaultProps}
                             disablePortal
                             id="ingredients1"
-                            defaultValue={drinkToEdit.ingredients[0] || ''}
+                            value={drinkToEdit.ingredients[0] || ''}
                             isOptionEqualToValue={(option, value) => option.id === value.id} 
                             onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT1', payload: value})}
                             sx={{ width: 196 }}
@@ -139,13 +140,13 @@ function EditDrinkForm () {
                         />
                     </div>
                  } 
-                 {drinkToEdit.ingredients &&
+                  {drinkToEdit.ingredients &&
                     <div className="side-by-side">
                         <TextField 
                             id="quantity2" 
                             variant="outlined"
                             placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[1].quantity}
+                            defaultValue={drinkToEdit.ingredients[1].quantity || ''}
                             onChange={(event) => dispatch({type: 'EDIT_QUANTITY2', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
@@ -153,7 +154,7 @@ function EditDrinkForm () {
                             {...defaultProps}
                             disablePortal
                             id="ingredients2"
-                            defaultValue={drinkToEdit.ingredients[1] || ''}
+                            value={drinkToEdit.ingredients[1] || ''}
                             isOptionEqualToValue={(option, value) => option.id === value.id} 
                             onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT2', payload: value})}
                             sx={{ width: 196 }}
@@ -168,15 +169,15 @@ function EditDrinkForm () {
                             id="quantity3" 
                             variant="outlined"
                             placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[2].quantity}
-                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT3', payload: value})}
+                            defaultValue={drinkToEdit.ingredients[2].quantity || ''}
+                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY3', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
                             id="ingredients3"
-                            defaultValue={drinkToEdit.ingredients[2] || ''}
+                            value={drinkToEdit.ingredients[2] || ''}
                             isOptionEqualToValue={(option, value) => option.id === value.id} 
                             onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT3', payload: value})}
                             sx={{ width: 196 }}
@@ -191,7 +192,7 @@ function EditDrinkForm () {
                             id="quantity4" 
                             variant="outlined"
                             placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[3].quantity}
+                            defaultValue={drinkToEdit.ingredients[3].quantity || ''}
                             onChange={(event) => dispatch({type: 'EDIT_QUANTITY4', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
@@ -199,7 +200,7 @@ function EditDrinkForm () {
                             {...defaultProps}
                             disablePortal
                             id="ingredients4"
-                            defaultValue={drinkToEdit.ingredients[3] || ''}
+                            value={drinkToEdit.ingredients[3] || ''}
                             isOptionEqualToValue={(option, value) => option.id === value.id} 
                             onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT4', payload: value})}
                             sx={{ width: 196 }}
@@ -214,7 +215,7 @@ function EditDrinkForm () {
                             id="quantity5" 
                             variant="outlined"
                             placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[4].quantity}
+                            defaultValue={drinkToEdit.ingredients[4].quantity || ''}
                             onChange={(event) => dispatch({type: 'EDIT_QUANTITY5', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
@@ -222,7 +223,7 @@ function EditDrinkForm () {
                             {...defaultProps}
                             disablePortal
                             id="ingredients5"
-                            defaultValue={drinkToEdit.ingredients[4] || ''}
+                            value={drinkToEdit.ingredients[4] || ''}
                             isOptionEqualToValue={(option, value) => option.id === value.id} 
                             onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT5', payload: value})}
                             sx={{ width: 196 }}
@@ -230,7 +231,7 @@ function EditDrinkForm () {
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                         /> 
                     </div>
-                    }
+                    } 
                      <div className="side-by-side">
                         <input 
                             className="btn" 
