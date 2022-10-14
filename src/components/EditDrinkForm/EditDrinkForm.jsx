@@ -132,7 +132,7 @@ function EditDrinkForm () {
                             id="ingredients1"
                             defaultValue={drinkToEdit.ingredients[0] || ''}
                             isOptionEqualToValue={(option, value) => option.id === value.id} 
-                            onChange={(event) => dispatch({type: 'EDIT_INGREDIENT1', payload: event.target.value})}
+                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT1', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -155,7 +155,7 @@ function EditDrinkForm () {
                             id="ingredients2"
                             defaultValue={drinkToEdit.ingredients[1] || ''}
                             isOptionEqualToValue={(option, value) => option.id === value.id} 
-                            onChange={(event) => dispatch({type: 'EDIT_INGREDIENT2', payload: event.target.value})}
+                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT2', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -169,7 +169,7 @@ function EditDrinkForm () {
                             variant="outlined"
                             placeholder="Quantity"
                             defaultValue={drinkToEdit.ingredients[2].quantity}
-                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY3', payload: event.target.value})}
+                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT3', payload: value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
@@ -178,7 +178,7 @@ function EditDrinkForm () {
                             id="ingredients3"
                             defaultValue={drinkToEdit.ingredients[2] || ''}
                             isOptionEqualToValue={(option, value) => option.id === value.id} 
-                            onChange={(event) => dispatch({type: 'EDIT_INGREDIENT3', payload: event.target.value})}
+                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT3', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -201,7 +201,7 @@ function EditDrinkForm () {
                             id="ingredients4"
                             defaultValue={drinkToEdit.ingredients[3] || ''}
                             isOptionEqualToValue={(option, value) => option.id === value.id} 
-                            onChange={(event) => dispatch({type: 'EDIT_INGREDIENT4', payload: event.target.value})}
+                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT4', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -224,7 +224,7 @@ function EditDrinkForm () {
                             id="ingredients5"
                             defaultValue={drinkToEdit.ingredients[4] || ''}
                             isOptionEqualToValue={(option, value) => option.id === value.id} 
-                            onChange={(event) => dispatch({type: 'EDIT_INGREDIENT5', payload: event.target.value})}
+                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT5', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}

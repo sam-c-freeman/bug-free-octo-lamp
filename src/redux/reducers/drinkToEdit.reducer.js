@@ -21,7 +21,7 @@ const drinkToEdit = (state = {}, action) =>{
         case 'EDIT_INGREDIENT1':
             return {...state,
                     ingredients: state.ingredients.map(
-                        (ingredient, i) => i === 0 ? {...ingredient, ingredient_name: action.payload}
+                        (ingredient, i) => i === 0 ? {...ingredient, ingredient_name: action.payload.ingredient_name, id: action.payload.id}
                                 : ingredient
                         )
                     }
@@ -36,7 +36,7 @@ const drinkToEdit = (state = {}, action) =>{
         case 'EDIT_INGREDIENT2':
             return {...state,
                     ingredients: state.ingredients.map(
-                        (ingredient, i) => i === 0 ? {...ingredient, ingredient_name: action.payload}
+                        (ingredient, i) => i === 1 ? {...ingredient, ingredient_name: action.payload.ingredient_name, id: action.payload.id}
                                 : ingredient
                         )
                     }
@@ -50,7 +50,7 @@ const drinkToEdit = (state = {}, action) =>{
         case 'EDIT_INGREDIENT3':
             return {...state,
                     ingredients: state.ingredients.map(
-                        (ingredient, i) => i === 0 ? {...ingredient, ingredient_name: action.payload}
+                        (ingredient, i) => i === 2 ? {...ingredient, ingredient_name: action.payload.ingredient_name, id: action.payload.id}
                                 : ingredient
                         )
                     }
@@ -64,7 +64,7 @@ const drinkToEdit = (state = {}, action) =>{
         case 'EDIT_INGREDIENT4':
             return {...state,
                     ingredients: state.ingredients.map(
-                        (ingredient, i) => i === 0 ? {...ingredient, ingredient_name: action.payload}
+                        (ingredient, i) => i === 3 ? {...ingredient, ingredient_name: action.payload.ingredient_name, id: action.payload.id}
                                 : ingredient
                         )
                     }
@@ -78,7 +78,7 @@ const drinkToEdit = (state = {}, action) =>{
         case 'EDIT_INGREDIENT5':
             return {...state,
                     ingredients: state.ingredients.map(
-                        (ingredient, i) => i === 0 ? {...ingredient, ingredient_name: action.payload}
+                        (ingredient, i) => i === 4 ? {...ingredient, ingredient_name: action.payload.ingredient_name, id: action.payload.id}
                                 : ingredient
                         )
                     }
