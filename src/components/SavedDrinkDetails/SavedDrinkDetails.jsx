@@ -45,6 +45,9 @@ const drink = useSelector(store => store.oneDrink)
     }
 
     //do I need to add a confirm delete?
+    const goToFavorites = () =>{
+        history.push('/savedrecipes');
+    }
 
 
     return(
@@ -100,6 +103,7 @@ const drink = useSelector(store => store.oneDrink)
                     <CardActions sx={{mt: 2}}>
                         <Button size="small" onClick={() => history.push(`/savedrecipes/${drink.recipe_id}/edit`)}>Edit</Button>
                         <Button size="small" onClick={ () => deleteFromSaved(drink.recipe_id) }>Delete</Button>
+                        <Button size="small" onClick={goToFavorites}>Back</Button>
                     </CardActions>
                 </CardContent>
             </Card>

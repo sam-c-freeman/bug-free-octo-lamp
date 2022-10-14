@@ -206,19 +206,19 @@ function* fetchDrinkToEdit(action) {
   //to update drink after edits are completed
   function* updateDrink(action) {
     console.log(action.payload)
-    // try {
-    //   const drinkToUpdate = action.payload
-    //   yield axios({
-    //     method: 'PUT',
-    //     url: `/recipes/${drinkToUpdate.id}`,
-    //     data: drinkToUpdate
-    //   })
+    try {
+      const drinkToUpdate = action.payload
+      yield axios({
+        method: 'PUT',
+        url: `/api/recipes/${drinkToUpdate.id}`,
+        data: drinkToUpdate
+      })
     //   yield put({
     //     type: 'FETCH_DRINK_DETAILS' //which call depends on where I want app to re-route
     //   })
-    // } catch (err) {
-    //   console.log(err)
-    // }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
 

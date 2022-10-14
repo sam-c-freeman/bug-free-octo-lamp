@@ -120,7 +120,7 @@ function DrinkDetails (){
                         </Typography>
                        
                        
-                        <CardActions sx={{mt: 2}}>
+                        <CardActions sx={{mt: 2}} className="card_action">
                             <Button size="small" onClick={addToFavorites}>Save Recipe</Button>
                             <Button size="small" onClick={goHome}>Back</Button>
                         </CardActions>

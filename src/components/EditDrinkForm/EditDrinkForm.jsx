@@ -28,8 +28,7 @@ function EditDrinkForm () {
     const drinkToEdit = useSelector(store => store.drinkToEdit)
     const ingredients = useSelector(store => store.ingredientsReducer)
     const history = useHistory();
-    const ingredientsObj = drinkToEdit.ingredients
-    console.log(ingredientsObj)
+    
    
 
     const defaultProps = {
@@ -52,8 +51,12 @@ function EditDrinkForm () {
           type: 'UPDATE_DRINK',
           payload: drinkToEdit
         })
-        history.push(`/savedrecipes/${params.id}`) //where do I want it to go?
+        // history.push(`/savedrecipes/${params.id}`) //where do I want it to go?
       }
+    const handleCancel = (e) => {
+        e.preventDefault();
+        history.push(`/savedrecipes/${params.id}`)
+    }
     
 
     return(
@@ -220,14 +223,23 @@ function EditDrinkForm () {
                         /> 
                     </div>
                     }
+                     <div className="side-by-side">
                         <input 
                             className="btn" 
                             type="submit" 
                             name="submit"
-                            value="Confirm Changes"
+                            value="Confirm"
                             onClick={handleConfirm}
                             />
-                          
+                        <input 
+                        className="btn" 
+                        type="submit" 
+                        name="submit"
+                        value="Cancel"
+                        onClick={handleCancel}
+                        />
+                    </div>
+                        
                 </Stack>
             </form>
         </Card>

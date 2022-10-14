@@ -215,7 +215,7 @@ router.get('/:id', (req, res) => {
       const {name, description, notes, image_url, recipe_id, user_id} = dbRes.rows[0];
       const recipe = {name, description, notes, image_url, recipe_id, user_id};
       recipe.ingredients = dbRes.rows.map(ingredient =>  {return({ingredient_name: ingredient.ingredient_name, id: ingredient.ingredient_id, quantity: ingredient.quantity})})
-      console.log(recipe);
+      // console.log(recipe);
       // console.log(ingredients)
       res.send(recipe);
     })
@@ -225,7 +225,34 @@ router.get('/:id', (req, res) => {
 })
 
 
+router.put('/:id', (req, res) => {
+  // Update one drink
+  console.log('PUT /recipes/:id')
+  console.log(req.body)
+  const idToUpdate = req.params.id;
+ 
+ //updating SQL TEXT.  Need to return ID to also update line items.  Use async/await?
+  const sqlText = `
+    UPDATE recipes
+      SET
+        name = $1, 
+        description = $2
+        notes = $3
+        image_url = $3
 
+      WHERE
+        id = $3
+  `;
+// const sqlValues = [req.body.githubName, req.body.skillLevel, idToUpdate]
+//   pool.query(sqlText, sqlValues)
+//       .then((result) => {
+//           res.sendStatus(200);
+//       })
+//       .catch((error) => {
+//           console.log(`Error making database query ${sqlText}`, error);
+//           res.sendStatus(500);
+//       });
+});
 
 
 
