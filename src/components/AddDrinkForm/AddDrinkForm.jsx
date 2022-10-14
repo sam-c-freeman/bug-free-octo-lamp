@@ -15,11 +15,11 @@ function AddDrinkForm (){
 
     useEffect(() => {
         dispatch({ type: 'FETCH_INGREDIENTS' })        
-      }, []);
+      }, []); 
   
     const defaultProps = {
         options: ingredients,
-        getOptionLabel: (ingredient) => ingredient.name,
+        getOptionLabel: (ingredient) => ingredient.ingredient_name,
         
       };
 
@@ -31,35 +31,25 @@ function AddDrinkForm (){
     
     //each ingredient will be seperate?
     let [quantity1, setQuantity1] = useState('');
-    let [ingredientName1, setIngredientName1] = useState('');
-    let [ingredientId1, setIngredientId1] = useState('');
-    let [ingredient1, setIngredient1] = useState('');
+    let [ingredient1, setIngredient1] = useState({});
 
     let [quantity2, setQuantity2] = useState('');
-    let [ingredientName2, setIngredientName2] = useState('');
-    let [ingredientId2, setIngredientId2] = useState('');
-    let [ingredient2, setIngredient2] = useState('');
+    let [ingredient2, setIngredient2] = useState({});
 
     let [quantity3, setQuantity3] = useState('');
-    let [ingredientName3, setIngredientName3] = useState('');
-    let [ingredientId3, setIngredientId3] = useState('');
-    let [ingredient3, setIngredient3] = useState('');
+    let [ingredient3, setIngredient3] = useState({});
 
     let [quantity4, setQuantity4] = useState('');
-    let [ingredientName4, setIngredientName4] = useState('');
-    let [ingredientId4, setIngredientId4] = useState('');
-    let [ingredient4, setIngredient4] = useState('');
+    let [ingredient4, setIngredient4] = useState({});
 
 
     let [quantity5, setQuantity5] = useState('');
-    let [ingredientName5, setIngredientName5] = useState('');
-    let [ingredientId5, setIngredientId5] = useState('');
-    let [ingredient5, setIngredient5] = useState('');
+    let [ingredient5, setIngredient5] = useState({});
       
       const history = useHistory();
       
       const backToHome = () =>{
-          history.push('/user')
+          history.push('/savedrecipes')
     }
 
   
@@ -99,7 +89,7 @@ function AddDrinkForm (){
             }
         }
         dispatch(action);
-        // console.log(action);
+        backToHome();
       }
   
     //   const checkEmpty = (event) => {
@@ -171,7 +161,7 @@ function AddDrinkForm (){
                             sx={{width: 300}} />
                         <div className="side-by-side">
                             <TextField 
-                                id="quantity" 
+                                id="quantity1" 
                                 variant="outlined"
                                 placeholder="Quantity"
                                 value={quantity1}
@@ -181,15 +171,11 @@ function AddDrinkForm (){
                             <Autocomplete
                                 {...defaultProps}
                                 disablePortal
-                                id="ingredients"
+                                id="ingredient1"
                                 
+                                // isOptionEqualToValue = {{option, value} => option.id === value.id}}
                                 onChange={(event, ingredient1) => {
-                                    console.log(ingredient1);
-                                    if (ingredient1) {
-                                    setIngredient1(ingredient1);
-                                    setIngredientId1(ingredient1.id);
-                                    setIngredientName1(ingredient1.name);
-                                    }
+                                    setIngredient1;
                                 }}
                                 sx={{ width: 196 }}
                                 style={{backgroundColor: "white"}}
@@ -199,7 +185,7 @@ function AddDrinkForm (){
                     
                         <div className="side-by-side">
                             <TextField 
-                                id="quantity" 
+                                id="quantity2" 
                                 variant="outlined"
                                 placeholder="Quantity"
                                 value={quantity2}
@@ -209,14 +195,10 @@ function AddDrinkForm (){
                             <Autocomplete
                                 {...defaultProps}
                                 disablePortal
-                                id="ingredients"
+                                id="ingredient2"
                                 onChange={(event, ingredient2) => {
-                                    console.log(ingredient2);
-                                    if (ingredient2) {
+                                    // console.log(ingredient2);
                                     setIngredient2(ingredient2);
-                                    setIngredientId2(ingredient2.id);
-                                    setIngredientName2(ingredient2.name);
-                                    }
                                 }}
                                 sx={{ width: 196 }}
                                 style={{backgroundColor: "white"}}
@@ -225,7 +207,7 @@ function AddDrinkForm (){
                         </div>
                         <div className="side-by-side">
                             <TextField 
-                                id="quantity" 
+                                id="quantity3" 
                                 variant="outlined"
                                 placeholder="Quantity"
                                 value={quantity3}
@@ -236,14 +218,10 @@ function AddDrinkForm (){
                             <Autocomplete
                                 {...defaultProps}
                                 disablePortal
-                                id="ingredients"
+                                id="ingredients3"
                                 onChange={(event, ingredient3) => {
                                     console.log(ingredient3);
-                                    if (ingredient3) {
                                     setIngredient3(ingredient3);
-                                    setIngredientId3(ingredient3.id);
-                                    setIngredientName3(ingredient3.name);
-                                    }
                                 }}
                             
                                 sx={{ width: 196 }}
@@ -254,7 +232,7 @@ function AddDrinkForm (){
 
                         <div className="side-by-side">
                             <TextField 
-                                id="quantity" 
+                                id="quantity4" 
                                 variant="outlined"
                                 placeholder="Quantity"
                                 value={quantity4}
@@ -264,14 +242,10 @@ function AddDrinkForm (){
                             <Autocomplete
                                 {...defaultProps}
                                 disablePortal
-                                id="ingredients"
+                                id="ingredients4"
                                 onChange={(event, ingredient4) => {
                                     console.log(ingredient4);
-                                    if (ingredient4) {
                                     setIngredient4(ingredient4);
-                                    setIngredientId4(ingredient4.id);
-                                    setIngredientName4(ingredient4.name);
-                                    }
                                 }}
                             
                                 sx={{ width: 196 }}
@@ -281,7 +255,7 @@ function AddDrinkForm (){
                         </div>
                         <div className="side-by-side">
                             <TextField 
-                                id="quantity" 
+                                id="quantity5" 
                                 variant="outlined"
                                 placeholder="Quantity"
                                 value={quantity5}
@@ -294,11 +268,7 @@ function AddDrinkForm (){
                                 id="ingredients"
                                 onChange={(event, ingredient5) => {
                                     console.log(ingredient5);
-                                    if (ingredient5) {
                                     setIngredient5(ingredient5);
-                                    setIngredientId5(ingredient5.id);
-                                    setIngredientName5(ingredient5.name);
-                                    }
                                 }}
                             
                                 sx={{ width: 196 }}

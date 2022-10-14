@@ -189,13 +189,13 @@ function* fetchDrinkToEdit(action) {
       yield put({
         type: 'SET_DRINK_TO_EDIT',
         payload: {
-          id: res.data.id,
+          id: res.data.recipe_id,
           name: res.data.name,
           description: res.data.description,
           notes: res.data.notes,
           image_url: res.data.image_url,
-          ingredients: res.data.ingredient_list,
-          quantity: res.data.ingredient_quantity
+          ingredients: res.data.ingredients,
+          
         }
       })
     } catch (err) {
@@ -206,19 +206,19 @@ function* fetchDrinkToEdit(action) {
   //to update drink after edits are completed
   function* updateDrink(action) {
     console.log(action.payload)
-    // try {
-    //   const drinkToUpdate = action.payload
-    //   yield axios({
-    //     method: 'PUT',
-    //     url: `/recipes/${drinkToUpdate.id}`,
-    //     data: drinkToUpdate
-    //   })
+    try {
+      const drinkToUpdate = action.payload
+      yield axios({
+        method: 'PUT',
+        url: `/api/recipes/${drinkToUpdate.id}`,
+        data: drinkToUpdate
+      })
     //   yield put({
     //     type: 'FETCH_DRINK_DETAILS' //which call depends on where I want app to re-route
     //   })
-    // } catch (err) {
-    //   console.log(err)
-    // }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
 

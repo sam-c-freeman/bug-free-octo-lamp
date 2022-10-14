@@ -39,11 +39,15 @@ const drink = useSelector(store => store.oneDrink)
     
     //this route will just delete from saved recipes!    
     const deleteFromSaved = (id) => {
+        // console.log(id)
         dispatch({type: 'DELETE_SAVED', payload: id})
         history.push('/savedrecipes')
     }
 
     //do I need to add a confirm delete?
+    const goToFavorites = () =>{
+        history.push('/savedrecipes');
+    }
 
 
     return(
@@ -86,7 +90,7 @@ const drink = useSelector(store => store.oneDrink)
                                 {drink.ingredients.map((ingredient, index) => {
                                     
                                     return(
-                                        <li key={index}>{ingredient.quantity} {ingredient.name}</li>
+                                        <li key={index}>{ingredient.quantity} {ingredient.ingredient_name}</li>
                                     );
                                 })}
                                 </ul>
@@ -97,8 +101,9 @@ const drink = useSelector(store => store.oneDrink)
                    
                    
                     <CardActions sx={{mt: 2}}>
-                        <Button size="small" onClick={() => history.push(`/savedrecipes/${drink.id}/edit`)}>Edit</Button>
-                        <Button size="small" onClick={ () => deleteFromSaved(drink.id) }>Delete</Button>
+                        <Button size="small" onClick={() => history.push(`/savedrecipes/${drink.recipe_id}/edit`)}>Edit</Button>
+                        <Button size="small" onClick={ () => deleteFromSaved(drink.recipe_id) }>Delete</Button>
+                        <Button size="small" onClick={goToFavorites}>Back</Button>
                     </CardActions>
                 </CardContent>
             </Card>

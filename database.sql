@@ -26,26 +26,35 @@ CREATE TABLE recipes(
 INSERT INTO recipes
 	("name", "description", "image_url", "user_id")
 	VALUES
-	('Mock Mule', 'A non-alcoholic take on a classic', 'insert later', 2);
-	
-INSERT INTO recipes
-	("name", "description", "image_url", "user_id")
-	VALUES
-	('Virgin Mojito', 'Non-alcoholic mojito mocktail', 'insert later', 1),
-	('Shirley Temple', 'Sam''s childhood favorite', 'insert later', 2),
-	('Juicy Julep', 'A simple non-alcoholic version of the popular derby drink', 'insert later', 2);
+	('Mock Mule', 'A non-alcoholic take on a classic', 'images/moscowMule.jpeg', 2),
+	('Virgin Mojito', 'Non-alcoholic mojito mocktail', 'images/mojito.jpg', 1),
+	('Shirley Temple', 'Sam''s childhood favorite', 'images/shirley.jpg', 2),
+	('Juicy Julep', 'A simple non-alcoholic version of the popular derby drink', 'images/mintJulep.jpeg', 2);
 
-INSERT INTO "recipes_line_items"
-  ("recipe_id", "ingredient_id", "quantity")
+--table for ingredients
+CREATE TABLE ingredients (
+  "id" SERIAL PRIMARY KEY,
+  "name" VARCHAR (100) NOT NULL
+  );
+
+--to add data to ingredients
+INSERT INTO "ingredients"
+  ("ingredient_name")
   VALUES
-  (4, 16, '1'),
-  (4, 7, '1 tsp and 1 sprig'),
-  (4, 6, '1 Oz'),  
-  (4, 10, '1'),
-  (4, 8, '1 Oz'),
-  (4, 9, '1 Oz'),
-  (4, 4, ''); --juicy julep
+  ('Lime'), ('Soda Water'), 
+  ('Grapefruit Juice'), ('Ice'), 
+  ('Ginger Beer'), ('Lime Juice');
+
+  INSERT INTO "ingredients"
+  ("ingredient_name")
+  VALUES
+  ('Mint'), ('Orange Juice'), ('Pineapple Juice'), 
+  ('Ginger Ale'), ('Grenadine'), ('Maraschino Cherries'), 
+  ('Lemon-Lime Soda'), ('Simple Syrup'), ('Club Soda'), ('Lime Wedge'),
+  ('Lemon Juice'), ('Perrier L''Orange'), ('Cara Cara Orange');
   
+
+
 
 --recipe line items table
 CREATE TABLE recipes_line_items (
@@ -75,6 +84,18 @@ INSERT INTO "recipes_line_items"
   (3, 13, '8 Oz'),  
   (3, 12, '1'); --shirley temple
 
+  INSERT INTO "recipes_line_items"
+  ("recipe_id", "ingredient_id", "quantity")
+  VALUES
+  (4, 16, '1'),
+  (4, 7, '1 tsp and 1 sprig'),
+  (4, 6, '1 Oz'),  
+  (4, 10, '1'),
+  (4, 8, '1 Oz'),
+  (4, 9, '1 Oz'),
+  (4, 4, ''); --juicy julep
+  
+
 INSERT INTO "recipes_line_items"
   ("recipe_id", "ingredient_id", "quantity")
   VALUES
@@ -84,24 +105,6 @@ INSERT INTO "recipes_line_items"
   (2, 14, '1/2 Oz'),
   (2, 15, '4 Oz'),
   (2, 4, ''); --virgin mojito
-
---table for ingredients
-CREATE TABLE ingredients (
-  "id" SERIAL PRIMARY KEY,
-  "name" VARCHAR (100) NOT NULL
-  );
-
---to add data to ingredients
-INSERT INTO "ingredients"
-  ("name")
-  VALUES
-  ('Lime'), ('Soda Water'), ('Grapefruit Juice'), ('Ice'), ('Ginger Beer');
-
-  INSERT INTO "ingredients"
-  ("name")
-  VALUES
-  ('Mint'), ('Orange Juice'), ('Pineapple Juice'), ('Ginger Ale'), ('Grenadine'), ('Maraschino Cherries'), ('Lemon-Lime Soda'), ('Simple Syrup'), ('Club Soda'), ('Lime Wedge');
-  
 
 --this table keeps tracks of recipes that a user saves to their account
 

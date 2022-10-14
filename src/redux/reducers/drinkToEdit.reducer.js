@@ -1,4 +1,5 @@
 const drinkToEdit = (state = {}, action) =>{
+    console.log(action.payload)
     switch(action.type){
         case 'SET_DRINK_TO_EDIT':
         return action.payload;
@@ -10,10 +11,48 @@ const drinkToEdit = (state = {}, action) =>{
             return {...state, notes: action.payload}
         case 'EDIT_IMAGE_URL':
             return {...state, image_url: action.payload}
-        case 'EDIT_QUANTITY':
-            return {...state, name: action.payload}
-
-        //how do I edit the recipe items?
+        case 'EDIT_QUANTITY1':
+            return {...state,
+                    ingredients: state.ingredients.map(
+                        (ingredient, i) => i === 0 ? {...ingredient, quantity: action.payload}
+                                : ingredient
+                        )
+                    }
+        case 'EDIT_QUANTITY2':
+            return {...state,
+                ingredients: state.ingredients.map(
+                    (ingredient, i) => i === 1 ? {...ingredient, quantity: action.payload}
+                            : ingredient
+                    )
+                }
+        case 'EDIT_QUANTITY3':
+            return {...state,
+                ingredients: state.ingredients.map(
+                    (ingredient, i) => i === 2 ? {...ingredient, quantity: action.payload}
+                            : ingredient
+                    )
+                }
+        case 'EDIT_QUANTITY4':
+            return {...state,
+                ingredients: state.ingredients.map(
+                    (ingredient, i) => i === 3 ? {...ingredient, quantity: action.payload}
+                            : ingredient
+                    )
+                }
+        case 'EDIT_QUANTITY5':
+            return {...state,
+                ingredients: state.ingredients.map(
+                    (ingredient, i) => i === 4 ? {...ingredient, quantity: action.payload}
+                            : ingredient
+                    )
+                }
+        case 'EDIT_QUANTITY6':
+            return {...state,
+                ingredients: state.ingredients.map(
+                    (ingredient, i) => i === 5 ? {...ingredient, quantity: action.payload}
+                            : ingredient
+                    )
+                }
         default:
             return state;
     }

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import './SavedRecipes.css'
 
 //is this for saved recipes and other is explore?
 
@@ -44,13 +47,26 @@ function SavedRecipesList () {
                 )  : (  //if there are saved recipes, render them:
         
                 <>
-                    {savedRecipes.map(recipe =>(
-                        <div key={recipe.id}>
-                            <h2>{recipe.name}</h2>
-                            <img src={recipe.image_url} onClick={() => handleDetailsClick(recipe.id)}></img>
-                        </div>
-                        
-                    ))}
+                {/* <Grid
+                    container
+                    spacing={0}
+                    direction="column"
+                    alignItems="center"
+                    justify="center"
+                    >
+                    <Grid item>
+                        <Typography gutterBottom variant="h3" component="div" className="saved_title">
+                            Favorites
+                        </Typography>
+                    </Grid>
+                </Grid> */}
+                        {savedRecipes.map(recipe =>(
+                            <div key={recipe.id}>
+                                <h2 className="drink_name">{recipe.name}</h2>
+                                <img src={recipe.image_url} onClick={() => handleDetailsClick(recipe.id)}></img>
+                            </div>
+                            
+                        ))}
                 </>
                 )}
             </>
