@@ -153,103 +153,73 @@ function EditDrinkForm () {
                             {...defaultProps}
                             disablePortal
                             id="ingredients"
-                            // onChange={(event, ingredient2) => {
-                            //     console.log(ingredient2);
-                            //     if (ingredient2) {
-                            //     setIngredient2(ingredient2);
-                            //     setIngredientId2(ingredient2.id);
-                            //     setIngredientName2(ingredient2.name);
-                            //     }
-                            // }}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
                 }
+                {drinkToEdit.ingredients &&
                     <div className="side-by-side">
                         <TextField 
-                            id="quantity" 
+                            id="quantity3" 
                             variant="outlined"
                             placeholder="Quantity"
-                            // value={quantity3}
-                        
-                            // onChange={(event) => setQuantity3(event.target.value)}
+                            defaultValue={drinkToEdit.ingredients[2].quantity}
+                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY3', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
                             id="ingredients"
-                            // onChange={(event, ingredient3) => {
-                            //     console.log(ingredient3);
-                            //     if (ingredient3) {
-                            //     setIngredient3(ingredient3);
-                            //     setIngredientId3(ingredient3.id);
-                            //     setIngredientName3(ingredient3.name);
-                            //     }
-                            // }}
                         
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
-
+                }
+                {drinkToEdit.ingredients &&
                     <div className="side-by-side">
                         <TextField 
-                            id="quantity" 
+                            id="quantity4" 
                             variant="outlined"
                             placeholder="Quantity"
-                            // value={quantity4}
-                            // onChange={(event) => setQuantity4(event.target.value)}
+                            defaultValue={drinkToEdit.ingredients[3].quantity}
+                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY4', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
                             id="ingredients"
-                            // onChange={(event, ingredient4) => {
-                            //     console.log(ingredient4);
-                            //     if (ingredient4) {
-                            //     setIngredient4(ingredient4);
-                            //     setIngredientId4(ingredient4.id);
-                            //     setIngredientName4(ingredient4.name);
-                            //     }
-                            // }}
-                        
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
+                }       
+                 {drinkToEdit.ingredients &&
                     <div className="side-by-side">
                         <TextField 
-                            id="quantity" 
+                            id="quantity5" 
                             variant="outlined"
                             placeholder="Quantity"
-                            // value={quantity5}
-                            // onChange={(event) => setQuantity5(event.target.value)}
+                            defaultValue={drinkToEdit.ingredients[4].quantity}
+                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY5', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
                             id="ingredients"
-                            // onChange={(event, ingredient5) => {
-                            //     console.log(ingredient5);
-                            //     if (ingredient5) {
-                            //     setIngredient5(ingredient5);
-                            //     setIngredientId5(ingredient5.id);
-                            //     setIngredientName5(ingredient5.name);
-                            //     }
-                            // }}
-                        
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                         /> 
                     </div>
+                    }
                         <input 
                             className="btn" 
                             type="submit" 

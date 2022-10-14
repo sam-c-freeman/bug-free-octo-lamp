@@ -12,10 +12,47 @@ const drinkToEdit = (state = {}, action) =>{
         case 'EDIT_IMAGE_URL':
             return {...state, image_url: action.payload}
         case 'EDIT_QUANTITY1':
-            return {...state, quantity: action.payload}
+            return {...state,
+                    ingredients: state.ingredients.map(
+                        (ingredient, i) => i === 0 ? {...ingredient, quantity: action.payload}
+                                : ingredient
+                        )
+                    }
         case 'EDIT_QUANTITY2':
-            return {...state, quantity: action.payload}
-        //how do I edit the recipe items?
+            return {...state,
+                ingredients: state.ingredients.map(
+                    (ingredient, i) => i === 1 ? {...ingredient, quantity: action.payload}
+                            : ingredient
+                    )
+                }
+        case 'EDIT_QUANTITY3':
+            return {...state,
+                ingredients: state.ingredients.map(
+                    (ingredient, i) => i === 2 ? {...ingredient, quantity: action.payload}
+                            : ingredient
+                    )
+                }
+        case 'EDIT_QUANTITY4':
+            return {...state,
+                ingredients: state.ingredients.map(
+                    (ingredient, i) => i === 3 ? {...ingredient, quantity: action.payload}
+                            : ingredient
+                    )
+                }
+        case 'EDIT_QUANTITY5':
+            return {...state,
+                ingredients: state.ingredients.map(
+                    (ingredient, i) => i === 4 ? {...ingredient, quantity: action.payload}
+                            : ingredient
+                    )
+                }
+        case 'EDIT_QUANTITY6':
+            return {...state,
+                ingredients: state.ingredients.map(
+                    (ingredient, i) => i === 5 ? {...ingredient, quantity: action.payload}
+                            : ingredient
+                    )
+                }
         default:
             return state;
     }
