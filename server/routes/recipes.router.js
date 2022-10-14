@@ -97,7 +97,8 @@ console.log(generateSelectStatement(req.body.length, userId))
 
 //this saves recipes to favorites list
 router.post('/save', rejectUnauthenticated, (req, res) => {
- const recipeToSave = req.body.drinkId;
+ console.log(req.body)
+  const recipeToSave = req.body.drinkId;
  const user_id = req.user.id;
  const sqlText = `
             INSERT INTO saved_recipes ("user_id", "recipe_id")
@@ -199,7 +200,7 @@ router.get('/:id', (req, res) => {
   const sqlText = 
   `
           SELECT recipes.name, recipes.id, recipes.description, recipes.notes, 
-            recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes_line_items.ingredient_id, ingredients.ingredient_name,recipes_line_items.quantity
+            recipes.image_url, recipes_line_items.id as line_item_id, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes_line_items.ingredient_id, ingredients.ingredient_name,recipes_line_items.quantity
                   FROM recipes_line_items
                   JOIN recipes
                   ON recipes_line_items.recipe_id = recipes.id
@@ -214,7 +215,7 @@ router.get('/:id', (req, res) => {
       // console.log(dbRes.rows[0])
       const {name, description, notes, image_url, recipe_id, user_id} = dbRes.rows[0];
       const recipe = {name, description, notes, image_url, recipe_id, user_id};
-      recipe.ingredients = dbRes.rows.map(ingredient =>  {return({ingredient_name: ingredient.ingredient_name, id: ingredient.ingredient_id, quantity: ingredient.quantity})})
+      recipe.ingredients = dbRes.rows.map(ingredient =>  {return({ingredient_name: ingredient.ingredient_name, id: ingredient.ingredient_id, quantity: ingredient.quantity, line_item_id: ingredient.line_item_id})})
       // console.log(recipe);
       // console.log(ingredients)
       res.send(recipe);
@@ -225,33 +226,51 @@ router.get('/:id', (req, res) => {
 })
 
 
-router.put('/:id', (req, res) => {
+router.put('/:id', rejectUnauthenticated, async (req, res) => {
   // Update one drink
   console.log('PUT /recipes/:id')
-  console.log(req.body)
-  const idToUpdate = req.params.id;
+  // console.log(req.body)
+  const connection = await pool.connect();
+
+  const {id, name, description, notes, image_url, ingredients} = req.body
  
- //updating SQL TEXT.  Need to return ID to also update line items.  Use async/await?
-  const sqlText = `
+ //update SQL TEXT for recipes table
+  const firstSqlText = `
     UPDATE recipes
       SET
         name = $1, 
-        description = $2
-        notes = $3
-        image_url = $3
+        description = $2,
+        notes = $3,
+        image_url = $4
 
       WHERE
-        id = $3
+        id = $5
   `;
-// const sqlValues = [req.body.githubName, req.body.skillLevel, idToUpdate]
-//   pool.query(sqlText, sqlValues)
-//       .then((result) => {
-//           res.sendStatus(200);
-//       })
-//       .catch((error) => {
-//           console.log(`Error making database query ${sqlText}`, error);
-//           res.sendStatus(500);
-//       });
+  const firstSqlValues = [name, description, notes, image_url, id]
+  try{
+    await connection.query('BEGIN');
+    await connection.query(firstSqlText, firstSqlValues)
+    await Promise.all(ingredients.map (ingredient =>{  
+      const updateLineItem = `
+      UPDATE recipes_line_items 
+        SET
+          ingredient_id = $1,
+          quantity = $2
+
+        WHERE id =$3
+    `
+    //I think I need to get line_item ID
+      const lineItemValues = [ingredient.id, ingredient.quantity, ingredient.line_item_id]
+      console.log(lineItemValues)
+      return connection.query(updateLineItem, lineItemValues)
+    }));
+    await connection.query('COMMIT')
+    res.sendStatus(201);
+  } catch (dbErr){
+    console.log('Error in PUT route', dbErr)
+    await connection.query('ROLLBACK');
+    res.sendStatus(500);
+  }
 });
 
 

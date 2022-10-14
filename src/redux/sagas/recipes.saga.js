@@ -33,13 +33,13 @@ function* compareFunction (){
     try {
         const testCupboard = yield axios.get('/api/cupboard');
         const testRecipes = yield axios.get('/api/recipes');
-    //    console.log(testCupboard.data)
-    //    console.log(testRecipes.data)
+       console.log(testCupboard.data)
+       console.log(testRecipes.data)
        
         const cupboardArray = []
         for (let cupboardIngredient of testCupboard.data){
             // console.log(cupboardIngredient.name)
-            cupboardArray.push(cupboardIngredient.name)
+            cupboardArray.push(cupboardIngredient.ingredient_name)
         }
         console.log(cupboardArray); //this gets the ingredients into an array to compare
         

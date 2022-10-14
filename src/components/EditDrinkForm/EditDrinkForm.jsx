@@ -51,9 +51,10 @@ function EditDrinkForm () {
           type: 'UPDATE_DRINK',
           payload: drinkToEdit
         })
-        // history.push(`/savedrecipes/${params.id}`) //where do I want it to go?
+        history.push(`/savedrecipes/${params.id}`) //where do I want it to go?
       }
-    const handleCancel = (e) => {
+  
+      const handleCancel = (e) => {
         e.preventDefault();
         history.push(`/savedrecipes/${params.id}`)
     }
@@ -123,39 +124,39 @@ function EditDrinkForm () {
                             variant="outlined"
                             placeholder="Quantity"
                             defaultValue={drinkToEdit.ingredients[0].quantity || ''}
-                            //changed it to default value and I can type?
                             onChange={(event) => dispatch({type: 'EDIT_QUANTITY1', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
-                            id="ingredients"
-                            // defaultValue={drinkToEdit.ingredients[0].ingredient_name || ''}
-                            // isOptionEqualToValue={(option, value) => option.id === value.id} 
-                        
-                            //not populating the value correctly
-
+                            id="ingredients1"
+                            value={drinkToEdit.ingredients[0] || ''}
+                            isOptionEqualToValue={(option, value) => option.id === value.id} 
+                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT1', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
                  } 
-                 {drinkToEdit.ingredients &&
+                  {drinkToEdit.ingredients &&
                     <div className="side-by-side">
                         <TextField 
                             id="quantity2" 
                             variant="outlined"
                             placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[1].quantity}
+                            defaultValue={drinkToEdit.ingredients[1].quantity || ''}
                             onChange={(event) => dispatch({type: 'EDIT_QUANTITY2', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
-                            id="ingredients"
+                            id="ingredients2"
+                            value={drinkToEdit.ingredients[1] || ''}
+                            isOptionEqualToValue={(option, value) => option.id === value.id} 
+                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT2', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -168,15 +169,17 @@ function EditDrinkForm () {
                             id="quantity3" 
                             variant="outlined"
                             placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[2].quantity}
+                            defaultValue={drinkToEdit.ingredients[2].quantity || ''}
                             onChange={(event) => dispatch({type: 'EDIT_QUANTITY3', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
-                            id="ingredients"
-                        
+                            id="ingredients3"
+                            value={drinkToEdit.ingredients[2] || ''}
+                            isOptionEqualToValue={(option, value) => option.id === value.id} 
+                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT3', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -189,14 +192,17 @@ function EditDrinkForm () {
                             id="quantity4" 
                             variant="outlined"
                             placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[3].quantity}
+                            defaultValue={drinkToEdit.ingredients[3].quantity || ''}
                             onChange={(event) => dispatch({type: 'EDIT_QUANTITY4', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
-                            id="ingredients"
+                            id="ingredients4"
+                            value={drinkToEdit.ingredients[3] || ''}
+                            isOptionEqualToValue={(option, value) => option.id === value.id} 
+                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT4', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
@@ -209,20 +215,23 @@ function EditDrinkForm () {
                             id="quantity5" 
                             variant="outlined"
                             placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[4].quantity}
+                            defaultValue={drinkToEdit.ingredients[4].quantity || ''}
                             onChange={(event) => dispatch({type: 'EDIT_QUANTITY5', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
                             {...defaultProps}
                             disablePortal
-                            id="ingredients"
+                            id="ingredients5"
+                            value={drinkToEdit.ingredients[4] || ''}
+                            isOptionEqualToValue={(option, value) => option.id === value.id} 
+                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT5', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                         /> 
                     </div>
-                    }
+                    } 
                      <div className="side-by-side">
                         <input 
                             className="btn" 
