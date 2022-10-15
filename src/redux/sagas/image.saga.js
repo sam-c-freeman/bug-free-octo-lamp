@@ -24,7 +24,7 @@ function* fetchImage (){
         const length = imageArray.length;
         console.log(length)
         console.log(getImage.data);
-        yield put ({type: 'SET_IMAGE', payload: getImage.data[length-1].image_url});
+        yield put ({type: 'SET_IMAGE', payload: getImage.data[length-1]});
     } catch (error) {
         console.log(error);
         alert('Error fetching image');
