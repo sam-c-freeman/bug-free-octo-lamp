@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, all } from 'redux-saga/effects';
 
 
 
@@ -120,8 +120,12 @@ function* addRecipe (action) {
     console.log(newRecipe);
     try {
         yield axios.post('/api/recipes', newRecipe);
-        yield put ({type: 'FETCH_RECIPES'});
-        yield put({type: 'GET_SAVED_RECIPES'})
+        yield all([
+            put ({type: 'FETCH_RECIPES'}),
+            put({type: 'GET_SAVED_RECIPES'})
+        ])
+        // yield put ({type: 'FETCH_RECIPES'});
+        // yield put({type: 'GET_SAVED_RECIPES'})
     } catch (error) {
         console.log(error);
         alert('Error fetching recipes');
