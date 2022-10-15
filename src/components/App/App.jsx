@@ -128,14 +128,14 @@ function App() {
             >
               <EditDrinkForm />
             </ProtectedRoute>  
-
+{/* 
             <ProtectedRoute
-              // logged in shows upload.  Will put inside other component later
+           
               exact
               path="/upload"
             >
               <Upload />
-            </ProtectedRoute>  
+            </ProtectedRoute>   */}
 
 
 

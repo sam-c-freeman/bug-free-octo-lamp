@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
+import Upload from '../Upload/Upload';
 
 function AddDrinkForm (){
     const ingredients = useSelector(store => store.ingredientsReducer)
@@ -280,6 +281,7 @@ function AddDrinkForm (){
                                 renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                             /> 
                         </div>
+                        <Upload/>
                             <input 
                                 className="btn" 
                                 type="submit" 

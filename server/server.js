@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
+// const {cloudinary } = require('./utils/cloudinary.js');
 
 const app = express();
 
@@ -15,8 +16,14 @@ const ingredientsRouter = require('./routes/ingredients.router.js');
 const uploadRouter = require('./routes/upload.router');
 
 // Body parser middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+//updated this for Cloudinary
+
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({
+  limit: '50mb',
+  extended: true,
+  parameterLimit:50000
+}));
 
 // Passport Session Configuration //
 app.use(sessionMiddleware);
