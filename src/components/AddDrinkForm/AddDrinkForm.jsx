@@ -154,6 +154,7 @@ function AddDrinkForm (){
                             rows={2}
                             style={{backgroundColor: "white"}}
                             sx={{width: 300}} />
+                              <Upload/>
                         {/* <TextField 
                             id="imageURL" 
                             variant="outlined"
@@ -283,7 +284,7 @@ function AddDrinkForm (){
                                 renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                             /> 
                         </div>
-                        <Upload/>
+                        {/* <Upload/> */}
                             <input 
                                 className="btn" 
                                 type="submit" 

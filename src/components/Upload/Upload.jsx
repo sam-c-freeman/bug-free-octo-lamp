@@ -1,6 +1,9 @@
 import './Upload.css'
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import Typography from '@mui/material/Typography';
+
+import Grid from '@mui/material/Grid';
  
 function Upload () {
    const [fileInputState, setFileInputState] = useState('');
@@ -36,19 +39,40 @@ function Upload () {
 } 
  
     return(
-        <div>
-            <h1 id="upload">Upload Image</h1>
+      
+             <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            >
+            <Grid item xs={12}>
+            <Typography gutterBottom variant="h6" component="div" className="upload">
+                Upload Image
+             </Typography>
+             </Grid>
+             <Grid item>
             {/* <form onSubmit={handleSubmitFile} className="form"> */}
                 <input type="file" name="image" onChange={handleFileInputChange}
                 value={fileInputState} className="form_input"></input>
                 <button className="upload_button" type="submit" onClick={handleSubmitFile}>Save</button>
             {/* </form> */}
+            </Grid>
+            <Grid container
+             direction="column"
+             alignItems="center"
+             sx={{mt:1}}
+             justify="center">
             {previewSource && (
                 <img src={previewSource} alt="chosen"
-                style={{height: '300px'}}
+                style={{height: '200px'}}
                 />
             )}
-        </div>
+            </Grid>
+            </Grid>
+        
+       
     )
 }
  
