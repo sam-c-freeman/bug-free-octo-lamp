@@ -108,13 +108,48 @@ const sqlValues = [user_id, recipeToSave];
       })
   });
 
+  //second attempt at getting matches without post route
+  //not working because I don't know how to send multiple IDs
 
 
-//this was my first attempt to get matching recipes but it returns ALL recipes that have been posted.
+  // router.get('/matches', rejectUnauthenticated, async (req, res) => {
+  //   const client = await pool.connect();
+  //   console.log(req.body)
+  //   const idsToGet = req.body
+  //   // console.log(req.user.id)
+  //   try{
+  //       await client.query('BEGIN');
+  //           await Promise.all(idsToGet.map (id =>{
+  //             const getRecipe = `
+  //             SELECT recipes.name, recipes.description, recipes.image_url, recipes.notes, recipes_line_items.ingredient_id, recipes_line_items.quantity, ingredients.ingredient_name 
+  //               FROM recipes
+  //               JOIN recipes_line_items
+  //               ON recipes.id=recipes_line_items.recipe_id
+  //               JOIN ingredients
+  //               on recipes_line_items.ingredient_id=ingredients.id
+  //               WHERE recipes.id=$1;
+  //             `
+  //           return client.query(getRecipe, [id])
+  //   }));
+  //     await client.query('COMMIT')
+  //     res.send(result.rows)
+  //     // console.log(result.rows)
+  //     res.sendStatus(201);
+  //   } catch (error) {
+  //     await client.query('ROLLBACK')
+   
+      
+    
+  //   }
+  // });
+
+
+
 router.get('/matches', rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
   const queryTxt = `
-        SELECT recipes.name, recipes.description, recipes.image_url, recipes.notes, recipes_line_items.ingredient_id, recipes_line_items.quantity, ingredients.ingredient_name 
+        SELECT recipes.name, recipes.description, recipes.image_url, recipes.notes, 
+        recipes_line_items.ingredient_id, recipes_line_items.quantity, ingredients.ingredient_name, recipes.id 
               FROM matching_recipes
               JOIN recipes
               ON matching_recipes.recipe_id=recipes.id
@@ -138,6 +173,7 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
 
 
 //Updated Post route for adding a drink!
+
 router.post('/', rejectUnauthenticated, async (req, res) => {
   const client = await pool.connect();
   const userId = req.user.id

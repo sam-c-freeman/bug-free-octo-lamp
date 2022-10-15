@@ -65,13 +65,30 @@ function* compareFunction (){
         //this gives me the recipe_id of matching recipes.  Will
         //need to create a reducer to hold this data?
   
-        yield put ({type: 'SET_MATCHING_IDS', payload: resultsArray});
+        // yield put ({type: 'SET_MATCHING_IDS', payload: resultsArray});
+        yield all([
+            put ({type: 'SET_MATCHING_IDS', payload: resultsArray}),
+            // put({type: 'FETCH_MATCHES'})
+        ])
         
     } catch (error) {
         console.log(error);
         alert('Error in compare function');
     }
 }
+
+// function* testGetRoute (){
+   
+//     try {
+//         const matches = yield axios.get('/api/recipes/matches');
+//         console.log(.data)
+//         yield put ({type: 'SET_MATCHING_RECIPES', payload: matches.data});
+//     } catch (error) {
+//         console.log(error);
+//         alert('Error setting recipes');
+//     }
+// }
+
 
 function*postMatchingRecipes (action){
     try {
@@ -86,13 +103,17 @@ function*postMatchingRecipes (action){
     }
 }
 
-
+//this currently filters out duplicate recipes.
 function* getMatchingRecipes (){
    
     try {
         const recipes = yield axios.get('/api/recipes/matches');
         console.log(recipes.data)
-        yield put ({type: 'SET_MATCHING_RECIPES', payload: recipes.data});
+        const recipesArray=recipes.data
+        const unique = [...new Map(recipesArray.map((m) => [m.id, m])).values()];
+        console.log(unique);
+
+        yield put ({type: 'SET_MATCHING_RECIPES', payload: unique});
     } catch (error) {
         console.log(error);
         alert('Error setting recipes');
@@ -237,6 +258,7 @@ function* recipesSaga() {
   yield takeLatest('DELETE_SAVED', deleteSaved)
   yield takeLatest('FETCH_DRINK_TO_EDIT', fetchDrinkToEdit);
   yield takeLatest('UPDATE_DRINK', updateDrink);
+//   yield takeLatest('FETCH_MATCHES', testGetRoute)
 }
 
 export default recipesSaga;
