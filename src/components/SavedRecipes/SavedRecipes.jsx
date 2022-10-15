@@ -66,7 +66,8 @@ function SavedRecipesList () {
                                 <img src={recipe.image_url} onClick={() => handleDetailsClick(recipe.id)}></img>
                             </div>
                             
-                        ))}
+                        ))} 
+                        
                 </>
                 )}
             </>
