@@ -11,19 +11,29 @@ function* uploadImage(action){
             url: '/api/upload',
             data: action.payload
         })
-        console.log(image)
-        yield put({
-            type: 'SET_IMAGE',
-            payload: image.data
-          })
+        yield put ({type: 'FETCH_IMAGE'});
     } catch {
         console.log('error in addImage')
     }
 }
 
+function* fetchImage (){
+    try {
+        const getImage = yield axios.get('/api/upload');
+        const imageArray = getImage.data;
+        const length = imageArray.length;
+        console.log(length)
+        console.log(getImage.data);
+        yield put ({type: 'SET_IMAGE', payload: getImage.data[length-1].image_url});
+    } catch (error) {
+        console.log(error);
+        alert('Error fetching image');
+    }
+}
 
 function* imageSaga() {
     yield takeLatest('ADD_IMAGE', uploadImage);
+    yield takeLatest('FETCH_IMAGE', fetchImage)
    
   }
 

@@ -12,6 +12,7 @@ import Upload from '../Upload/Upload';
 
 function AddDrinkForm (){
     const ingredients = useSelector(store => store.ingredientsReducer)
+    const image = useSelector(store => store.imageReducer)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -63,7 +64,8 @@ function AddDrinkForm (){
                 name: name,
                 description: description,
                 notes: notes,
-                image_url: image_url,
+                // image_url: image_url,
+                image_url: image.image_url,
                 ingredients: [
                     {
                         ingredient: ingredient1.id,
@@ -152,14 +154,14 @@ function AddDrinkForm (){
                             rows={2}
                             style={{backgroundColor: "white"}}
                             sx={{width: 300}} />
-                        <TextField 
+                        {/* <TextField 
                             id="imageURL" 
                             variant="outlined"
                             placeholder="Image URL"
                             value={image_url}
                             onChange={(event) => setImage_url(event.target.value)}
                             style={{backgroundColor: "white"}}
-                            sx={{width: 300}} />
+                            sx={{width: 300}} /> */}
                         <div className="side-by-side">
                             <TextField 
                                 id="quantity1" 

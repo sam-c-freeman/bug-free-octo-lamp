@@ -17,17 +17,31 @@ router.post('/', async (req, res) => {
         });
         console.log(uploadResponse);
         res.send(uploadResponse.url);
-        // const queryTxt = `
-        //     INSERT INTO recipes ("image_url")
-        //     VALUES
-        //     ($1);
-        // `
-        // const queryValues= [uploadResponse.url]
-        // pool.query(queryTxt, queryValues)
+        const queryTxt = `
+            INSERT INTO image ("image_url")
+            VALUES
+            ($1);
+        `
+        const queryValues= [uploadResponse.url]
+        pool.query(queryTxt, queryValues)
     } catch (error){
         console.log(error)
         res.sendStatus(500);
     }
+})
+
+router.get('/', (req, res)=> {
+try{
+    const query = `SELECT * FROM "image"`;
+    pool.query(query)
+    .then( result => {
+    res.send(result.rows);
+})
+
+} catch(err) {
+console.log('ERROR:', err);
+res.sendStatus(500)
+}
 })
 
 module.exports = router;
