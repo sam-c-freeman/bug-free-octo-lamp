@@ -27,6 +27,7 @@ import Explore from '../Explore/Explore';
 import DrinkDetails from '../DrinkDetails/DrinkDetails';
 import SavedDrinkDetails from '../SavedDrinkDetails/SavedDrinkDetails';
 import EditDrinkForm from '../EditDrinkForm/EditDrinkForm';
+import Upload from '../Upload/Upload';
 
 import './App.css';
 
@@ -127,6 +128,15 @@ function App() {
             >
               <EditDrinkForm />
             </ProtectedRoute>  
+{/* 
+            <ProtectedRoute
+           
+              exact
+              path="/upload"
+            >
+              <Upload />
+            </ProtectedRoute>   */}
+
 
 
             <ProtectedRoute

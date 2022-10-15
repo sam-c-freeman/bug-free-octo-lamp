@@ -8,9 +8,11 @@ import { useHistory } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
+import Upload from '../Upload/Upload';
 
 function AddDrinkForm (){
     const ingredients = useSelector(store => store.ingredientsReducer)
+    const image = useSelector(store => store.imageReducer)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -62,7 +64,8 @@ function AddDrinkForm (){
                 name: name,
                 description: description,
                 notes: notes,
-                image_url: image_url,
+                // image_url: image_url,
+                image_url: image.image_url,
                 ingredients: [
                     {
                         ingredient: ingredient1.id,
@@ -151,14 +154,15 @@ function AddDrinkForm (){
                             rows={2}
                             style={{backgroundColor: "white"}}
                             sx={{width: 300}} />
-                        <TextField 
+                              <Upload/>
+                        {/* <TextField 
                             id="imageURL" 
                             variant="outlined"
                             placeholder="Image URL"
                             value={image_url}
                             onChange={(event) => setImage_url(event.target.value)}
                             style={{backgroundColor: "white"}}
-                            sx={{width: 300}} />
+                            sx={{width: 300}} /> */}
                         <div className="side-by-side">
                             <TextField 
                                 id="quantity1" 
@@ -280,6 +284,7 @@ function AddDrinkForm (){
                                 renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                             /> 
                         </div>
+                        {/* <Upload/> */}
                             <input 
                                 className="btn" 
                                 type="submit" 
