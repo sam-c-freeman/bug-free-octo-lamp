@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { styled } from "@mui/material/styles";
+import { outlinedInputClasses } from "@mui/material/OutlinedInput";
+import { inputLabelClasses } from "@mui/material/InputLabel";
 
 //import MUI components
 import Typography from '@mui/material/Typography';
@@ -23,6 +26,7 @@ function EditDrinkForm () {
             payload: params.id
         })
         dispatch({ type: 'FETCH_INGREDIENTS' })   
+  
     }, [params.id])
 
     const drinkToEdit = useSelector(store => store.drinkToEdit)
@@ -58,6 +62,13 @@ function EditDrinkForm () {
         e.preventDefault();
         history.push(`/savedrecipes/${params.id}`)
     }
+
+    const StyledTextField = styled(TextField)({
+        [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]: {
+          borderColor: "#B8860B"
+        },
+        
+      });
     
 
     return(
@@ -78,7 +89,7 @@ function EditDrinkForm () {
                     <Typography gutterBottom variant="h4" component="div" className="title" sx={{mt: 2}}>
                                 {drinkToEdit.name}
                     </Typography>
-                    <TextField 
+                    <StyledTextField 
                         id="name" 
                         variant="outlined" 
                         placeholder="Name"
@@ -87,7 +98,7 @@ function EditDrinkForm () {
                         style={{backgroundColor: "white"}}
                         sx={{width: 300}}
                         />
-                    <TextField 
+                    <StyledTextField 
                         id="description" 
                         variant="outlined"
                         placeholder="Description"
@@ -97,7 +108,7 @@ function EditDrinkForm () {
                         rows={2}
                         style={{backgroundColor: "white"}}
                         sx={{width: 300}} />
-                    <TextField 
+                    <StyledTextField 
                         id="notes" 
                         variant="outlined"
                         placeholder="Notes"
@@ -108,7 +119,7 @@ function EditDrinkForm () {
                         rows={2}
                         style={{backgroundColor: "white"}}
                         sx={{width: 300}} />
-                    <TextField 
+                    <StyledTextField 
                         id="imageURL" 
                         variant="outlined"
                         placeholder="Image URL"
@@ -119,7 +130,7 @@ function EditDrinkForm () {
                  
                  {drinkToEdit.ingredients && 
                     <div className="side-by-side">
-                        <TextField 
+                        <StyledTextField 
                             id="quantity1" 
                             variant="outlined"
                             placeholder="Quantity"
@@ -136,13 +147,13 @@ function EditDrinkForm () {
                             onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT1', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
-                            renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                            renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
                  } 
                   {drinkToEdit.ingredients &&
                     <div className="side-by-side">
-                        <TextField 
+                        <StyledTextField 
                             id="quantity2" 
                             variant="outlined"
                             placeholder="Quantity"
@@ -159,13 +170,13 @@ function EditDrinkForm () {
                             onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT2', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
-                            renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                            renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
                 }
                 {drinkToEdit.ingredients &&
                     <div className="side-by-side">
-                        <TextField 
+                        <StyledTextField 
                             id="quantity3" 
                             variant="outlined"
                             placeholder="Quantity"
@@ -182,13 +193,13 @@ function EditDrinkForm () {
                             onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT3', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
-                            renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                            renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
                 }
                 {drinkToEdit.ingredients &&
                     <div className="side-by-side">
-                        <TextField 
+                        <StyledTextField 
                             id="quantity4" 
                             variant="outlined"
                             placeholder="Quantity"
@@ -205,13 +216,13 @@ function EditDrinkForm () {
                             onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT4', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
-                            renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                            renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
                 }       
                  {drinkToEdit.ingredients &&
                     <div className="side-by-side">
-                        <TextField 
+                        <StyledTextField 
                             id="quantity5" 
                             variant="outlined"
                             placeholder="Quantity"
@@ -228,7 +239,7 @@ function EditDrinkForm () {
                             onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT5', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
-                            renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                            renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
                         /> 
                     </div>
                     } 
