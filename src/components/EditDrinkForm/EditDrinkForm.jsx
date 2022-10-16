@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { styled } from "@mui/material/styles";
 import { outlinedInputClasses } from "@mui/material/OutlinedInput";
-import { inputLabelClasses } from "@mui/material/InputLabel";
 
 //import MUI components
 import Typography from '@mui/material/Typography';
