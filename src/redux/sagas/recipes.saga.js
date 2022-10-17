@@ -64,13 +64,12 @@ function* compareFunction (){
         
         //this gives me the recipe_id of matching recipes.  Will
         //need to create a reducer to hold this data?
-    
-
-        // console.log(checker( testRecipes.data[0].ingredient_list , cupboardArray))
-        // console.log(checker( testRecipes.data[1].ingredient_list , cupboardArray))
-
   
-        yield put ({type: 'SET_MATCHING_IDS', payload: resultsArray});
+        // yield put ({type: 'SET_MATCHING_IDS', payload: resultsArray});
+        yield all([
+            put ({type: 'SET_MATCHING_IDS', payload: resultsArray}),
+            // put({type: 'FETCH_MATCHES'})
+        ])
         
     } catch (error) {
         console.log(error);
@@ -78,17 +77,25 @@ function* compareFunction (){
     }
 }
 
+// function* testGetRoute (){
+   
+//     try {
+//         const matches = yield axios.get('/api/recipes/matches');
+//         console.log(.data)
+//         yield put ({type: 'SET_MATCHING_RECIPES', payload: matches.data});
+//     } catch (error) {
+//         console.log(error);
+//         alert('Error setting recipes');
+//     }
+// }
+
+
 function*postMatchingRecipes (action){
     try {
         const idsToGet = action.payload;
         console.log(idsToGet);
-
-        //this step is sending the correct number of IDS but get route is 
-        //getting back the wrong number
-        
-        // const matches = yield axios.get(`/api/recipes/${idsToGet}`);   //changing from this method to send multiple?
         const matches = yield axios.post(`/api/recipes/matches`, idsToGet);
-        // console.log(matches.data)
+        console.log(matches.data)
         yield put ({type: 'GET_MATCHING_RECIPES'});
     } catch (error) {
         console.log(error);
@@ -96,19 +103,22 @@ function*postMatchingRecipes (action){
     }
 }
 
+//this currently filters out duplicate recipes.
+function* getMatchingRecipes (){
+   
+    try {
+        const recipes = yield axios.get('/api/recipes/matches');
+        console.log(recipes.data)
+        const recipesArray=recipes.data
+        const unique = [...new Map(recipesArray.map((m) => [m.id, m])).values()];
+        console.log(unique);
 
-// function* getMatchingRecipes (){
-//     const matchingIdsReducer = useSelector(store => store.recipeReducer);
-//     console.log(matchingIdsReducer);
-//     try {
-//         const recipes = yield axios.get('/api/recipes/matches');
-//         // console.log(recipes.data)
-//         yield put ({type: 'SET_MATCHING_RECIPES', payload: recipes.data});
-//     } catch (error) {
-//         console.log(error);
-//         alert('Error setting recipes');
-//     }
-// }
+        yield put ({type: 'SET_MATCHING_RECIPES', payload: unique});
+    } catch (error) {
+        console.log(error);
+        alert('Error setting recipes');
+    }
+}
 
 function* addRecipe (action) {
     //filtering out unused ingredients and re-assigning to the newRecipe variable
@@ -236,7 +246,7 @@ function* recipesSaga() {
   yield takeLatest('FETCH_CUPBOARD', fetchCupboard);
   yield takeLatest('COMPARE_CUPBOARD_RECIPES', compareFunction);
   yield takeLatest('POST_MATCHING_RECIPES', postMatchingRecipes);
-//   yield takeLatest('TEST_MATCHING_RECIPES', getMatchingRecipes); 
+  yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes); 
   //going to try to edit this one instead.  This didn't work
   yield takeLatest('ADD_RECIPE', addRecipe);
   yield takeLatest('FETCH_DRINK_DETAILS', fetchOneDrink);
@@ -248,6 +258,7 @@ function* recipesSaga() {
   yield takeLatest('DELETE_SAVED', deleteSaved)
   yield takeLatest('FETCH_DRINK_TO_EDIT', fetchDrinkToEdit);
   yield takeLatest('UPDATE_DRINK', updateDrink);
+//   yield takeLatest('FETCH_MATCHES', testGetRoute)
 }
 
 export default recipesSaga;

@@ -37,6 +37,9 @@ function Navigation () {
     const goToFavorites = () =>{
         history.push('/savedrecipes')
     }
+    const goToPantry = () =>{
+        history.push('/cupboard')
+    }
 
     return (
         <Box sx={{ pb: 7 }} ref={ref}>
@@ -85,6 +88,7 @@ function Navigation () {
                         <BottomNavigationAction 
                             label="Pantry"
                             style={{color: "#B8860B"}} 
+                            onClick={goToPantry}
                             value="pantry" 
                             icon={<LocalBarIcon 
                                     style={{color: "#B8860B"}}/>} 

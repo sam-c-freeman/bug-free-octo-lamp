@@ -60,39 +60,30 @@ router.get('/favorites', rejectUnauthenticated, (req, res) => {
 //Need to loop through to post each recipe seperately
 
 
-router.post('/matches', rejectUnauthenticated, (req, res) => {
-console.log(req.user.id)
-let userId = req.user.id
-console.log(req.body)
-const sqlValues = req.body
-sqlValues.unshift(userId);
-
-function generateSelectStatement(numberOfIDs) {
+router.post('/matches', rejectUnauthenticated, async (req, res) => {
+  const client = await pool.connect();
+  console.log(req.body)
+  console.log(req.user.id)
+  const matchesToAdd = req.body;
+  try{
+      await client.query('BEGIN');
+          await Promise.all(matchesToAdd.map (match =>{
+            const insertRecipe = `
+            INSERT INTO "matching_recipes" ("recipe_id", "user_id")
+            VALUES  ($1, $2);
+            `
+          const lineItemValues = [match, req.user.id]
+          return client.query(insertRecipe, lineItemValues)
+  }));
+    await client.query('COMMIT')
+    res.sendStatus(201);
+  } catch (error) {
+    await client.query('ROLLBACK')
+ 
+    
   
+  }});
   
-  let flexibleValues = [];
-  // console.log(numberOfIDs)
-
-  
-  for (let i = 1; i<numberOfIDs +1; i++){
-   flexibleValues.push(`$` + (i + 1) );
-  }
-  //  console.log(flexibleValues)
-return ` INSERT INTO "matching_recipes"
-  ("user_id", "recipe_id") 
-  VALUES
-  ($1, ${flexibleValues} ) ;`
-}
-console.log(generateSelectStatement(req.body.length, userId))
-  pool.query((generateSelectStatement(req.body.length, userId)), sqlValues)
-    .then(result => {
-      res.sendStatus(201);
-    })
-    .catch(err => {
-      console.log('Error getting recipes on server side', err);
-      res.sendStatus(500);
-    })
-});
 
 
 //this saves recipes to favorites list
@@ -117,23 +108,61 @@ const sqlValues = [user_id, recipeToSave];
       })
   });
 
+  //second attempt at getting matches without post route
+  //not working because I don't know how to send multiple IDs
 
 
-//this was my first attempt to get matching recipes but it returns ALL recipes that have been posted.
+  // router.get('/matches', rejectUnauthenticated, async (req, res) => {
+  //   const client = await pool.connect();
+  //   console.log(req.body)
+  //   const idsToGet = req.body
+  //   // console.log(req.user.id)
+  //   try{
+  //       await client.query('BEGIN');
+  //           await Promise.all(idsToGet.map (id =>{
+  //             const getRecipe = `
+  //             SELECT recipes.name, recipes.description, recipes.image_url, recipes.notes, recipes_line_items.ingredient_id, recipes_line_items.quantity, ingredients.ingredient_name 
+  //               FROM recipes
+  //               JOIN recipes_line_items
+  //               ON recipes.id=recipes_line_items.recipe_id
+  //               JOIN ingredients
+  //               on recipes_line_items.ingredient_id=ingredients.id
+  //               WHERE recipes.id=$1;
+  //             `
+  //           return client.query(getRecipe, [id])
+  //   }));
+  //     await client.query('COMMIT')
+  //     res.send(result.rows)
+  //     // console.log(result.rows)
+  //     res.sendStatus(201);
+  //   } catch (error) {
+  //     await client.query('ROLLBACK')
+   
+      
+    
+  //   }
+  // });
+
+
+
 router.get('/matches', rejectUnauthenticated, (req, res) => {
+  const userId = req.user.id;
   const queryTxt = `
-            SELECT recipes.name, recipes.description, recipes_line_items.recipe_id, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.ingredient_name) FROM matching_recipes
-                JOIN recipes
-                ON matching_recipes.recipe_id=recipes.id
-                JOIN recipes_line_items
-                ON recipes.id = recipes_line_items.recipe_id
-                JOIN ingredients
-                ON recipes_line_items.ingredient_id = ingredients.id
-                GROUP BY recipes.name, recipes.description,recipes_line_items.recipe_id, recipes.user_id, recipes.notes;
+        SELECT recipes.name, recipes.description, recipes.image_url, recipes.notes, 
+        recipes_line_items.ingredient_id, recipes_line_items.quantity, ingredients.ingredient_name, recipes.id 
+              FROM matching_recipes
+              JOIN recipes
+              ON matching_recipes.recipe_id=recipes.id
+              JOIN recipes_line_items
+              ON recipes.id=recipes_line_items.id
+              JOIN ingredients
+              on recipes_line_items.ingredient_id=ingredients.id
+              WHERE matching_recipes.user_id=$1;
       `
-  pool.query(queryTxt)
+  pool.query(queryTxt, [userId])
     .then(result => {
       res.send(result.rows);
+      console.log(result.rows)
     })
     .catch(err => {
       console.log('Error getting recipes on server side', err);
@@ -144,6 +173,7 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
 
 
 //Updated Post route for adding a drink!
+
 router.post('/', rejectUnauthenticated, async (req, res) => {
   const client = await pool.connect();
   const userId = req.user.id

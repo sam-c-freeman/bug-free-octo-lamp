@@ -9,6 +9,9 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Upload from '../Upload/Upload';
+import { styled } from "@mui/material/styles";
+import { outlinedInputClasses } from "@mui/material/OutlinedInput";
+
 
 function AddDrinkForm (){
     const ingredients = useSelector(store => store.ingredientsReducer)
@@ -94,6 +97,13 @@ function AddDrinkForm (){
         dispatch(action);
         backToSaved();
       }
+
+      const StyledTextField = styled(TextField)({
+        [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]: {
+          borderColor: "#B8860B"
+        },
+        
+      });
   
     //   const checkEmpty = (event) => {
     //       if(newMovie.title === '' || newMovie.poster === '' || newMovie.description === '' || newMovie.genre === ''){
@@ -125,7 +135,7 @@ function AddDrinkForm (){
                         <Typography gutterBottom variant="h4" component="div" className="title" sx={{mt: 2}}>
                                     Add a Drink 
                         </Typography>
-                        <TextField 
+                        <StyledTextField 
                             id="name" 
                             variant="outlined" 
                             placeholder="Name"
@@ -134,7 +144,7 @@ function AddDrinkForm (){
                             style={{backgroundColor: "white"}}
                             sx={{width: 300}}
                             />
-                        <TextField 
+                        <StyledTextField 
                             id="description" 
                             variant="outlined"
                             placeholder="Description"
@@ -144,7 +154,7 @@ function AddDrinkForm (){
                             rows={2}
                             style={{backgroundColor: "white"}}
                             sx={{width: 300}} />
-                        <TextField 
+                        <StyledTextField 
                             id="notes" 
                             variant="outlined"
                             placeholder="Notes"
@@ -164,7 +174,7 @@ function AddDrinkForm (){
                             style={{backgroundColor: "white"}}
                             sx={{width: 300}} /> */}
                         <div className="side-by-side">
-                            <TextField 
+                            <StyledTextField 
                                 id="quantity1" 
                                 variant="outlined"
                                 placeholder="Quantity"
@@ -184,12 +194,12 @@ function AddDrinkForm (){
                                 // isOptionEqualToValue={(option, value) => option.id === value.id} 
                                 sx={{ width: 196 }}
                                 style={{backgroundColor: "white"}}
-                                renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                                renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
                             />
                         </div>
                     
                         <div className="side-by-side">
-                            <TextField 
+                            <StyledTextField 
                                 id="quantity2" 
                                 variant="outlined"
                                 placeholder="Quantity"
@@ -209,11 +219,11 @@ function AddDrinkForm (){
                                 // isOptionEqualToValue={(option, value) => option.id === value.id} 
                                 sx={{ width: 196 }}
                                 style={{backgroundColor: "white"}}
-                                renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                                renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
                             />
                         </div>
                         <div className="side-by-side">
-                            <TextField 
+                            <StyledTextField 
                                 id="quantity3" 
                                 variant="outlined"
                                 placeholder="Quantity"
@@ -234,12 +244,12 @@ function AddDrinkForm (){
                             
                                 sx={{ width: 196 }}
                                 style={{backgroundColor: "white"}}
-                                renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                                renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
                             />
                         </div>
 
                         <div className="side-by-side">
-                            <TextField 
+                            <StyledTextField 
                                 id="quantity4" 
                                 variant="outlined"
                                 placeholder="Quantity"
@@ -258,11 +268,11 @@ function AddDrinkForm (){
                                 // isOptionEqualToValue={(option, value) => option.id === value.id} 
                                 sx={{ width: 196 }}
                                 style={{backgroundColor: "white"}}
-                                renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                                renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
                             />
                         </div>
                         <div className="side-by-side">
-                            <TextField 
+                            <StyledTextField 
                                 id="quantity5" 
                                 variant="outlined"
                                 placeholder="Quantity"
@@ -281,7 +291,7 @@ function AddDrinkForm (){
                                 // isOptionEqualToValue={(option, value) => option.id === value.id} 
                                 sx={{ width: 196 }}
                                 style={{backgroundColor: "white"}}
-                                renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                                renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
                             /> 
                         </div>
                         {/* <Upload/> */}
