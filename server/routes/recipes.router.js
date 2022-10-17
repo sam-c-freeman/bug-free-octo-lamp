@@ -235,25 +235,32 @@ router.get('/:id', (req, res) => {
   // console.log('In get route for one drink');
   const sqlText = 
   `
-          SELECT recipes.name, recipes.id, recipes.description, recipes.notes, 
-            recipes.image_url, recipes_line_items.id as line_item_id, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes_line_items.ingredient_id, ingredients.ingredient_name,recipes_line_items.quantity
-                  FROM recipes_line_items
-                  JOIN recipes
-                  ON recipes_line_items.recipe_id = recipes.id
-                  JOIN ingredients
-                  ON recipes_line_items.ingredient_id = ingredients.id
-                  WHERE recipes.id = $1;
+  SELECT recipes.name, recipes.id, recipes.description, recipes.notes, 
+  recipes.image_url, recipes_line_items.id as line_item_id, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes_line_items.ingredient_id, saved_recipes.recipe_id as saved_recipe_id, ingredients.ingredient_name,recipes_line_items.quantity
+        FROM recipes_line_items
+        JOIN recipes
+        ON recipes_line_items.recipe_id = recipes.id
+        JOIN ingredients
+        ON recipes_line_items.ingredient_id = ingredients.id
+        LEFT JOIN saved_recipes
+        ON recipes.id = saved_recipes.recipe_id
+        WHERE recipes.id = $1;
   `
   const sqlValues=[req.params.id]
   pool.query(sqlText, sqlValues)
     .then(dbRes => {
       // console.log(dbRes.rows)
-      // console.log(dbRes.rows[0])
-      const {name, description, notes, image_url, recipe_id, user_id} = dbRes.rows[0];
+      console.log(dbRes.rows[0])
+      const {name, description, notes, image_url, recipe_id, user_id, saved_recipe_id} = dbRes.rows[0];
       const recipe = {name, description, notes, image_url, recipe_id, user_id};
       recipe.ingredients = dbRes.rows.map(ingredient =>  {return({ingredient_name: ingredient.ingredient_name, id: ingredient.ingredient_id, quantity: ingredient.quantity, line_item_id: ingredient.line_item_id})})
       // console.log(recipe);
       // console.log(ingredients)
+      if(saved_recipe_id === null){
+        recipe.saved = false
+      } else {
+        recipe.saved=true
+      }
       res.send(recipe);
     })
     .catch(dbErr =>{
