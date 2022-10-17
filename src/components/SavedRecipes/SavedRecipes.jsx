@@ -47,19 +47,7 @@ function SavedRecipesList () {
                 )  : (  //if there are saved recipes, render them:
         
                 <>
-                {/* <Grid
-                    container
-                    spacing={0}
-                    direction="column"
-                    alignItems="center"
-                    justify="center"
-                    >
-                    <Grid item>
-                        <Typography gutterBottom variant="h3" component="div" className="saved_title">
-                            Favorites
-                        </Typography>
-                    </Grid>
-                </Grid> */}
+              
                         {savedRecipes.map(recipe =>(
                             <div key={recipe.id}>
                                 <h2 className="drink_name">{recipe.name}</h2>
