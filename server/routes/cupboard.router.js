@@ -31,6 +31,24 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     })
 });
 
+
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+  const deleteId = (req.params.id)
+  const userId = (req.user.id)
+
+  const queryText = `
+            DELETE FROM cupboard
+                  WHERE cupboard.ingredient_id =$1
+                  AND cupboard.user_id =$2;
+            `;
+  const sqlValues = [deleteId, userId]
+  pool.query(queryText, sqlValues )
+    .then(() => { res.sendStatus(200); })
+    .catch((err) => {
+      console.log('Error completing delete ingredient query', err);
+      res.sendStatus(500);
+    });
+});
 /**
  * POST route template
  */
