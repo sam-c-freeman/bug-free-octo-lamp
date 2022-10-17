@@ -13,11 +13,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
   
   const queryTxt = `
-              SELECT ingredients.ingredient_name, cupboard.user_id FROM cupboard
+              SELECT ingredients.ingredient_name, ingredients.id, cupboard.user_id FROM cupboard
                       JOIN ingredients
                       ON cupboard.ingredient_id = ingredients.id
                       WHERE cupboard.user_id = $1
-                      GROUP by ingredients.ingredient_name, cupboard.user_id
+                      GROUP by ingredients.ingredient_name, ingredients.id, cupboard.user_id
                       ORDER BY cupboard.user_id;
               `
   const sqlValues = [userId];

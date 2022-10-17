@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
@@ -37,14 +39,10 @@ function Cupboard () {
         // dispatch({type: 'FETCH_MATCHES'})
         
     }
-
-    //  const getMatches = () => {
-   
-    //     dispatch({type: 'TEST_MATCHING_RECIPES', payload: matchesList})
-    //     console.log(matchesList);
-        
-    // }
-   
+    
+    const deleteIngredient = (id) => {
+        dispatch({type: 'DELETE_INGREDIENT', payload: id})
+    }
   
     
     return(
@@ -75,7 +73,17 @@ function Cupboard () {
                                 {cupboard.map((ingredient, index) => {
                                     
                                     return(
-                                        <li key={index}>{ingredient.ingredient_name}</li>
+                                        <li key={index}>
+                                           <IconButton 
+                                                aria-label="delete" 
+                                                size="small"
+                                                onClick={() => deleteIngredient(ingredient.id)}>
+                                                    <DeleteIcon fontSize="small" />
+                                            </IconButton>
+                                           {ingredient.ingredient_name}
+                                            
+                                        </li>
+                                        
                                     );
                                 })}
                                 </ul>
