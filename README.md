@@ -14,10 +14,10 @@ Mocktail gives the user the ability to add their own recipes, discover recipes f
 
 ## Screen Shots
 
-<img src="./public/images/HomeMocktail.jpg"/>
-<img src="./public/images/DrinkDetails.jpg"/>
-<img src=".public/images/ExplorePage.jpg"/>
-<img src=".public/images/AddDrinkForm.jpg"/>
+<img src="public/images/HomeMocktail.png"/>
+<img src="/public/images/DrinkDetails.png"/>
+<img src="public/images/ExplorePage.png"/>
+<img src="public/images/AddDrinkForm.png"/>
 
 <!-- ### Prerequisites
 
