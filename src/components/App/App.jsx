@@ -128,15 +128,6 @@ function App() {
             >
               <EditDrinkForm />
             </ProtectedRoute>  
-{/* 
-            <ProtectedRoute
-           
-              exact
-              path="/upload"
-            >
-              <Upload />
-            </ProtectedRoute>   */}
-
 
 
             <ProtectedRoute
@@ -191,7 +182,7 @@ function App() {
               <h1>404</h1>
             </Route>
           </Switch>
-          {/* <Footer /> */}
+        
         <Navigation />
       </div>
     </Router>

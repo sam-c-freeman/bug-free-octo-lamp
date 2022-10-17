@@ -98,8 +98,7 @@ function* fetchDrinkToEdit(action) {
       })
 
       console.log(res.data)
-      // res.data should look like:
-        // { githubName: 'somename', skillLevel: 5 }
+     
       yield put({
         type: 'SET_DRINK_TO_EDIT',
         payload: {

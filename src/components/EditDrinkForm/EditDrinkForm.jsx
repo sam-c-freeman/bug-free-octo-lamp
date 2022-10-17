@@ -126,14 +126,14 @@ function EditDrinkForm () {
                         onChange={(event) => dispatch({type: 'EDIT_IMAGE_URL', payload: event.target.value})}
                         style={{backgroundColor: "white"}}
                         sx={{width: 300}} />
-                 
-                 {drinkToEdit.ingredients && 
-                    <div className="side-by-side">
+                 {drinkToEdit?.ingredients?.map((oneIngredient, i) => (
+               
+                    <div key={oneIngredient.line_item_id} className="side-by-side">
                         <StyledTextField 
                             id="quantity1" 
                             variant="outlined"
                             placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[0].quantity || ''}
+                            defaultValue={oneIngredient.quantity || ''}
                             onChange={(event) => dispatch({type: 'EDIT_QUANTITY1', payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
@@ -141,7 +141,7 @@ function EditDrinkForm () {
                             {...defaultProps}
                             disablePortal
                             id="ingredients1"
-                            value={drinkToEdit.ingredients[0] || ''}
+                            value={oneIngredient || ''}
                             isOptionEqualToValue={(option, value) => option.id === value.id} 
                             onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT1', payload: value})}
                             sx={{ width: 196 }}
@@ -149,99 +149,9 @@ function EditDrinkForm () {
                             renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
-                 } 
-                  {drinkToEdit.ingredients &&
-                    <div className="side-by-side">
-                        <StyledTextField 
-                            id="quantity2" 
-                            variant="outlined"
-                            placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[1].quantity || ''}
-                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY2', payload: event.target.value})}
-                            style={{backgroundColor: "white"}}
-                            sx={{width: 96, marginRight: 1}} />
-                        <Autocomplete
-                            {...defaultProps}
-                            disablePortal
-                            id="ingredients2"
-                            value={drinkToEdit.ingredients[1] || ''}
-                            isOptionEqualToValue={(option, value) => option.id === value.id} 
-                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT2', payload: value})}
-                            sx={{ width: 196 }}
-                            style={{backgroundColor: "white"}}
-                            renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
-                        />
-                    </div>
-                }
-                {drinkToEdit.ingredients &&
-                    <div className="side-by-side">
-                        <StyledTextField 
-                            id="quantity3" 
-                            variant="outlined"
-                            placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[2].quantity || ''}
-                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY3', payload: event.target.value})}
-                            style={{backgroundColor: "white"}}
-                            sx={{width: 96, marginRight: 1}} />
-                        <Autocomplete
-                            {...defaultProps}
-                            disablePortal
-                            id="ingredients3"
-                            value={drinkToEdit.ingredients[2] || ''}
-                            isOptionEqualToValue={(option, value) => option.id === value.id} 
-                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT3', payload: value})}
-                            sx={{ width: 196 }}
-                            style={{backgroundColor: "white"}}
-                            renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
-                        />
-                    </div>
-                }
-                {drinkToEdit.ingredients &&
-                    <div className="side-by-side">
-                        <StyledTextField 
-                            id="quantity4" 
-                            variant="outlined"
-                            placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[3].quantity || ''}
-                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY4', payload: event.target.value})}
-                            style={{backgroundColor: "white"}}
-                            sx={{width: 96, marginRight: 1}} />
-                        <Autocomplete
-                            {...defaultProps}
-                            disablePortal
-                            id="ingredients4"
-                            value={drinkToEdit.ingredients[3] || ''}
-                            isOptionEqualToValue={(option, value) => option.id === value.id} 
-                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT4', payload: value})}
-                            sx={{ width: 196 }}
-                            style={{backgroundColor: "white"}}
-                            renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
-                        />
-                    </div>
-                }       
-                 {drinkToEdit.ingredients &&
-                    <div className="side-by-side">
-                        <StyledTextField 
-                            id="quantity5" 
-                            variant="outlined"
-                            placeholder="Quantity"
-                            defaultValue={drinkToEdit.ingredients[4].quantity || ''}
-                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY5', payload: event.target.value})}
-                            style={{backgroundColor: "white"}}
-                            sx={{width: 96, marginRight: 1}} />
-                        <Autocomplete
-                            {...defaultProps}
-                            disablePortal
-                            id="ingredients5"
-                            value={drinkToEdit.ingredients[4] || ''}
-                            isOptionEqualToValue={(option, value) => option.id === value.id} 
-                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT5', payload: value})}
-                            sx={{ width: 196 }}
-                            style={{backgroundColor: "white"}}
-                            renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
-                        /> 
-                    </div>
-                    } 
+                 ))}
+             
+                 
                      <div className="side-by-side">
                         <input 
                             className="btn" 
