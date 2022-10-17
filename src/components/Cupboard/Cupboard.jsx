@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -21,6 +22,7 @@ import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 
 function Cupboard () {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     // const defaultProps = {
     //     options: ingredients,
@@ -59,6 +61,7 @@ function Cupboard () {
    
         dispatch({type: 'POST_MATCHING_RECIPES', payload: matchesList})
         console.log(matchesList);
+        history.push('/cupboard/recipes')
         // dispatch({type: 'FETCH_MATCHES'})
         
     }

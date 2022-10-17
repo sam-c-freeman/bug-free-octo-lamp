@@ -28,6 +28,8 @@ import DrinkDetails from '../DrinkDetails/DrinkDetails';
 import SavedDrinkDetails from '../SavedDrinkDetails/SavedDrinkDetails';
 import EditDrinkForm from '../EditDrinkForm/EditDrinkForm';
 import Upload from '../Upload/Upload';
+import CupboardRecipes from '../CupboardRecipes/CupboardRecipes';
+import CupboardDetails from '../CupboardDetails/CupboardDetails';
 
 import './App.css';
 
@@ -139,12 +141,30 @@ function App() {
             </ProtectedRoute>
             
             <ProtectedRoute
-              // logged in shows InfoPage else shows LoginPage
+              
               exact
               path="/cupboard"
             >
               <Cupboard />
             </ProtectedRoute>  
+            
+            <ProtectedRoute
+              
+              exact
+              path="/cupboard/recipes"
+            >
+              <CupboardRecipes />
+            </ProtectedRoute>  
+
+            <ProtectedRoute
+              
+              exact
+              path="/cupboard/recipes/:id"
+            >
+              <CupboardDetails />
+            </ProtectedRoute>  
+
+
 
             <ProtectedRoute
               // logged in shows ExplorePage else shows LoginPage
