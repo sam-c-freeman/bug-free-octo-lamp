@@ -236,7 +236,8 @@ router.get('/:id', (req, res) => {
   const sqlText = 
   `
   SELECT recipes.name, recipes.id, recipes.description, recipes.notes, 
-  recipes.image_url, recipes_line_items.id as line_item_id, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes_line_items.ingredient_id, saved_recipes.recipe_id as saved_recipe_id, ingredients.ingredient_name,recipes_line_items.quantity
+  recipes.image_url, recipes_line_items.id as line_item_id, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes_line_items.ingredient_id, 
+  saved_recipes.recipe_id as saved_recipe_id, saved_recipes.user_id as saved_user_id, ingredients.ingredient_name,recipes_line_items.quantity
         FROM recipes_line_items
         JOIN recipes
         ON recipes_line_items.recipe_id = recipes.id
@@ -251,16 +252,17 @@ router.get('/:id', (req, res) => {
     .then(dbRes => {
       // console.log(dbRes.rows)
       console.log(dbRes.rows[0])
-      const {name, description, notes, image_url, recipe_id, user_id, saved_recipe_id} = dbRes.rows[0];
+      const {name, description, notes, image_url, recipe_id, user_id, saved_recipe_id, saved_user_id} = dbRes.rows[0];
       const recipe = {name, description, notes, image_url, recipe_id, user_id};
       recipe.ingredients = dbRes.rows.map(ingredient =>  {return({ingredient_name: ingredient.ingredient_name, id: ingredient.ingredient_id, quantity: ingredient.quantity, line_item_id: ingredient.line_item_id})})
       // console.log(recipe);
       // console.log(ingredients)
       if(saved_recipe_id === null){
         recipe.saved = false
-      } else {
+      } else if(saved_recipe_id && saved_user_id === req.user.id  ) {
         recipe.saved=true
       }
+      // console.log(recipe);
       res.send(recipe);
     })
     .catch(dbErr =>{
