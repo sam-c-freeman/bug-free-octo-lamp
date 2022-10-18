@@ -31,7 +31,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 //this gets favorites
 router.get('/favorites', rejectUnauthenticated, (req, res) => {
-  // console.log(req.user.id)
+
   const sqlValues = [req.user.id]
   const queryTxt = `
             SELECT recipes.name, recipes.id, recipes.description, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.ingredient_name) as recipe, ARRAY_AGG(ingredients.ingredient_name) as ingredient_list FROM saved_recipes
@@ -47,7 +47,7 @@ router.get('/favorites', rejectUnauthenticated, (req, res) => {
   pool.query(queryTxt, sqlValues)
     .then(result => {
       res.send(result.rows);
-      // console.log(result.rows)
+     
     })
     .catch(err => {
       console.log('Error getting favorites on server side', err);
@@ -221,39 +221,48 @@ console.log(req.body);
 });
 
 
-    
-    
-
-
-
-
-
 //attempt at re-doing one drink get route
 
 
 router.get('/:id', (req, res) => {
-  // console.log('In get route for one drink');
+  console.log('In get route for one drink');
+  // const id = req.params.id
+  // console.log(typeof id)
   const sqlText = 
   `
-          SELECT recipes.name, recipes.id, recipes.description, recipes.notes, 
-            recipes.image_url, recipes_line_items.id as line_item_id, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, recipes_line_items.ingredient_id, ingredients.ingredient_name,recipes_line_items.quantity
-                  FROM recipes_line_items
-                  JOIN recipes
-                  ON recipes_line_items.recipe_id = recipes.id
-                  JOIN ingredients
-                  ON recipes_line_items.ingredient_id = ingredients.id
-                  WHERE recipes.id = $1;
+  SELECT recipes.name, recipes.id, recipes.description, recipes.notes, 
+  recipes.image_url, recipes_line_items.id as line_item_id, recipes_line_items.recipe_id, recipes.notes, recipes_line_items.ingredient_id, ingredients.ingredient_name,recipes_line_items.quantity
+        FROM recipes_line_items
+        JOIN recipes
+        ON recipes_line_items.recipe_id = recipes.id
+        JOIN ingredients
+        ON recipes_line_items.ingredient_id = ingredients.id
+        WHERE recipes.id = $1;
   `
   const sqlValues=[req.params.id]
   pool.query(sqlText, sqlValues)
     .then(dbRes => {
       // console.log(dbRes.rows)
       // console.log(dbRes.rows[0])
-      const {name, description, notes, image_url, recipe_id, user_id} = dbRes.rows[0];
-      const recipe = {name, description, notes, image_url, recipe_id, user_id};
+      // const users = dbRes.rows.map (users => {return users.saved_user_id})
+      // console.log(users)
+      // const unique = [...new Set(users)]
+      // console.log(unique)
+      const {name, description, notes, image_url, recipe_id, saved_recipe_id, saved_user_id} = dbRes.rows[0];
+      const recipe = {name, description, notes, image_url, recipe_id, saved_recipe_id, saved_user_id};
       recipe.ingredients = dbRes.rows.map(ingredient =>  {return({ingredient_name: ingredient.ingredient_name, id: ingredient.ingredient_id, quantity: ingredient.quantity, line_item_id: ingredient.line_item_id})})
       // console.log(recipe);
+      // recipe.saved_user_id = req.user.id
+      console.log(recipe)
       // console.log(ingredients)
+      // if(saved_recipe_id === null){
+      //   recipe.saved = false
+      // } else if(saved_recipe_id === Number(req.params.id) && saved_user_id === req.user.id  ) {
+      //   recipe.saved=true
+      // } else {
+      //   recipe.saved=false
+      // }
+      // console.log(recipe);
       res.send(recipe);
     })
     .catch(dbErr =>{

@@ -50,10 +50,25 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 /**
- * POST route template
+ * POST route for adding cupboard ingredients
  */
-router.post('/', (req, res) => {
-  // POST route code here
+router.post('/', rejectUnauthenticated, (req, res) => {
+  // console.log(req.body);
+  const newIngredient = req.body
+  const userId = req.user.id
+  try{
+    const sqlQuery = `
+                INSERT INTO cupboard ("user_id", "ingredient_id")
+                    VALUES
+                   ($1, $2);
+    `
+    const sqlValues = [userId, newIngredient.id]
+    pool.query(sqlQuery, sqlValues)
+    res.sendStatus(201);
+  } catch (error) {
+    console.log('Error adding ingredient on server side', error)
+    res.sendStatus(500);
+  }
 });
 
 module.exports = router;

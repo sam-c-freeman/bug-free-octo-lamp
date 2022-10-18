@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import './AddIngredient.css'
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -18,60 +19,47 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { styled } from "@mui/material/styles";
 import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 
+//to Do:
+//1. Make sure useState is correctly selecting from autocomplete list
+//2. Dispatch to a post route to add to the ingredients to the cupboard table for that user
+//3. Refresh addingredient page on each post 
+//4. Make sure it also fetches when back to cupboard.
+//5. Check if new recipes are added to matches!
 
-
-function Cupboard () {
+function AddIngredient () {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // const defaultProps = {
-    //     options: ingredients,
-    //     getOptionLabel: (newIngredient) => newIngredient.ingredient_name,
-        
-    //   };
+   
 
-    // let [newIngredient, setNewIngredient] = useState({});
+    let [newIngredient, setNewIngredient] = useState({});
 
 
-    const recipesList = useSelector(store => store.recipeReducer);
+   
     const cupboard = useSelector (store => store.cupboardReducer);
-    const matchesList = useSelector(store => store.matchesReducer);
-    const matchingRecipes = useSelector(store => store.matchingRecipes)
     const ingredients = useSelector(store => store.ingredientsReducer)
 
     useEffect(() => {
-      dispatch({ type: 'FETCH_RECIPES' })
-      dispatch({ type: 'FETCH_CUPBOARD' })
-      dispatch({ type: 'COMPARE_CUPBOARD_RECIPES' });
       dispatch({ type: 'FETCH_INGREDIENTS' })
+      dispatch({type: 'FETCH_CUPBOARD'})
   
       
     }, []);
 
-    const StyledTextField = styled(TextField)({
-        [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]: {
-          borderColor: "#B8860B"
-        },
+    const defaultProps = {
+        options: ingredients,
+        getOptionLabel: (newIngredient) => newIngredient.ingredient_name,
         
-      });
+      };
 
 
-    //maybe instead of this do a get route with this info?
-    const getMatches = () => {
-   
-        dispatch({type: 'POST_MATCHING_RECIPES', payload: matchesList})
-        console.log(matchesList);
-        history.push('/cupboard/recipes')
-        // dispatch({type: 'FETCH_MATCHES'})
-        
-    }
-    
-    const deleteIngredient = (id) => {
-        dispatch({type: 'DELETE_INGREDIENT', payload: id})
-    }
-  
     const addIngredients = () => {
-        history.push('/cupboard/ingredients')
+        // console.log(newIngredient)
+        dispatch({type: 'ADD_INGREDIENT', payload: newIngredient})
+    }
+
+    const goBackToCupboard = () => {
+        history.push('/cupboard')
     }
     
     return(
@@ -89,11 +77,21 @@ function Cupboard () {
                     > */}
                    
                     <CardContent>
+                    <Box display="flex" justifyContent="right">
+                        <input 
+                                            className="btn_sizeSm btn" 
+                                            type="submit" 
+                                            name="Back"
+                                            value="Back"
+                                            onClick={goBackToCupboard}
+                                            
+                            />
+                        </Box>
                         <Box
                             display="flex"
                             justifyContent="center">
                             <Typography gutterBottom variant="h4" component="div">
-                                Pantry
+                                Add Ingredients
                             </Typography>
                         </Box>
                         {cupboard ? (
@@ -103,12 +101,12 @@ function Cupboard () {
                                     
                                     return(
                                         <li key={index}>
-                                           <IconButton 
+                                           {/* <IconButton 
                                                 aria-label="delete" 
                                                 size="small"
                                                 onClick={() => deleteIngredient(ingredient.id)}>
                                                     <DeleteIcon fontSize="small" />
-                                            </IconButton>
+                                            </IconButton> */}
                                            {ingredient.ingredient_name}
                                             
                                         </li>
@@ -119,35 +117,30 @@ function Cupboard () {
                                 </>
                             ) : (<span></span>) }
 
-                            {/* <Box>
-                            <Autocomplete
-                                {...defaultProps}
-                                disablePortal
-                                id="ingredients"
-                                onChange={(event, newIngredient) => {
-                                    console.log(newIngredient);
-                                    setNewIngredient(newIngredient);
-                                }}
-                                sx={{ width: 196 }}
-                                style={{backgroundColor: "white"}}
-                                renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
-                            />
-                            </Box> */}
+                       
                 
                         <CardActions sx={{mt: 2}}>
-                        <Box display="flex" justifyContent="center">
+                        <Box display="flex" justifyContent="center" className="side-by-side" >
+                        <Autocomplete
+                                {...defaultProps}
+                                disablePortal
+                                id="ingredient"
+                                onChange={(event, newIngredient) => {
+                                    setNewIngredient(newIngredient);
+                                    console.log(newIngredient)
+                                }}
+                             
+                                isOptionEqualToValue={(option, value) => option.id === value.id} 
+                                sx={{ width: 150 }}
+                                style={{backgroundColor: "white"}}
+                                renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                            />
+                    
                             <input 
-                                        className="btn_sizeSm btn" 
+                                        className="btn_sizeMin btn" 
                                         type="submit" 
                                         name="submit"
-                                        value="Suggest Recipes"
-                                        onClick={getMatches}
-                                        />
-                            <input 
-                                        className="btn_sizeSm btn" 
-                                        type="submit" 
-                                        name="submit"
-                                        value="Add Ingredients"
+                                        value="Add Ingredient"
                                         onClick={addIngredients}
                                         
                         />
@@ -162,6 +155,6 @@ function Cupboard () {
     )
 }
 
-export default Cupboard;
+export default AddIngredient;
 
  

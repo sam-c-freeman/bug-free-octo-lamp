@@ -63,6 +63,8 @@ function DrinkDetails (){
         history.push('/explore')
     }
 
+ 
+
     //the above takes you back to explore page after saving a recipe?  Should I do conditional rendering to change the button 
     //to delete instead?
    
@@ -121,7 +123,10 @@ function DrinkDetails (){
                        
                        
                         <CardActions sx={{mt: 2}} className="card_action">
-                            <Button size="small" onClick={addToFavorites}>Save Recipe</Button>
+                            {drink.saved === false ? 
+                            <Button size="small" onClick={addToFavorites}>Save Recipe</Button> :
+                            <Button size="small" disabled>Favorited</Button> 
+                            }
                             <Button size="small" onClick={goHome}>Back</Button>
                         </CardActions>
                     </CardContent>
