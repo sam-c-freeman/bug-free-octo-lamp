@@ -19,19 +19,20 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { styled } from "@mui/material/styles";
 import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 
-
+//to Do:
+//1. Make sure useState is correctly selecting from autocomplete list
+//2. Dispatch to a post route to add to the ingredients to the cupboard table for that user
+//3. Refresh addingredient page on each post 
+//4. Make sure it also fetches when back to cupboard.
+//5. Check if new recipes are added to matches!
 
 function AddIngredient () {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // const defaultProps = {
-    //     options: ingredients,
-    //     getOptionLabel: (newIngredient) => newIngredient.ingredient_name,
-        
-    //   };
+   
 
-    // let [newIngredient, setNewIngredient] = useState({});
+    let [newIngredient, setNewIngredient] = useState({});
 
 
    
@@ -45,9 +46,16 @@ function AddIngredient () {
       
     }, []);
 
+    const defaultProps = {
+        options: ingredients,
+        getOptionLabel: (newIngredient) => newIngredient.ingredient_name,
+        
+      };
+
 
     const addIngredients = () => {
-
+        // console.log(newIngredient)
+        dispatch({type: 'ADD_INGREDIENT', payload: newIngredient})
     }
 
     const goBackToCupboard = () => {
@@ -83,7 +91,7 @@ function AddIngredient () {
                             display="flex"
                             justifyContent="center">
                             <Typography gutterBottom variant="h4" component="div">
-                                Pantry
+                                Add Ingredients
                             </Typography>
                         </Box>
                         {cupboard ? (
@@ -109,26 +117,27 @@ function AddIngredient () {
                                 </>
                             ) : (<span></span>) }
 
-                            {/* <Box>
-                            <Autocomplete
-                                {...defaultProps}
-                                disablePortal
-                                id="ingredients"
-                                onChange={(event, newIngredient) => {
-                                    console.log(newIngredient);
-                                    setNewIngredient(newIngredient);
-                                }}
-                                sx={{ width: 196 }}
-                                style={{backgroundColor: "white"}}
-                                renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
-                            />
-                            </Box> */}
+                       
                 
                         <CardActions sx={{mt: 2}}>
-                        <Box display="flex" justifyContent="center">
+                        <Box display="flex" justifyContent="center" className="side-by-side" >
+                        <Autocomplete
+                                {...defaultProps}
+                                disablePortal
+                                id="ingredient"
+                                onChange={(event, newIngredient) => {
+                                    setNewIngredient(newIngredient);
+                                    console.log(newIngredient)
+                                }}
+                             
+                                isOptionEqualToValue={(option, value) => option.id === value.id} 
+                                sx={{ width: 150 }}
+                                style={{backgroundColor: "white"}}
+                                renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
+                            />
                     
                             <input 
-                                        className="btn_sizeSm btn" 
+                                        className="btn_sizeMin btn" 
                                         type="submit" 
                                         name="submit"
                                         value="Add Ingredient"

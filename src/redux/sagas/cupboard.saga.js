@@ -105,12 +105,26 @@ function* deleteIngredient (action){
    }
 }
 
+function* addIngredient (action) {
+    //will add new ingredient to user's cupboard!
+    console.log(action.payload)
+    const newIngredient = action.payload
+    try {
+        yield axios.post('/api/cupboard', newIngredient);
+        yield put ({type: 'FETCH_CUPBOARD'})      
+    } catch (error) {
+        console.log(error);
+        alert('Error adding ingredient');
+    }
+}
+
 function* cupboardSaga() {
     yield takeLatest('FETCH_CUPBOARD', fetchCupboard);
     yield takeLatest('COMPARE_CUPBOARD_RECIPES', compareFunction);
     yield takeLatest('POST_MATCHING_RECIPES', postMatchingRecipes);
     yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes); 
     yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
+    yield takeLatest('ADD_INGREDIENT', addIngredient);
 
   
    
