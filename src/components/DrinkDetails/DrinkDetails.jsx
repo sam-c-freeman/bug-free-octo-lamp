@@ -123,11 +123,23 @@ function DrinkDetails (){
                        
                        
                         <CardActions sx={{mt: 2}} className="card_action">
-                            {drink.saved === false ? 
-                            <Button size="small" onClick={addToFavorites}>Save Recipe</Button> :
-                            <Button size="small" disabled>Favorited</Button> 
-                            }
-                            <Button size="small" onClick={goHome}>Back</Button>
+                       
+                         {drink.isSaved === false ? 
+                          <>
+                        <Button size="small" onClick={addToFavorites}>Save Recipe</Button>
+                        <Button size="small" onClick={goHome}>Back</Button>
+                        
+                        </>
+                        :
+                        <>
+                         <Button size="small" disabled>Favorited</Button> 
+                         <Button size="small" onClick={goHome}>Back</Button>
+                        </>
+    }
+                          
+                           
+                        
+                            
                         </CardActions>
                     </CardContent>
                 </Card>
@@ -143,3 +155,6 @@ function DrinkDetails (){
 }
 
 export default DrinkDetails;
+
+
+

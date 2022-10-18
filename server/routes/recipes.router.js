@@ -88,7 +88,7 @@ router.post('/matches', rejectUnauthenticated, async (req, res) => {
 
 //this saves recipes to favorites list
 router.post('/save', rejectUnauthenticated, (req, res) => {
- console.log(req.body)
+//  console.log(req.body)
   const recipeToSave = req.body.drinkId;
  const user_id = req.user.id;
  const sqlText = `
@@ -147,6 +147,7 @@ const sqlValues = [user_id, recipeToSave];
 
 router.get('/matches', rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
+
   const queryTxt = `
         SELECT recipes.name, recipes.description, recipes.image_url, recipes.notes, 
         recipes_line_items.ingredient_id, recipes_line_items.quantity, ingredients.ingredient_name, recipes.id 
@@ -221,8 +222,7 @@ console.log(req.body);
 });
 
 
-//attempt at re-doing one drink get route
-
+//get route for one drink
 
 router.get('/:id', (req, res) => {
   console.log('In get route for one drink');
@@ -231,38 +231,30 @@ router.get('/:id', (req, res) => {
   const sqlText = 
   `
   SELECT recipes.name, recipes.id, recipes.description, recipes.notes, 
-  recipes.image_url, recipes_line_items.id as line_item_id, recipes_line_items.recipe_id, recipes.notes, recipes_line_items.ingredient_id, ingredients.ingredient_name,recipes_line_items.quantity
+  recipes.image_url, recipes_line_items.id as line_item_id, recipes_line_items.recipe_id, recipes.notes, recipes_line_items.ingredient_id, ingredients.ingredient_name,recipes_line_items.quantity, saved_recipes.user_id as saved_user_id, saved_recipes.recipe_id as saved_recipe_id
         FROM recipes_line_items
         JOIN recipes
         ON recipes_line_items.recipe_id = recipes.id
         JOIN ingredients
         ON recipes_line_items.ingredient_id = ingredients.id
-        WHERE recipes.id = $1;
+        LEFT JOIN saved_recipes
+        ON recipes.id = saved_recipes.recipe_id
+        AND saved_recipes.user_id=$1
+        WHERE recipes.id = $2;
   `
-  const sqlValues=[req.params.id]
+  const sqlValues=[req.user.id, req.params.id]
   pool.query(sqlText, sqlValues)
     .then(dbRes => {
-      // console.log(dbRes.rows)
-      // console.log(dbRes.rows[0])
-      // const users = dbRes.rows.map (users => {return users.saved_user_id})
-      // console.log(users)
-      // const unique = [...new Set(users)]
-      // console.log(unique)
-      const {name, description, notes, image_url, recipe_id, saved_recipe_id, saved_user_id} = dbRes.rows[0];
-      const recipe = {name, description, notes, image_url, recipe_id, saved_recipe_id, saved_user_id};
+      console.log(dbRes.rows[0])
+      const {name, description, notes, image_url, recipe_id, saved_user_id } = dbRes.rows[0];
+      const recipe = {name, description, notes, image_url, recipe_id};
       recipe.ingredients = dbRes.rows.map(ingredient =>  {return({ingredient_name: ingredient.ingredient_name, id: ingredient.ingredient_id, quantity: ingredient.quantity, line_item_id: ingredient.line_item_id})})
-      // console.log(recipe);
-      // recipe.saved_user_id = req.user.id
-      console.log(recipe)
-      // console.log(ingredients)
-      // if(saved_recipe_id === null){
-      //   recipe.saved = false
-      // } else if(saved_recipe_id === Number(req.params.id) && saved_user_id === req.user.id  ) {
-      //   recipe.saved=true
-      // } else {
-      //   recipe.saved=false
-      // }
-      // console.log(recipe);
+      recipe.isSaved = false;
+      // IF dbRes.rows[0] does actually contain the user's id, then we populated isSaved with true
+      if(saved_user_id === req.user.id){
+        recipe.isSaved = true;
+      }
+      console.log(recipe);
       res.send(recipe);
     })
     .catch(dbErr =>{
