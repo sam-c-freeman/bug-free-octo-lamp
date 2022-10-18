@@ -61,8 +61,8 @@ function Cupboard () {
    
         dispatch({type: 'POST_MATCHING_RECIPES', payload: matchesList})
         console.log(matchesList);
-        // history.push('/cupboard/recipes')
-        // dispatch({type: 'FETCH_MATCHES'})
+        history.push('/cupboard/recipes')
+        dispatch({type: 'FETCH_MATCHES'})
         
     }
     

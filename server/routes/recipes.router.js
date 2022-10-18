@@ -155,7 +155,7 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
               JOIN recipes
               ON matching_recipes.recipe_id=recipes.id
               JOIN recipes_line_items
-              ON recipes.id=recipes_line_items.id
+              ON recipes.id=recipes_line_items.recipe_id
               JOIN ingredients
               on recipes_line_items.ingredient_id=ingredients.id
               WHERE matching_recipes.user_id=$1;
