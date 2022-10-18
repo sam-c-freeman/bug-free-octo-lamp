@@ -62,12 +62,12 @@ function EditDrinkForm () {
         history.push(`/savedrecipes/${params.id}`)
     }
 
-    const StyledTextField = styled(TextField)({
-        [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]: {
-          borderColor: "#B8860B"
-        },
+    // const StyledTextField = styled(TextField)({
+    //     [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]: {
+    //       borderColor: "#B8860B"
+    //     },
         
-      });
+    //   });
     
 
     return(
@@ -88,7 +88,7 @@ function EditDrinkForm () {
                     <Typography gutterBottom variant="h4" component="div" className="title" sx={{mt: 2}}>
                                 {drinkToEdit.name}
                     </Typography>
-                    <StyledTextField 
+                    <TextField 
                         id="name" 
                         variant="outlined" 
                         placeholder="Name"
@@ -97,7 +97,7 @@ function EditDrinkForm () {
                         style={{backgroundColor: "white"}}
                         sx={{width: 300}}
                         />
-                    <StyledTextField 
+                    <TextField 
                         id="description" 
                         variant="outlined"
                         placeholder="Description"
@@ -107,7 +107,7 @@ function EditDrinkForm () {
                         rows={2}
                         style={{backgroundColor: "white"}}
                         sx={{width: 300}} />
-                    <StyledTextField 
+                    <TextField 
                         id="notes" 
                         variant="outlined"
                         placeholder="Notes"
@@ -118,7 +118,7 @@ function EditDrinkForm () {
                         rows={2}
                         style={{backgroundColor: "white"}}
                         sx={{width: 300}} />
-                    <StyledTextField 
+                    <TextField 
                         id="imageURL" 
                         variant="outlined"
                         placeholder="Image URL"
@@ -129,7 +129,7 @@ function EditDrinkForm () {
                  {drinkToEdit?.ingredients?.map((oneIngredient, i) => (
                
                     <div key={oneIngredient.line_item_id} className="side-by-side">
-                        <StyledTextField 
+                        <TextField 
                             id="quantity1" 
                             variant="outlined"
                             placeholder="Quantity"
@@ -146,7 +146,7 @@ function EditDrinkForm () {
                             onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT1', payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
-                            renderInput={(params) => <StyledTextField {...params} placeholder="Ingredients" />}
+                            renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
                         />
                     </div>
                  ))}
