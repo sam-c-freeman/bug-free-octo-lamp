@@ -31,9 +31,9 @@ function DrinkDetails (){
             type: 'FETCH_DRINK_DETAILS',
             payload: drinkId
         })
-        dispatch ({
-            type: 'GET_SAVED_RECIPES'
-        })
+        // dispatch ({
+        //     type: 'GET_SAVED_RECIPES'
+        // })
         //wondering if I can use the above to do conditional rendering?
         
         
@@ -63,6 +63,11 @@ function DrinkDetails (){
         history.push('/explore')
     }
 
+    // const deleteFromSaved = (id) =>{
+    //     // console.log(id)
+    //     dispatch({type: 'DELETE_SAVED', payload: id})
+    //     dispatch({type: 'FETCH_DRINK_DETAILS'})
+    // } 
  
 
     //the above takes you back to explore page after saving a recipe?  Should I do conditional rendering to change the button 
@@ -123,11 +128,23 @@ function DrinkDetails (){
                        
                        
                         <CardActions sx={{mt: 2}} className="card_action">
-                            {drink.saved === false ? 
-                            <Button size="small" onClick={addToFavorites}>Save Recipe</Button> :
-                            <Button size="small" disabled>Favorited</Button> 
-                            }
-                            <Button size="small" onClick={goHome}>Back</Button>
+                       
+                         {drink.isSaved === false ? 
+                          <>
+                        <Button size="small" onClick={addToFavorites}>Save Recipe</Button>
+                        <Button size="small" onClick={goHome}>Back</Button>
+                        
+                        </>
+                        :
+                        <>
+                         <Button size="small" disabled>Favorited</Button> 
+                         <Button size="small" onClick={goHome}>Back</Button>
+                        </>
+    }
+                          
+                           
+                        
+                            
                         </CardActions>
                     </CardContent>
                 </Card>
@@ -143,3 +160,6 @@ function DrinkDetails (){
 }
 
 export default DrinkDetails;
+
+
+
