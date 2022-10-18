@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import './AddIngredient.css'
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -20,7 +21,7 @@ import { outlinedInputClasses } from "@mui/material/OutlinedInput";
 
 
 
-function Cupboard () {
+function AddIngredient () {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -33,45 +34,24 @@ function Cupboard () {
     // let [newIngredient, setNewIngredient] = useState({});
 
 
-    const recipesList = useSelector(store => store.recipeReducer);
+   
     const cupboard = useSelector (store => store.cupboardReducer);
-    const matchesList = useSelector(store => store.matchesReducer);
-    const matchingRecipes = useSelector(store => store.matchingRecipes)
     const ingredients = useSelector(store => store.ingredientsReducer)
 
     useEffect(() => {
-      dispatch({ type: 'FETCH_RECIPES' })
-      dispatch({ type: 'FETCH_CUPBOARD' })
-      dispatch({ type: 'COMPARE_CUPBOARD_RECIPES' });
       dispatch({ type: 'FETCH_INGREDIENTS' })
+      dispatch({type: 'FETCH_CUPBOARD'})
   
       
     }, []);
 
-    const StyledTextField = styled(TextField)({
-        [`& .${outlinedInputClasses.root}.${outlinedInputClasses.focused} .${outlinedInputClasses.notchedOutline}`]: {
-          borderColor: "#B8860B"
-        },
-        
-      });
 
-
-    //maybe instead of this do a get route with this info?
-    const getMatches = () => {
-   
-        dispatch({type: 'POST_MATCHING_RECIPES', payload: matchesList})
-        console.log(matchesList);
-        history.push('/cupboard/recipes')
-        // dispatch({type: 'FETCH_MATCHES'})
-        
-    }
-    
-    const deleteIngredient = (id) => {
-        dispatch({type: 'DELETE_INGREDIENT', payload: id})
-    }
-  
     const addIngredients = () => {
-        history.push('/cupboard/ingredients')
+
+    }
+
+    const goBackToCupboard = () => {
+        history.push('/cupboard')
     }
     
     return(
@@ -89,6 +69,16 @@ function Cupboard () {
                     > */}
                    
                     <CardContent>
+                    <Box display="flex" justifyContent="right">
+                        <input 
+                                            className="btn_sizeSm btn" 
+                                            type="submit" 
+                                            name="Back"
+                                            value="Back"
+                                            onClick={goBackToCupboard}
+                                            
+                            />
+                        </Box>
                         <Box
                             display="flex"
                             justifyContent="center">
@@ -103,12 +93,12 @@ function Cupboard () {
                                     
                                     return(
                                         <li key={index}>
-                                           <IconButton 
+                                           {/* <IconButton 
                                                 aria-label="delete" 
                                                 size="small"
                                                 onClick={() => deleteIngredient(ingredient.id)}>
                                                     <DeleteIcon fontSize="small" />
-                                            </IconButton>
+                                            </IconButton> */}
                                            {ingredient.ingredient_name}
                                             
                                         </li>
@@ -136,18 +126,12 @@ function Cupboard () {
                 
                         <CardActions sx={{mt: 2}}>
                         <Box display="flex" justifyContent="center">
+                    
                             <input 
                                         className="btn_sizeSm btn" 
                                         type="submit" 
                                         name="submit"
-                                        value="Suggest Recipes"
-                                        onClick={getMatches}
-                                        />
-                            <input 
-                                        className="btn_sizeSm btn" 
-                                        type="submit" 
-                                        name="submit"
-                                        value="Add Ingredients"
+                                        value="Add Ingredient"
                                         onClick={addIngredients}
                                         
                         />
@@ -162,6 +146,6 @@ function Cupboard () {
     )
 }
 
-export default Cupboard;
+export default AddIngredient;
 
  

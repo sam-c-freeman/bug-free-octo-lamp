@@ -221,13 +221,6 @@ console.log(req.body);
 });
 
 
-    
-    
-
-
-
-
-
 //attempt at re-doing one drink get route
 
 
@@ -249,7 +242,7 @@ router.get('/:id', (req, res) => {
   const sqlValues=[req.params.id]
   pool.query(sqlText, sqlValues)
     .then(dbRes => {
-      console.log(dbRes.rows)
+      // console.log(dbRes.rows)
       // console.log(dbRes.rows[0])
       // const users = dbRes.rows.map (users => {return users.saved_user_id})
       // console.log(users)

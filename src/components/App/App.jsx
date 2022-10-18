@@ -30,6 +30,7 @@ import EditDrinkForm from '../EditDrinkForm/EditDrinkForm';
 import Upload from '../Upload/Upload';
 import CupboardRecipes from '../CupboardRecipes/CupboardRecipes';
 import CupboardDetails from '../CupboardDetails/CupboardDetails';
+import AddIngredient from '../AddIngredient/AddIngredient';
 
 import './App.css';
 
@@ -155,6 +156,15 @@ function App() {
             >
               <CupboardRecipes />
             </ProtectedRoute>  
+
+            <ProtectedRoute
+              
+              exact
+              path="/cupboard/ingredients"
+            >
+              <AddIngredient />
+            </ProtectedRoute>  
+
 
             <ProtectedRoute
               
