@@ -59,10 +59,12 @@ function Cupboard () {
     //maybe instead of this do a get route with this info?
     const getMatches = () => {
    
-        dispatch({type: 'POST_MATCHING_RECIPES', payload: matchesList})
-        console.log(matchesList);
-        history.push('/cupboard/recipes')
-        dispatch({type: 'FETCH_MATCHES'})
+        // dispatch({type: 'POST_MATCHING_RECIPES', payload: matchesList})
+        // console.log(matchesList);
+        // history.push('/cupboard/recipes')
+        // dispatch({type: 'FETCH_MATCHES'})
+
+        // will need a new dispatch on cupboard list page to get from matching reducer
         
     }
     

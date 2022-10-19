@@ -137,7 +137,7 @@ function AddIngredient () {
                             />
                     
                             <input 
-                                        className="btn_sizeMin btn" 
+                                        className="btn_sizeMin Add" 
                                         type="submit" 
                                         name="submit"
                                         value="Add Ingredient"
