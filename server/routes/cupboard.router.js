@@ -34,19 +34,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 //get route for matching recipes in cupboard
 router.get('/matches', rejectUnauthenticated, (req, res) => {
+  
+
   // console.log(req.query)
   // console.log(req.query.ids)
   const matchesArray = req.query.ids.split(",")
   // console.log(matchesArray)
   const matchesIds=[]
   for (let match of matchesArray){
-    // matchesIds.push(Number(match))
-    // console.log(Number(match))
+
     matchesIds.push(Number(match))
   }
-
-  console.log('matches IDs:', matchesIds)
-  
   const queryTxt = `
   SELECT recipes.name, recipes.description, recipes.image_url, recipes.notes, 
   recipes_line_items.ingredient_id, recipes_line_items.quantity, ingredients.ingredient_name, recipes.id 
@@ -55,14 +53,41 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
         ON recipes.id=recipes_line_items.recipe_id
         JOIN ingredients
         on recipes_line_items.ingredient_id=ingredients.id
-        WHERE recipes.id IN ($1)
+        WHERE recipes.id = ANY ($1)
               `
-  const sqlValues = [`${matchesIds}`];
-  console.log(`test`, sqlValues)
+  const sqlValues = [matchesIds];
   pool.query(queryTxt, sqlValues)
     .then(result => {
-      console.log(result.rows);
-      res.send(result.rows);
+      console.log('first result', result.rows[0].id);
+      // console.log(result.rows.length);
+      let idArray = [];
+      for(let object of result.rows){
+        // console.log(object.id)
+        idArray.push(object.id)
+      }
+      function onlyUnique(value, index, self) {
+        return self.indexOf(value) === index;
+      }
+      let uniqueIds = idArray.filter(onlyUnique);
+      // console.log(uniqueIds)
+      let numberOfIds = uniqueIds.length;
+
+      let array1 = []
+      let array2 = []
+  
+      for(let i=0; i<uniqueIds.length; i++){
+        for(let j=0; i<result.rows.length; j++){
+          if(uniqueIds[i] === result.rows[j].id){
+            array1.push(result.rows[j])
+          } else {
+            array2.push(result.rows[j])
+          }
+        }
+      }
+
+    console.log('trying to build new array', array1)
+    console.log('trying to build second array', array2)
+      // res.send(result.rows);
     })
     .catch(err => {
       console.log('Error getting recipes on server side', err);

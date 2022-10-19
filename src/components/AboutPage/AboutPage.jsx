@@ -31,53 +31,53 @@ function AboutPage() {
                 </Typography>
                 <ul>
                   <li>
-                <Typography gutterBottom variant="body1" component="div" sx={{mt: 1}}>
+                <Typography gutterBottom variant="body1" component="div">
                    Javascript
                 </Typography>
                   </li> 
                 <li>
-                <Typography gutterBottom variant="body1" component="div" sx={{mt: 1}}>
+                <Typography gutterBottom variant="body1" component="div">
                    React
                 </Typography>
                   </li>
                   <li>
-                <Typography gutterBottom variant="body1" component="div" sx={{mt: 1}}>
+                <Typography gutterBottom variant="body1" component="div">
                    Redux
                 </Typography>
                   </li>
                   <li>
-                <Typography gutterBottom variant="body1" component="div" sx={{mt: 1}}>
+                <Typography gutterBottom variant="body1" component="div">
                    Saga
                 </Typography>
                   </li>
                   <li>
-                <Typography gutterBottom variant="body1" component="div" sx={{mt: 1}}>
+                <Typography gutterBottom variant="body1" component="div">
                    Node.js
                 </Typography>
                   </li>
                   <li>
-                <Typography gutterBottom variant="body1" component="div" sx={{mt: 1}}>
+                <Typography gutterBottom variant="body1" component="div" >
                    Express
                 </Typography>
                   </li>
                   <li>
-                <Typography gutterBottom variant="body1" component="div" sx={{mt: 1}}>
+                <Typography gutterBottom variant="body1" component="div" >
                    PostgreSQL
                 </Typography>
                   </li>
                   <li>
-                <Typography gutterBottom variant="body1" component="div" sx={{mt: 1}}>
+                <Typography gutterBottom variant="body1" component="div">
                    Material UI
                 </Typography>
                   </li>
                   <li>
-                  <Typography gutterBottom variant="body1" component="div" sx={{mt: 1}}>
+                  <Typography gutterBottom variant="body1" component="div">
                     Passport
                   </Typography>
                   
                   </li>
                   <li>
-                <Typography gutterBottom variant="body1" component="div" sx={{mt: 1}}>
+                <Typography gutterBottom variant="body1" component="div" >
                    Cloudinary
                 </Typography>
                   </li>
