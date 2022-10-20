@@ -2,13 +2,11 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-
-//do I need to add reject not-authenticated to this?
-
 const {
     rejectUnauthenticated,
   } = require('../modules/authentication-middleware');
 
+ //this is get route for explore page (all recipes in the app)
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryTxt = `
               SELECT recipes.name, recipes.id, recipes.description, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.ingredient_name) as recipe, ARRAY_AGG(ingredients.ingredient_name) as ingredient_list FROM recipes_line_items
@@ -29,9 +27,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     })
 });
 
-//this gets favorites
-router.get('/favorites', rejectUnauthenticated, (req, res) => {
 
+//this gets favorited recipes
+router.get('/favorites', rejectUnauthenticated, (req, res) => {
   const sqlValues = [req.user.id]
   const queryTxt = `
             SELECT recipes.name, recipes.id, recipes.description, recipes.image_url, recipes_line_items.recipe_id, recipes.user_id, recipes.notes, ARRAY_AGG(recipes_line_items.quantity || ' ' || ingredients.ingredient_name) as recipe, ARRAY_AGG(ingredients.ingredient_name) as ingredient_list FROM saved_recipes
@@ -56,39 +54,10 @@ router.get('/favorites', rejectUnauthenticated, (req, res) => {
 });
 
 
-//Need to get userid and req.body into one array
-//Need to loop through to post each recipe seperately
-
-
-router.post('/matches', rejectUnauthenticated, async (req, res) => {
-  const client = await pool.connect();
-  console.log(req.body)
-  console.log(req.user.id)
-  const matchesToAdd = req.body;
-  try{
-      await client.query('BEGIN');
-          await Promise.all(matchesToAdd.map (match =>{
-            const insertRecipe = `
-            INSERT INTO "matching_recipes" ("recipe_id", "user_id")
-            VALUES  ($1, $2);
-            `
-          const lineItemValues = [match, req.user.id]
-          return client.query(insertRecipe, lineItemValues)
-  }));
-    await client.query('COMMIT')
-    res.sendStatus(201);
-  } catch (error) {
-    await client.query('ROLLBACK')
- 
-    
-  
-  }});
-  
-
-
 //this saves recipes to favorites list
 router.post('/save', rejectUnauthenticated, (req, res) => {
 //  console.log(req.body)
+console.log('checkin route')
   const recipeToSave = req.body.drinkId;
  const user_id = req.user.id;
  const sqlText = `
@@ -108,73 +77,8 @@ const sqlValues = [user_id, recipeToSave];
       })
   });
 
-  //second attempt at getting matches without post route
-  //not working because I don't know how to send multiple IDs
-
-
-  // router.get('/matches', rejectUnauthenticated, async (req, res) => {
-  //   const client = await pool.connect();
-  //   console.log(req.body)
-  //   const idsToGet = req.body
-  //   // console.log(req.user.id)
-  //   try{
-  //       await client.query('BEGIN');
-  //           await Promise.all(idsToGet.map (id =>{
-  //             const getRecipe = `
-  //             SELECT recipes.name, recipes.description, recipes.image_url, recipes.notes, recipes_line_items.ingredient_id, recipes_line_items.quantity, ingredients.ingredient_name 
-  //               FROM recipes
-  //               JOIN recipes_line_items
-  //               ON recipes.id=recipes_line_items.recipe_id
-  //               JOIN ingredients
-  //               on recipes_line_items.ingredient_id=ingredients.id
-  //               WHERE recipes.id=$1;
-  //             `
-  //           return client.query(getRecipe, [id])
-  //   }));
-  //     await client.query('COMMIT')
-  //     res.send(result.rows)
-  //     // console.log(result.rows)
-  //     res.sendStatus(201);
-  //   } catch (error) {
-  //     await client.query('ROLLBACK')
-   
-      
-    
-  //   }
-  // });
-
-
-
-router.get('/matches', rejectUnauthenticated, (req, res) => {
-  const userId = req.user.id;
-
-  const queryTxt = `
-        SELECT recipes.name, recipes.description, recipes.image_url, recipes.notes, 
-        recipes_line_items.ingredient_id, recipes_line_items.quantity, ingredients.ingredient_name, recipes.id 
-              FROM matching_recipes
-              JOIN recipes
-              ON matching_recipes.recipe_id=recipes.id
-              JOIN recipes_line_items
-              ON recipes.id=recipes_line_items.recipe_id
-              JOIN ingredients
-              on recipes_line_items.ingredient_id=ingredients.id
-              WHERE matching_recipes.user_id=$1;
-      `
-  pool.query(queryTxt, [userId])
-    .then(result => {
-      res.send(result.rows);
-      console.log(result.rows)
-    })
-    .catch(err => {
-      console.log('Error getting recipes on server side', err);
-      res.sendStatus(500);
-    })
-});
-
-
 
 //Updated Post route for adding a drink!
-
 router.post('/', rejectUnauthenticated, async (req, res) => {
   const client = await pool.connect();
   const userId = req.user.id
@@ -223,7 +127,6 @@ console.log(req.body);
 
 
 //get route for one drink
-
 router.get('/:id', (req, res) => {
   console.log('In get route for one drink');
   // const id = req.params.id
@@ -263,7 +166,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
-
+//route to edit an individual drink
 router.put('/:id', rejectUnauthenticated, async (req, res) => {
   // Update one drink
   console.log('PUT /recipes/:id')
@@ -312,9 +215,7 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
 });
 
 
-
 //delete route for saved recipe
-
 router.delete('/saved/:id', rejectUnauthenticated, (req, res) => {
   // console.log(req.params.id)
   
