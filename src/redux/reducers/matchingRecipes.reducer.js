@@ -5,6 +5,7 @@ const matchingRecipes = (state = [], action) => {
         default:
           return state;
       }
+      
   }
 
   export default matchingRecipes;

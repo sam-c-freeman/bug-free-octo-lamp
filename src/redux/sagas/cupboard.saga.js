@@ -86,7 +86,10 @@ function* deleteIngredient (action){
    const deleteId = action.payload
    try{
        const deleteIngredient = yield axios.delete(`/api/cupboard/${deleteId}`);
-       yield put({type: 'FETCH_CUPBOARD'})
+       yield all([ 
+                put({type: 'FETCH_CUPBOARD'}),
+                put  ({ type: 'COMPARE_CUPBOARD_RECIPES' })
+       ])
    } catch {
        console.log('error in delete route for ingredients')
    }

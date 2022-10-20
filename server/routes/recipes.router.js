@@ -127,7 +127,7 @@ console.log(req.body);
 
 
 //get route for one drink
-router.get('/:id', (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
   console.log('In get route for one drink');
   // const id = req.params.id
   // console.log(typeof id)
