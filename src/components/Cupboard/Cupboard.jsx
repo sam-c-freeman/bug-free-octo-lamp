@@ -70,6 +70,7 @@ function Cupboard () {
     
     const deleteIngredient = (id) => {
         dispatch({type: 'DELETE_INGREDIENT', payload: id})
+        dispatch({ type: 'COMPARE_CUPBOARD_RECIPES' });
     }
   
     const addIngredients = () => {

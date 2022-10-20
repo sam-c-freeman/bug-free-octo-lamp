@@ -31,9 +31,9 @@ function CupboardDetails (){
             type: 'FETCH_DRINK_DETAILS',
             payload: drinkId
         })
-        dispatch ({
-            type: 'GET_SAVED_RECIPES'
-        })
+        // dispatch ({
+        //     type: 'GET_SAVED_RECIPES'
+        // })
         //wondering if I can use the above to do conditional rendering?
         
         
@@ -123,8 +123,18 @@ function CupboardDetails (){
                        
                         <CardActions sx={{mt: 2}} className="card_action">
                      
-                            <Button size="small" onClick={addToFavorites}>Save Recipe</Button>
-                            <Button size="small" onClick={goHome}>Back</Button>
+                        {drink.isSaved === false ? 
+                          <>
+                        <Button size="small" onClick={addToFavorites}>Save Recipe</Button>
+                        <Button size="small" onClick={goHome}>Back</Button>
+                        
+                        </>
+                        :
+                        <>
+                         <Button size="small" disabled>Favorited</Button> 
+                         <Button size="small" onClick={goHome}>Back</Button>
+                        </>
+    }
                         </CardActions>
                     </CardContent>
                 </Card>
