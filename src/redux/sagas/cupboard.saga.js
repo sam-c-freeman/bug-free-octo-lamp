@@ -74,12 +74,12 @@ function* testFetch (action){
     } else {
         try {
             const recipes = yield axios.get(`${urlQuery}`);
-            // console.log(recipes.data)
+            console.log(recipes.data)
             // const recipesArray=recipes.data
             // const unique = [...new Map(recipesArray.map((m) => [m.id, m])).values()];
             // console.log(unique);
     
-            // yield put ({type: 'SET_MATCHING_RECIPES', payload: unique});
+            yield put ({type: 'SET_MATCHING_RECIPES', payload: recipes.data});
         } catch (error) {
             console.log(error);
             alert('Error setting recipes');
