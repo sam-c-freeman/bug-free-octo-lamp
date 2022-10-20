@@ -21,41 +21,37 @@ function* compareFunction (){
         const testRecipes = yield axios.get('/api/recipes');
        console.log(testCupboard.data)
        console.log(testRecipes.data)
-       
+        
+        //this puts each cupboard item into an array to get it ready to compare to recipe arrays
         const cupboardArray = []
         for (let cupboardIngredient of testCupboard.data){
-            // console.log(cupboardIngredient.name)
             cupboardArray.push(cupboardIngredient.ingredient_name)
         }
         console.log(cupboardArray); //this gets the ingredients into an array to compare
         
 
-
+        //function that will check ingredients vs recipe arrays
         let checker = (arr, target) => target.every(v => arr.includes(v));
         let resultsArray = [];
 
-       
-
+        //if the cupboard has EVERY ingredient needed for a recipe, it will be pushed 
+        //to the results array to send to server
         for(let recipeToCheck of testRecipes.data){
             console.log(recipeToCheck.ingredient_list)
             console.log(recipeToCheck.recipe_id)
-            console.log(checker(cupboardArray, recipeToCheck.ingredient_list))
+            console.log(`recipe ${recipeToCheck.recipe_id} is a match:`, checker(cupboardArray, recipeToCheck.ingredient_list))
             if(checker(cupboardArray, recipeToCheck.ingredient_list) === true){
                 resultsArray.push(recipeToCheck.recipe_id)
             }
             
-        } //this checks the cupboard compared to recipes list
+        }
 
         console.log(resultsArray); 
         
-        //this gives me the recipe_id of matching recipes.  Will
-        //need to create a reducer to hold this data?
-  
-        // yield put ({type: 'SET_MATCHING_IDS', payload: resultsArray});
+        // saves IDs to the reducer so it is ready for get route
         yield all([
             put ({type: 'SET_MATCHING_IDS', payload: resultsArray}),
-            //probably don't need set matching Ids anymore
-            put({type: 'TEST_FETCH_MATCHES', payload: resultsArray})
+            put({type: 'FETCH_MATCHING_RECIPES', payload: resultsArray})
         ])
         
     } catch (error) {
@@ -64,7 +60,8 @@ function* compareFunction (){
     }
 }
 
-function* testFetch (action){
+//route to get matching recipes based on IDs found in compare saga function
+function* fetchMatches (action){
     console.log('test:', action.payload);
     const matches = action.payload
     let urlQuery = `/api/cupboard/matches?ids=${matches}`
@@ -75,10 +72,6 @@ function* testFetch (action){
         try {
             const recipes = yield axios.get(`${urlQuery}`);
             console.log(recipes.data)
-            // const recipesArray=recipes.data
-            // const unique = [...new Map(recipesArray.map((m) => [m.id, m])).values()];
-            // console.log(unique);
-    
             yield put ({type: 'SET_MATCHING_RECIPES', payload: recipes.data});
         } catch (error) {
             console.log(error);
@@ -87,43 +80,7 @@ function* testFetch (action){
     }
 }
 
-    //want ?match1=value& etc.... 
-    //instead url: `/api/recipes/matches?ids=40,3,21`
-    //`${[1,4,5]}`
-
-
-
-//this send matches to the matches table
-function* postMatchingRecipes (action){
-    try {
-        const idsToGet = action.payload;
-        console.log(idsToGet);
-        const matches = yield axios.post(`/api/recipes/matches`, idsToGet);
-        console.log(matches.data)
-        yield put ({type: 'GET_MATCHING_RECIPES'});
-    } catch (error) {
-        console.log(error);
-        alert('Error setting matching recipes');
-    }
-}
-
-//this gets matches and filters out duplicates
-// function* getMatchingRecipes (){
-   
-//     try {
-//         const recipes = yield axios.get('/api/recipes/matches');
-//         console.log(recipes.data)
-//         const recipesArray=recipes.data
-//         const unique = [...new Map(recipesArray.map((m) => [m.id, m])).values()];
-//         console.log(unique);
-
-//         yield put ({type: 'SET_MATCHING_RECIPES', payload: unique});
-//     } catch (error) {
-//         console.log(error);
-//         alert('Error setting recipes');
-//     }
-// }
-
+//delete an ingredient from cupboard feature
 function* deleteIngredient (action){
    console.log(action.payload)
    const deleteId = action.payload
@@ -135,6 +92,7 @@ function* deleteIngredient (action){
    }
 }
 
+//add an ingredient to a user's cupboard
 function* addIngredient (action) {
     //will add new ingredient to user's cupboard!
     console.log(action.payload)
@@ -150,12 +108,10 @@ function* addIngredient (action) {
 
 function* cupboardSaga() {
     yield takeLatest('FETCH_CUPBOARD', fetchCupboard);
-    yield takeLatest('COMPARE_CUPBOARD_RECIPES', compareFunction);
-    yield takeLatest('POST_MATCHING_RECIPES', postMatchingRecipes);
-    // yield takeLatest('GET_MATCHING_RECIPES', getMatchingRecipes); 
+    yield takeLatest('COMPARE_CUPBOARD_RECIPES', compareFunction); 
     yield takeLatest('DELETE_INGREDIENT', deleteIngredient);
     yield takeLatest('ADD_INGREDIENT', addIngredient);
-    yield takeLatest('TEST_FETCH_MATCHES', testFetch);
+    yield takeLatest('FETCH_MATCHING_RECIPES', fetchMatches);
 
   
    

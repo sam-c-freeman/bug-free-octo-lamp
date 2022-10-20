@@ -77,6 +77,7 @@ function* fetchFavorites () {
     }
 }
 
+//this removes a recipe from a user's saved recipes
 function* deleteSaved (action) {
     console.log(action.payload)
     const deleteId = action.payload
@@ -88,7 +89,7 @@ function* deleteSaved (action) {
     }
 }
 
-//this function will update a recipe!
+//this function will get the datat needed to update a recipe!
 function* fetchDrinkToEdit(action) {
     try {
       const drinkId = action.payload;
