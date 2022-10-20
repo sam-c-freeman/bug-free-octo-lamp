@@ -4,7 +4,7 @@ import { put, takeLatest, all } from 'redux-saga/effects';
 
 
 
-
+//fetches all recipes for explore page
 function* fetchRecipes (){
     try {
         const recipes = yield axios.get('/api/recipes');
@@ -16,7 +16,7 @@ function* fetchRecipes (){
     }
 }
 
-
+//route to add a recipe to the app
 function* addRecipe (action) {
     //filtering out unused ingredients and re-assigning to the newRecipe variable
     console.log(action.payload)
@@ -31,17 +31,14 @@ function* addRecipe (action) {
             put ({type: 'FETCH_RECIPES'}),
             put({type: 'GET_SAVED_RECIPES'})
         ])
-        // yield put ({type: 'FETCH_RECIPES'});
-        // yield put({type: 'GET_SAVED_RECIPES'})
     } catch (error) {
         console.log(error);
         alert('Error fetching recipes');
     }
 }
 
+// get one drink from the DB
 function* fetchOneDrink(action) {
-    // get one drink from the DB
-   
     const drinkId = action.payload;
     try {
         const drink = yield axios.get(`/api/recipes/${drinkId}`);
@@ -54,9 +51,10 @@ function* fetchOneDrink(action) {
         
 }
 
+//adds a recipe to the user's favorites
 function* saveToFavorites (action) {
-    try {
-        
+ 
+  try {  
         const recipeToSave = action.payload
         console.log(recipeToSave);
         const saved = yield axios.post('/api/recipes/save', recipeToSave);
@@ -66,6 +64,8 @@ function* saveToFavorites (action) {
         alert('Error setting favorite recipes');
     }
 }
+
+//this gets all of the user's favorite recipes
 function* fetchFavorites () {
     try {
         const favorites = yield axios.get('/api/recipes/favorites');

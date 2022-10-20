@@ -67,21 +67,40 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
         // console.log(object.id)
         idArray.push(object.id)
       }
-      //this filters out duplicate IDs
-      function onlyUnique(value, index, self) {
-        return self.indexOf(value) === index;
-      }
-      let uniqueIds = idArray.filter(onlyUnique);
       
+      //this filters out duplicate IDs
+      let uniqueIds = [...new Set(idArray)]
+    
+
       //this groups result.rows by id
       const group = result.rows.reduce((acc, item) => {
         if (!acc[item.id]) {
           acc[item.id] = [];
         }
-      
+        
         acc[item.id].push(item);
         return acc;
       }, {})
+      //example of what this does:
+      /* 
+        {
+          '1': [
+            {
+            name: 'Mock Mule',
+            description: 'A non-alcoholic take on a classic",
+            notes: null,
+            ingredient-id: 4,
+            quantity: '1 1/2 Cup',
+            ingredient-name: 'Ice,
+            id: 1
+          },
+            <--------repeats for each ingredient object
+          ],
+          '40': [
+             <-------- all of the ingredient objects for recipe with ID of 40
+          ]
+        }
+      */
 
       //ths makes new recipe objects out of the data and gets them ready to send to client
       let recipes = []
