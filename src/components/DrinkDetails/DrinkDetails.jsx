@@ -60,6 +60,8 @@ function DrinkDetails (){
             }
         }
         dispatch(action);
+        //need to figure out why this is presenting it from re-rendering twice?
+        dispatch(action);
         dispatch ({
             type: 'FETCH_DRINK_DETAILS',
             payload: drinkId
