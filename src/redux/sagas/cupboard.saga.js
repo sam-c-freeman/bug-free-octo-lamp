@@ -67,7 +67,8 @@ function* fetchMatches (action){
     let urlQuery = `/api/cupboard/matches?ids=${matches}`
 
     if(matches[0] === undefined){
-        return;
+        //possible solution but it breaks the recipe list
+        yield put ({type: 'SET_MATCHING_RECIPES', payload: []});;
     } else {
         try {
             const recipes = yield axios.get(`${urlQuery}`);
