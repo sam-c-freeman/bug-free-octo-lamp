@@ -240,7 +240,8 @@ router.get('/:id', (req, res) => {
         LEFT JOIN saved_recipes
         ON recipes.id = saved_recipes.recipe_id
         AND saved_recipes.user_id=$1
-        WHERE recipes.id = $2;
+        WHERE recipes.id = $2
+;
   `
   const sqlValues=[req.user.id, req.params.id]
   pool.query(sqlText, sqlValues)
