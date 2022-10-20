@@ -73,10 +73,6 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
       // console.log(uniqueIds)
       let numberOfIds = uniqueIds.length;
 
-  
-
-      // let array1 = []
-      // let array2 = []
 
       const group = result.rows.reduce((acc, item) => {
         if (!acc[item.id]) {
