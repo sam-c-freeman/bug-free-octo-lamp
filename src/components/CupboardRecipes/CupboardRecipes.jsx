@@ -9,7 +9,7 @@ function CupboardRecipes () {
     const dispatch = useDispatch();
     const history = useHistory();
     useEffect(() => {
-        dispatch({ type: 'GET_MATCHING_RECIPES' })
+        // dispatch({ type: 'GET_MATCHING_RECIPES' })
   
       }, []);
 

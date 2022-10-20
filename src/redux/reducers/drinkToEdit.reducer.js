@@ -11,21 +11,21 @@ const drinkToEdit = (state = {}, action) =>{
             return {...state, notes: action.payload}
         case 'EDIT_IMAGE_URL':
             return {...state, image_url: action.payload}
-        case 'EDIT_QUANTITY1':
+        case 'EDIT_QUANTITY0':
             return {...state,
                     ingredients: state.ingredients.map(
                         (ingredient, i) => i === 0 ? {...ingredient, quantity: action.payload}
                                 : ingredient
                         )
                     }
-        case 'EDIT_INGREDIENT1':
+        case 'EDIT_INGREDIENT0':
             return {...state,
                     ingredients: state.ingredients.map(
                         (ingredient, i) => i === 0 ? {...ingredient, ingredient_name: action.payload.ingredient_name, id: action.payload.id}
                                 : ingredient
                         )
                     }
-        case 'EDIT_QUANTITY2':
+        case 'EDIT_QUANTITY1':
             return {...state,
                 ingredients: state.ingredients.map(
                     (ingredient, i) => i === 1 ? {...ingredient, quantity: action.payload}
@@ -33,49 +33,49 @@ const drinkToEdit = (state = {}, action) =>{
                     )
                 }
 
-        case 'EDIT_INGREDIENT2':
+        case 'EDIT_INGREDIENT1':
             return {...state,
                     ingredients: state.ingredients.map(
                         (ingredient, i) => i === 1 ? {...ingredient, ingredient_name: action.payload.ingredient_name, id: action.payload.id}
                                 : ingredient
                         )
                     }
-        case 'EDIT_QUANTITY3':
+        case 'EDIT_QUANTITY2':
             return {...state,
                 ingredients: state.ingredients.map(
                     (ingredient, i) => i === 2 ? {...ingredient, quantity: action.payload}
                             : ingredient
                     )
                 }
-        case 'EDIT_INGREDIENT3':
+        case 'EDIT_INGREDIENT2':
             return {...state,
                     ingredients: state.ingredients.map(
                         (ingredient, i) => i === 2 ? {...ingredient, ingredient_name: action.payload.ingredient_name, id: action.payload.id}
                                 : ingredient
                         )
                     }
-        case 'EDIT_QUANTITY4':
+        case 'EDIT_QUANTITY3':
             return {...state,
                 ingredients: state.ingredients.map(
                     (ingredient, i) => i === 3 ? {...ingredient, quantity: action.payload}
                             : ingredient
                     )
                 }
-        case 'EDIT_INGREDIENT4':
+        case 'EDIT_INGREDIENT3':
             return {...state,
                     ingredients: state.ingredients.map(
                         (ingredient, i) => i === 3 ? {...ingredient, ingredient_name: action.payload.ingredient_name, id: action.payload.id}
                                 : ingredient
                         )
                     }
-        case 'EDIT_QUANTITY5':
+        case 'EDIT_QUANTITY4':
             return {...state,
                 ingredients: state.ingredients.map(
                     (ingredient, i) => i === 4 ? {...ingredient, quantity: action.payload}
                             : ingredient
                     )
                 }
-        case 'EDIT_INGREDIENT5':
+        case 'EDIT_INGREDIENT4':
             return {...state,
                     ingredients: state.ingredients.map(
                         (ingredient, i) => i === 4 ? {...ingredient, ingredient_name: action.payload.ingredient_name, id: action.payload.id}

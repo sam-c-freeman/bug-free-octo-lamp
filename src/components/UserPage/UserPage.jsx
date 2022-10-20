@@ -29,7 +29,8 @@ function UserPage() {
             container
             direction="column"
             justify="center"
-            alignItems="center" 
+            alignItems="center"
+            sx={{mt: 3}} 
             xs={12}>
               <img src="images/cocktailhome.jpg"></img>
             </Grid>

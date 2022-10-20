@@ -72,14 +72,6 @@ function App() {
               <UserPage />
             </ProtectedRoute>
 
-            <ProtectedRoute
-              // logged in shows InfoPage else shows LoginPage
-              exact
-              path="/info"
-            >
-              <InfoPage />
-            </ProtectedRoute>
-
             <Route
               exact
               path="/login"
@@ -209,7 +201,7 @@ function App() {
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route>
-              <h1>404</h1>
+              <h1 className="ErrorMessage">404</h1>
             </Route>
           </Switch>
         

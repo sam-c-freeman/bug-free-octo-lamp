@@ -134,7 +134,7 @@ function EditDrinkForm () {
                             variant="outlined"
                             placeholder="Quantity"
                             defaultValue={oneIngredient.quantity || ''}
-                            onChange={(event) => dispatch({type: 'EDIT_QUANTITY1', payload: event.target.value})}
+                            onChange={(event) => dispatch({type: `EDIT_QUANTITY${i}`, payload: event.target.value})}
                             style={{backgroundColor: "white"}}
                             sx={{width: 96, marginRight: 1}} />
                         <Autocomplete
@@ -143,7 +143,7 @@ function EditDrinkForm () {
                             id="ingredients1"
                             value={oneIngredient || ''}
                             isOptionEqualToValue={(option, value) => option.id === value.id} 
-                            onChange={(event, value) => dispatch({type: 'EDIT_INGREDIENT1', payload: value})}
+                            onChange={(event, value) => dispatch({type: `EDIT_INGREDIENT${i}`, payload: value})}
                             sx={{ width: 196 }}
                             style={{backgroundColor: "white"}}
                             renderInput={(params) => <TextField {...params} placeholder="Ingredients" />}
