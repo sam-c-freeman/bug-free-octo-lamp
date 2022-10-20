@@ -9,7 +9,10 @@ const {
     rejectUnauthenticated,
   } = require('../modules/authentication-middleware');
 
-router.get('/', rejectUnauthenticated, (req, res) => {
+
+  //this get route gets all cupboard ingredients by user for use in the pantry/suggest 
+  //recipes feature
+  router.get('/', rejectUnauthenticated, (req, res) => {
   const userId = req.user.id;
   
   const queryTxt = `
@@ -34,15 +37,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 //get route for matching recipes in cupboard
 router.get('/matches', rejectUnauthenticated, (req, res) => {
-  
-
-  // console.log(req.query)
   // console.log(req.query.ids)
+  
+  //this gets the ids into a format that I can use in query
   const matchesArray = req.query.ids.split(",")
-  // console.log(matchesArray)
   const matchesIds=[]
   for (let match of matchesArray){
-
     matchesIds.push(Number(match))
   }
   const queryTxt = `
@@ -60,42 +60,49 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
   pool.query(queryTxt, sqlValues)
     .then(result => {
       // console.log(result.rows);
-      // console.log(result.rows.length);
+
+      //this pulls all recipe IDs from the result.rows
       let idArray = [];
       for(let object of result.rows){
         // console.log(object.id)
         idArray.push(object.id)
       }
-      function onlyUnique(value, index, self) {
-        return self.indexOf(value) === index;
-      }
-      let uniqueIds = idArray.filter(onlyUnique);
-      // console.log(uniqueIds)
-      let numberOfIds = uniqueIds.length;
+      
+      //this filters out duplicate IDs
+      let uniqueIds = [...new Set(idArray)]
+    
 
-
+      //this groups result.rows by id
       const group = result.rows.reduce((acc, item) => {
         if (!acc[item.id]) {
           acc[item.id] = [];
         }
-      
+        
         acc[item.id].push(item);
         return acc;
       }, {})
-      
-      // console.log(group);
-      // console.log('this is first group', group[uniqueIds[0]])
-      
-      // console.log('is this on?', firstRecipe[0].name)
-      // console.log('this is second group', group[uniqueIds[1]])
+      //example of what this does:
+      /* 
+        {
+          '1': [
+            {
+            name: 'Mock Mule',
+            description: 'A non-alcoholic take on a classic",
+            notes: null,
+            ingredient-id: 4,
+            quantity: '1 1/2 Cup',
+            ingredient-name: 'Ice,
+            id: 1
+          },
+            <--------repeats for each ingredient object
+          ],
+          '40': [
+             <-------- all of the ingredient objects for recipe with ID of 40
+          ]
+        }
+      */
 
-      // const firstRecipe = group[uniqueIds[0]]
-      // const{name, description, image_url, notes} = firstRecipe[0]
-      // const recipe1 = {name, description, image_url, notes}
-      // recipe1.ingredients = firstRecipe.map(ingredient =>  {return({ingredient_name: ingredient.ingredient_name, id: ingredient.ingredient_id, quantity: ingredient.quantity})})
-      // console.log(recipe1)
-
-
+      //ths makes new recipe objects out of the data and gets them ready to send to client
       let recipes = []
       for(let i=0; i<uniqueIds.length; i++){
         let recipe = group[uniqueIds[i]]
@@ -105,10 +112,7 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
         // console.log(recipeStepTwo)
         recipes.push(recipeStepTwo)
       }
-
-      console.log('is this on?', recipes)
-    
-   
+      //sending back to client here
       res.send(recipes);
     })
     .catch(err => {
@@ -117,7 +121,7 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
     })
 });
 
-
+//deletes a recipe from the saved recipes table
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const deleteId = (req.params.id)
   const userId = (req.user.id)
@@ -135,6 +139,8 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
+
 /**
  * POST route for adding cupboard ingredients
  */

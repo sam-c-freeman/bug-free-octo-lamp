@@ -60,14 +60,22 @@ function DrinkDetails (){
             }
         }
         dispatch(action);
-        history.push('/explore')
+        //need to figure out why this is presenting it from re-rendering twice?
+        dispatch(action);
+        dispatch ({
+            type: 'FETCH_DRINK_DETAILS',
+            payload: drinkId
+        })
+        
+        // history.push('/explore')
     }
 
-    // const deleteFromSaved = (id) =>{
-    //     // console.log(id)
-    //     dispatch({type: 'DELETE_SAVED', payload: id})
-    //     dispatch({type: 'FETCH_DRINK_DETAILS'})
-    // } 
+    const deleteFromSaved = (id) =>{
+        console.log(id)
+        dispatch({type: 'DELETE_SAVED', payload: id})
+        
+        dispatch({type: 'FETCH_DRINK_DETAILS', payload: id})
+    } 
  
 
     //the above takes you back to explore page after saving a recipe?  Should I do conditional rendering to change the button 
@@ -137,7 +145,7 @@ function DrinkDetails (){
                         </>
                         :
                         <>
-                         <Button size="small" disabled>Favorited</Button> 
+                         <Button size="small" color="warning" onClick={() => deleteFromSaved(drink.recipe_id)}>Remove</Button> 
                          <Button size="small" onClick={goHome}>Back</Button>
                         </>
     }

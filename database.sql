@@ -1,8 +1,5 @@
+--Create a new account to get started after using this code to make your local database!
 
--- USER is a reserved keyword with Postgres
--- You must use double quotes in every query that user is in:
--- ex. SELECT * FROM "user";
--- Otherwise you will have errors!
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
@@ -14,7 +11,8 @@ CREATE TABLE "user" (
 CREATE TABLE recipes(
   "id" SERIAL PRIMARY KEY,
   "name" VARCHAR(120) NOT NULL,
-  "description" VARCHAR (1000) NOT NULL,
+  "notes" VARCHAR(1000) DEFAULT NULL,
+  "description" VARCHAR (1000) DEFAULT NULL,
   "image_url" VARCHAR,
   "likes" INTEGER default 0,
   "user_id" INTEGER REFERENCES "user",
@@ -22,19 +20,20 @@ CREATE TABLE recipes(
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now()
   
 );
+
 --some recipes for the above table
 INSERT INTO recipes
-	("name", "description", "image_url", "user_id")
+	("name", "notes", "description", "image_url", "user_id")
 	VALUES
-	('Mock Mule', 'A non-alcoholic take on a classic', 'images/moscowMule.jpeg', 2),
-	('Virgin Mojito', 'Non-alcoholic mojito mocktail', 'images/mojito.jpg', 1),
-	('Shirley Temple', 'Sam''s childhood favorite', 'images/shirley.jpg', 2),
-	('Juicy Julep', 'A simple non-alcoholic version of the popular derby drink', 'images/mintJulep.jpeg', 2);
+	('Mock Mule', null,  'A non-alcoholic take on a classic', 'images/moscowMule.jpeg', 1),
+	('Virgin Mojito', null, 'Non-alcoholic mojito mocktail', 'images/mojito.jpg', 1),
+	('Shirley Temple', null, 'Sam''s childhood favorite', 'images/shirley.jpg', 1),
+	('Juicy Julep', null, 'A simple non-alcoholic version of the popular derby drink', 'images/mintJulep.jpeg', 1);
 
 --table for ingredients
 CREATE TABLE ingredients (
   "id" SERIAL PRIMARY KEY,
-  "name" VARCHAR (100) NOT NULL
+  "ingredient_name" VARCHAR (100) NOT NULL
   );
 
 --to add data to ingredients
@@ -108,7 +107,6 @@ INSERT INTO "recipes_line_items"
   (2, 4, ''); --virgin mojito
 
 --this table keeps tracks of recipes that a user saves to their account
-
 CREATE TABLE "saved_recipes" (
   "id" SERIAL PRIMARY KEY,
   "user_id" INTEGER REFERENCES "user",
@@ -116,18 +114,14 @@ CREATE TABLE "saved_recipes" (
 );
 
 
-
-
-
-
-
-
-
-
-
---this table is for my stretch goal of storing a user's ingredients at home and then suggesting recipes
+--this table is for storing a user's ingredients at home and then suggesting recipes
 CREATE TABLE "cupboard" (
   "id" SERIAL PRIMARY KEY,
   "user_id" INTEGER REFERENCES "user",
   "ingredient_id" INTEGER REFERENCES ingredients
 );
+
+
+DROP table recipes_line_items;
+DROP table saved_recipes;
+DROP table recipes;

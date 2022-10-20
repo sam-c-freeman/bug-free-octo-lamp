@@ -7,7 +7,7 @@ router.use(express.json({limit: '50mb'}));
 router.use(express.urlencoded({limit: '50mb', extended: true}))
 
 
-
+//this uploads an image to cloudinary
 router.post('/', async (req, res) => {
     try{
         const fileStr = req.body.new_image_url;
@@ -30,6 +30,7 @@ router.post('/', async (req, res) => {
     }
 })
 
+//this gets the image back from the image table to use in the add recipe saga
 router.get('/', (req, res)=> {
 try{
     const query = `SELECT * FROM "image"`;

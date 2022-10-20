@@ -27,7 +27,8 @@ function CupboardRecipes () {
         
     
 
-    <>
+    <>  
+     
         {matchingRecipes.length === 0 ? (
             <>
                 <Stack alignItems="center" spacing={2}>
@@ -62,7 +63,8 @@ function CupboardRecipes () {
             
         ))}
      </>
-    )}
+    )}  
+
 </>
 )
 }
