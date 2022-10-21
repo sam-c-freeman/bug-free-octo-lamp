@@ -52,7 +52,7 @@ function DrinkDetails (){
         history.push('/explore');
     }
 
-    const addToFavorites = () => {
+    const addToFavorites = (drinkId) => {
         const action = {
             type: 'SAVE_RECIPE',
             payload: {
@@ -131,7 +131,7 @@ function DrinkDetails (){
                        
                          {drink.isSaved === false ? 
                           <>
-                        <Button size="small" onClick={addToFavorites}>Save Recipe</Button>
+                        <Button size="small" onClick={() => addToFavorites(drinkId)}>Save Recipe</Button>
                         <Button size="small" onClick={goHome}>Back</Button>
                         
                         </>

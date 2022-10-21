@@ -130,7 +130,7 @@ console.log(req.body);
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   console.log('In get route for one drink');
   // const id = req.params.id
-  // console.log(typeof id)
+  console.log(req.params)
   const sqlText = 
   `
   SELECT recipes.name, recipes.id, recipes.description, recipes.notes, 

@@ -40,6 +40,7 @@ function* addRecipe (action) {
 // get one drink from the DB
 function* fetchOneDrink(action) {
     const drinkId = action.payload;
+    console.log('checking for object', drinkId)
     try {
         const drink = yield axios.get(`/api/recipes/${drinkId}`);
         console.log(drink.data);
@@ -57,12 +58,10 @@ function* saveToFavorites (action) {
  
   try {  
         const recipeToSave = action.payload
-        console.log(recipeToSave);
+        console.log('what is in this object', recipeToSave.drinkId);
         const saved = yield axios.post('/api/recipes/save', recipeToSave);
-        yield all([
           yield put({type: 'GET_SAVED_RECIPES'}),
-          yield put({type: 'FETCH_DRINK_DETAILS', payload: recipeToSave})
-      ])
+          yield put({type: 'FETCH_DRINK_DETAILS', payload: recipeToSave.drinkId})
     } catch (error) {
         console.log(error);
         alert('Error setting favorite recipes');
@@ -73,7 +72,7 @@ function* saveToFavorites (action) {
 function* fetchFavorites () {
     try {
         const favorites = yield axios.get('/api/recipes/favorites');
-        // console.log(favorites.data)
+        console.log('does this have isSaved?', favorites.data)
         yield put ({type: 'SET_SAVED_RECIPES', payload: favorites.data});
     } catch (error) {
         console.log(error);
