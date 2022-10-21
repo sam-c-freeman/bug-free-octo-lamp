@@ -81,7 +81,42 @@ function AboutPage() {
                    Cloudinary
                 </Typography>
                   </li>
-                </ul>         
+                </ul> 
+
+                <Typography gutterBottom variant="h6" component="div">
+                  Future Plans 
+                </Typography>
+                <ul>
+                <li>
+                <Typography gutterBottom variant="body1" component="div" >
+                   Add search functionality
+                </Typography>
+                  </li>
+                  <li>
+                <Typography gutterBottom variant="body1" component="div" >
+                   Add the ability to rank/review recipes
+                </Typography>
+                  </li>
+                  <li>
+                <Typography gutterBottom variant="body1" component="div" >
+                   Sharing recipes 
+                </Typography>
+                  </li>
+                </ul> 
+               
+            
+                
+         
+                <Typography gutterBottom variant="h6" component="div" sx={{mt: 2}}>
+                  Thanks  
+                </Typography>
+                <Typography gutterBottom variant="body1" component="div" sx={{mt: 2}}>
+                  Thank you to my family, friends, the L'Engle cohort, Prime Digital Academy
+                   and <strong>especially</strong> Matt for helping make
+                  this project and this program a reality.  
+                </Typography>
+                
+                
             </CardContent>
         </Card>
       </Grid>

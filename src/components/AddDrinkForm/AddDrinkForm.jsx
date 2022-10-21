@@ -104,8 +104,14 @@ function AddDrinkForm (){
     //       }
     //   }    <---------DO I WANT TO USE THIS?
 
+    
+    //for presentation only to autopopulate soem data
+  const populateDrink = () =>{
+    setName('Blueberry Lemon Rosemary');
+    setDescription('Muddle the bluberries, agave and rosemary and then strain over ice.');
+    setNotes('This was that great drink from NYE 2017!');
 
-  
+  }
     
     return(
         <Grid
@@ -122,7 +128,7 @@ function AddDrinkForm (){
                         spacing={2}
                         alignItems="center"
                         >
-                        <Typography gutterBottom variant="h4" component="div" className="title" sx={{mt: 2}}>
+                        <Typography gutterBottom variant="h4" component="div" className="title" sx={{mt: 2}} onClick={populateDrink}>
                                     Add a Drink 
                         </Typography>
                         <TextField 

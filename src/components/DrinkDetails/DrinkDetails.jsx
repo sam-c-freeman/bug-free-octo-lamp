@@ -59,22 +59,14 @@ function DrinkDetails (){
               drinkId
             }
         }
-        
-        //need to figure out why this is presenting it from re-rendering twice?
         dispatch(action);
-        dispatch ({
-            type: 'FETCH_DRINK_DETAILS',
-            payload: drinkId
-        })
-        
-        // history.push('/explore')
+
     }
 
     const deleteFromSaved = (id) =>{
         console.log(id)
         dispatch({type: 'DELETE_SAVED', payload: id})
         
-        dispatch({type: 'FETCH_DRINK_DETAILS', payload: id})
     } 
  
 

@@ -43,7 +43,8 @@ function* fetchOneDrink(action) {
     try {
         const drink = yield axios.get(`/api/recipes/${drinkId}`);
         console.log(drink.data);
-        yield put({ type: 'SET_ONE_DRINK', payload: drink.data });
+        console.log('trying to get id', drink.data.recipe_id)
+        yield put({ type: 'SET_ONE_DRINK', payload: drink.data});
 
     } catch {
         console.log('get one Drink error');
@@ -58,7 +59,10 @@ function* saveToFavorites (action) {
         const recipeToSave = action.payload
         console.log(recipeToSave);
         const saved = yield axios.post('/api/recipes/save', recipeToSave);
-        yield put ({type: 'GET_SAVED_RECIPES'});
+        yield all([
+          yield put({type: 'GET_SAVED_RECIPES'}),
+          yield put({type: 'FETCH_DRINK_DETAILS', payload: recipeToSave})
+      ])
     } catch (error) {
         console.log(error);
         alert('Error setting favorite recipes');
@@ -84,6 +88,7 @@ function* deleteSaved (action) {
     try{
         const deleteRecipeRoute = yield axios.delete(`/api/recipes/saved/${deleteId}`);
         yield put({type: 'GET_SAVED_RECIPES'})
+        yield put({type: 'FETCH_DRINK_DETAILS', payload: deleteId})
     } catch {
         console.log('error in delete route for saved recipe')
     }
