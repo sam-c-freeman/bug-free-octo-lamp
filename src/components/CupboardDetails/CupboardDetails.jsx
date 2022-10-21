@@ -54,14 +54,13 @@ function CupboardDetails (){
     }
 
     const addToFavorites = () => {
+        console.log(drinkId)
         const action = {
             type: 'SAVE_RECIPE',
             payload: {
               drinkId
             }
         }
-        dispatch(action);
-
         dispatch(action);
         dispatch ({
             type: 'FETCH_DRINK_DETAILS',
