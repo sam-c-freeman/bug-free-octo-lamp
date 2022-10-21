@@ -112,7 +112,7 @@ function AboutPage() {
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div" sx={{mt: 2}}>
                   Thank you to my family, friends, the L'Engle cohort, Prime Digital Academy
-                   and <strong>especially</strong> Matt for helping make
+                   and <strong>especially</strong> Matt and Bethany for helping make
                   this project and this program a reality.  
                 </Typography>
                 
