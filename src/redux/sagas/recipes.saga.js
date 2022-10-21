@@ -19,12 +19,12 @@ function* fetchRecipes (){
 //route to add a recipe to the app
 function* addRecipe (action) {
     //filtering out unused ingredients and re-assigning to the newRecipe variable
-    console.log(action.payload)
+    // console.log(action.payload)
     const newRecipe = action.payload
     const ingredients = action.payload.ingredients
     const filteredIngredients = ingredients.filter(ingredients => ingredients.ingredient !== undefined)
     newRecipe.ingredients = filteredIngredients
-    console.log(newRecipe);
+    // console.log(newRecipe);
     try {
         yield axios.post('/api/recipes', newRecipe);
         yield all([
@@ -40,7 +40,7 @@ function* addRecipe (action) {
 // get one drink from the DB
 function* fetchOneDrink(action) {
     const drinkId = action.payload;
-    console.log('checking for object', drinkId)
+    // console.log(drinkId)
     try {
         const drink = yield axios.get(`/api/recipes/${drinkId}`);
         console.log(drink.data);
@@ -58,7 +58,7 @@ function* saveToFavorites (action) {
  
   try {  
         const recipeToSave = action.payload
-        console.log('what is in this object', recipeToSave.drinkId);
+        // console.log(recipeToSave.drinkId);
         const saved = yield axios.post('/api/recipes/save', recipeToSave);
           yield put({type: 'GET_SAVED_RECIPES'}),
           yield put({type: 'FETCH_DRINK_DETAILS', payload: recipeToSave.drinkId})
