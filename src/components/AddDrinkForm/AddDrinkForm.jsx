@@ -110,6 +110,11 @@ function AddDrinkForm (){
     setName('Blueberry Lemon Rosemary');
     setDescription('Muddle the bluberries, agave and rosemary and then strain over ice.');
     setNotes('This was that great drink from NYE 2017!');
+    setQuantity1('10');
+    setQuantity2('1 Spring of ');
+    setQuantity3('1 tbsp');
+    setQuantity4('1 Oz');
+    setQuantity5('6 Oz');
 
   }
     
