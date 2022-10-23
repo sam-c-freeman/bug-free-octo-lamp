@@ -4,11 +4,9 @@
 
 _Duration: 2 Week Sprint_
 
-This project is currently a work in progress but will be completed by October 27th!
-
 Mocktail is an app for craft mocktail recipes.  There are plentiful alcoholic drink apps in the market but hardly anything focusing specifically on non-alcoholic drinks.  I created this app to fill that need.
 
-Mocktail gives the user the ability to add their own recipes, discover recipes from other users and to update the recipes when they find their own specific twist.  There will also be a feature that allows the user to add items they have at home to a "cupboard".  The app will suggest recipes they can make based on the ingredients they already have on hand.
+Mocktail gives the user the ability to add their own recipes, discover recipes from other users and to update the recipes when they find their own specific twist.  The app also allows users to input ingredients they currently have at home.  It then suggests recipes they can make based on those ingredients!
 
 
 
@@ -19,32 +17,22 @@ Mocktail gives the user the ability to add their own recipes, discover recipes f
 <img src="public/images/ExplorePage.png"/>
 <img src="public/images/AddDrinkForm.png"/>
 
-<!-- ### Prerequisites
+### Prerequisites
 
 - Node.js
 
 ## Installation
 
-Visit the fully deployed app here (will add soon)
+<!-- Visit the fully deployed app here (will add soon) -->
 
-Or, run it locally:
+Run it locally:
 
 - Clone this repository from Github
-- Create a database titled "saga_movies_weekend" and create the three tables using the initializer data found in database.sql
+- Create a database titled "prime_app" and create the tables using the initializer data found in database.sql
 - Run npm install in your terminal to download the necessary modules
 - Run npm run client to start React
 - In a separate terminal, run npm run server to start the server
 - Visit http://localhost:3000 in your browser to view the project!
-
-## Usage
-How does someone use this application? Tell a user story here.
-
-1. View movies currently in the database
-2. Click on a movie poster to get more detailed information
-3. Add a new movie to the database using the "Add Movie" form
-4. Check out the movie list to see the recently added movie! -->
-
-
 
 
 ## Built With
@@ -58,6 +46,7 @@ How does someone use this application? Tell a user story here.
 7. PostgreSQL
 8. Axios
 9. HTML/CSS
+10. Cloudinary
 
 
 ## Acknowledgement
