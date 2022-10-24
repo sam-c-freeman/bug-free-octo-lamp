@@ -106,17 +106,17 @@ function AddDrinkForm (){
 
     
     //for presentation only to autopopulate soem data
-  const populateDrink = () =>{
-    setName('Blueberry Lemon Rosemary');
-    setDescription('Muddle the bluberries, agave and rosemary and then strain over ice.');
-    setNotes('This was that great drink from NYE 2017!');
-    setQuantity1('10');
-    setQuantity2('1 Spring of ');
-    setQuantity3('1 tbsp');
-    setQuantity4('1 Oz');
-    setQuantity5('6 Oz');
+//   const populateDrink = () =>{
+//     setName('Blueberry Lemon Rosemary');
+//     setDescription('Muddle the bluberries, agave and rosemary and then strain over ice.');
+//     setNotes('This was that great drink from NYE 2017!');
+//     setQuantity1('10');
+//     setQuantity2('1 Spring of ');
+//     setQuantity3('1 tbsp');
+//     setQuantity4('1 Oz');
+//     setQuantity5('6 Oz');
 
-  }
+//   }
     
     return(
         <Grid
@@ -133,7 +133,7 @@ function AddDrinkForm (){
                         spacing={2}
                         alignItems="center"
                         >
-                        <Typography gutterBottom variant="h4" component="div" className="title" sx={{mt: 2}} onClick={populateDrink}>
+                        <Typography gutterBottom variant="h4" component="div" className="title" sx={{mt: 2}}>
                                     Add a Drink 
                         </Typography>
                         <TextField 
