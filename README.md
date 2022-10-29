@@ -23,7 +23,10 @@ Mocktail gives the user the ability to add their own recipes, discover recipes f
 
 ## Installation
 
-<!-- Visit the fully deployed app here (will add soon) -->
+Visit the fully deployed app [here](https://infinite-spire-78403.herokuapp.com/#/user)
+
+
+Note: The app is currently best viewed in a mobile size. Please re-size your page for best results!
 
 Run it locally:
 
