@@ -45,6 +45,8 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
   for (let match of matchesArray){
     matchesIds.push(Number(match))
   }
+
+  console.log(matchesIds)
   const queryTxt = `
   SELECT recipes.name, recipes.description, recipes.image_url, recipes.notes, 
   recipes_line_items.ingredient_id, recipes_line_items.quantity, ingredients.ingredient_name, recipes.id 
@@ -59,7 +61,7 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
   const sqlValues = [matchesIds];
   pool.query(queryTxt, sqlValues)
     .then(result => {
-      // console.log(result.rows);
+      console.log(result.rows);
 
       //this pulls all recipe IDs from the result.rows
       let idArray = [];
@@ -68,7 +70,7 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
         idArray.push(object.id)
       }
       
-      //this filters out duplicate IDs
+      //this filters out duplicate IDs (gives me the IDs to group by)
       let uniqueIds = [...new Set(idArray)]
     
 
