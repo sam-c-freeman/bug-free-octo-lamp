@@ -50,7 +50,8 @@ function* compareFunction (){
         
         // saves IDs to the reducer so it is ready for get route
         yield all([
-            put ({type: 'SET_MATCHING_IDS', payload: resultsArray}),
+            //no longer need to set matching ids //
+            // put ({type: 'SET_MATCHING_IDS', payload: resultsArray}),
             put({type: 'FETCH_MATCHING_RECIPES', payload: resultsArray})
         ])
         
@@ -62,7 +63,7 @@ function* compareFunction (){
 
 //route to get matching recipes based on IDs found in compare saga function
 function* fetchMatches (action){
-    console.log('test:', action.payload);
+    // console.log('matching IDs:', action.payload);
     const matches = action.payload
     let urlQuery = `/api/cupboard/matches?ids=${matches}`
 

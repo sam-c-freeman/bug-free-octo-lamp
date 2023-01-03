@@ -40,10 +40,15 @@ function Cupboard () {
     const ingredients = useSelector(store => store.ingredientsReducer)
 
     useEffect(() => {
-      dispatch({ type: 'FETCH_RECIPES' })
+    //   dispatch({ type: 'FETCH_RECIPES' })
+    
+        //this saga call fetches the user's cupboard to display in this component
       dispatch({ type: 'FETCH_CUPBOARD' })
+
+      //this saga call compares the ingredients to the recipes
       dispatch({ type: 'COMPARE_CUPBOARD_RECIPES' });
-      dispatch({ type: 'FETCH_INGREDIENTS' })
+      
+    //   dispatch({ type: 'FETCH_INGREDIENTS' })
   
       
     }, []);
