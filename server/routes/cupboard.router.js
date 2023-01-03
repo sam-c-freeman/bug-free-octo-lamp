@@ -37,7 +37,7 @@ const {
 
 //get route for matching recipes in cupboard
 router.get('/matches', rejectUnauthenticated, (req, res) => {
-  // console.log(req.query.ids)
+  // console.log('the query string: ', req.query.ids)
   
   //this gets the ids into a format that I can use in query
   const matchesArray = req.query.ids.split(",")
@@ -46,7 +46,7 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
     matchesIds.push(Number(match))
   }
 
-  console.log(matchesIds)
+  // console.log(matchesIds)
   const queryTxt = `
   SELECT recipes.name, recipes.description, recipes.image_url, recipes.notes, 
   recipes_line_items.ingredient_id, recipes_line_items.quantity, ingredients.ingredient_name, recipes.id 
@@ -61,17 +61,27 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
   const sqlValues = [matchesIds];
   pool.query(queryTxt, sqlValues)
     .then(result => {
-      console.log(result.rows);
+      // console.log(result.rows);
+     
+     /* 
+          January 2023 Note:  I realized this next section of code is not needed
+          because I already have access to the ids from the query String.  Will eventually
+          refactor this entirely
+      */
 
       //this pulls all recipe IDs from the result.rows
-      let idArray = [];
-      for(let object of result.rows){
-        // console.log(object.id)
-        idArray.push(object.id)
-      }
-      
+      // let idArray = [];
+      // for(let object of result.rows){
+      //   // console.log(object.id)
+      //   idArray.push(object.id)
+      // }
+
       //this filters out duplicate IDs (gives me the IDs to group by)
-      let uniqueIds = [...new Set(idArray)]
+      // let uniqueIds = [...new Set(idArray)]
+
+      /*
+            End extra code
+      */
     
 
       //this groups result.rows by id
@@ -83,7 +93,9 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
         acc[item.id].push(item);
         return acc;
       }, {})
-      //example of what this does:
+
+      
+      //example of what this does-----creates an array of ingredients by recipe ID:
       /* 
         {
           '1': [
@@ -103,19 +115,25 @@ router.get('/matches', rejectUnauthenticated, (req, res) => {
           ]
         }
       */
-
+    
       //ths makes new recipe objects out of the data and gets them ready to send to client
       let recipes = []
-      for(let i=0; i<uniqueIds.length; i++){
-        let recipe = group[uniqueIds[i]]
+      for(let i=0; i<matchesIds.length; i++){
+        let recipe = group[matchesIds[i]]
         const{name, description, image_url, notes, id} = recipe[0]
+
+      //for each recipe that is a match, this creates the base object before adding ingredients
         const recipeStepTwo = {name, description, image_url, notes, id}
+       
+        //add ingredients////////
+
         recipeStepTwo.ingredients = recipe.map(ingredient =>  {return({ingredient_name: ingredient.ingredient_name, id: ingredient.ingredient_id, quantity: ingredient.quantity})})
         // console.log(recipeStepTwo)
         recipes.push(recipeStepTwo)
       }
-      //sending back to client here
+      //sending array of recipes back to client here
       res.send(recipes);
+    
     })
     .catch(err => {
       console.log('Error getting recipes on server side', err);

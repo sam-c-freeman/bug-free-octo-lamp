@@ -1,5 +1,5 @@
 const drinkToEdit = (state = {}, action) =>{
-    console.log(action.payload)
+    // console.log(action.payload)
     switch(action.type){
         case 'SET_DRINK_TO_EDIT':
         return action.payload;

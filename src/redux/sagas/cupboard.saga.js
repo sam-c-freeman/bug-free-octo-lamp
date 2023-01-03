@@ -17,26 +17,28 @@ function* fetchCupboard (){
 //this compares their ingredients to ingredients in a recipe
 function* compareFunction (){
     try {
-        const testCupboard = yield axios.get('/api/cupboard');
-        const testRecipes = yield axios.get('/api/recipes');
-       console.log(testCupboard.data)
-       console.log(testRecipes.data)
+        const cupboard = yield axios.get('/api/cupboard');
+        const recipes = yield axios.get('/api/recipes');
+       console.log('user ingredients', cupboard.data)
+       console.log('recipes data', recipes.data)
         
         //this puts each cupboard item into an array to get it ready to compare to recipe arrays
         const cupboardArray = []
-        for (let cupboardIngredient of testCupboard.data){
+        for (let cupboardIngredient of cupboard.data){
             cupboardArray.push(cupboardIngredient.ingredient_name)
         }
-        console.log(cupboardArray); //this gets the ingredients into an array to compare
+        console.log('cupboard:', cupboardArray); //this gets the name of ingredients into an array to compare
         
 
         //function that will check ingredients vs recipe arrays
+        //every built in method confirms that all elements pass the test implemented
+        //by the provided function
         let checker = (arr, target) => target.every(v => arr.includes(v));
         let resultsArray = [];
 
         //if the cupboard has EVERY ingredient needed for a recipe, it will be pushed 
         //to the results array to send to server
-        for(let recipeToCheck of testRecipes.data){
+        for(let recipeToCheck of recipes.data){
             console.log(recipeToCheck.ingredient_list)
             console.log(recipeToCheck.recipe_id)
             console.log(`recipe ${recipeToCheck.recipe_id} is a match:`, checker(cupboardArray, recipeToCheck.ingredient_list))
@@ -46,7 +48,7 @@ function* compareFunction (){
             
         }
 
-        console.log(resultsArray); 
+        // console.log(resultsArray); 
         
         // saves IDs to the reducer so it is ready for get route
         yield all([
